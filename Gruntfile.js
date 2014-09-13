@@ -7,6 +7,8 @@
 // use this if you want to recursively match all subfolders:
 // 'test/spec/**/*.js'
 
+var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+
 module.exports = function (grunt) {
 
   // Load grunt tasks automatically
@@ -26,7 +28,12 @@ module.exports = function (grunt) {
 
     // Project settings
     yeoman: appConfig,
-
+      
+    develop: {
+      server: {
+        file: 'app.js' 
+      }
+    },
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -65,6 +72,15 @@ module.exports = function (grunt) {
 
     // The actual grunt server settings
     connect: {
+      proxies: [
+        {
+          context: '/api',
+          host: 'localhost',
+          port: 3000,
+          https: false,
+          changeOrigin: false
+        }
+      ],
       options: {
         port: 9000,
         // Change this to '0.0.0.0' to access the server from outside.
@@ -76,6 +92,7 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
+              proxy,
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -91,6 +108,7 @@ module.exports = function (grunt) {
           port: 9001,
           middleware: function (connect) {
             return [
+              proxy,
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
@@ -394,7 +412,9 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer',
+      'configureProxies',
       'connect:livereload',
+      'develop',
       'watch'
     ]);
   });
