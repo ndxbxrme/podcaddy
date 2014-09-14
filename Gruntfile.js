@@ -92,7 +92,7 @@ module.exports = function (grunt) {
     connect: {
       proxies: [
         {
-          context: ['/api', '/authenticate', '/signup'],
+          context: ['/api', '/authenticate', '/signup', '/check'],
           host: 'localhost',
           port: 3000,
           https: false,

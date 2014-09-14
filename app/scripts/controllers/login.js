@@ -1,5 +1,5 @@
 'use strict';
-
+/*jshint bitwise:false*/
 angular.module('podcaddyApp')
 .controller('LoginCtrl', function($scope, $http, $window, $location) {
     $scope.message = '';  
@@ -26,6 +26,7 @@ angular.module('podcaddyApp')
     };
   
     $scope.signup = function() {
+        $scope.signingUp = true;
         if($scope.myForm.$valid)
         {
           $http.post('/signup', angular.extend($scope.user, {password:doHash($scope.user.password)}))

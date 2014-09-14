@@ -2,10 +2,11 @@
     <div class="row">
         <div class="large-6 large-centered columns">
             {{message}}
-            <label>Username
-                <input ng-model="user.username" type="text" name="user" required placeholder="Username" />
+            <label class="error">Username
+                <input ng-model="user.username" type="text" name="user" required ensure-unique="username" placeholder="Username" />
+                <small class="error" ng-show="signingUp && !myForm.user.$error.unique">must be unique</small>
             </label>
-            <label>Password
+            <label class="error">Password
                 <input ng-model="user.password" type="password" name="pass" required placeholder="Password" />
             </label>
         </div>
