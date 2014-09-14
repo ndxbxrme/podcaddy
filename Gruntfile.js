@@ -22,6 +22,13 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
+  
+  var localConfig;
+  try{
+    localConfig = require('./server/config/local.env');
+  }catch(e){
+    localConfig = {};
+  }
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -31,8 +38,17 @@ module.exports = function (grunt) {
       
     develop: {
       server: {
-        file: 'app.js' 
+        file: 'server/app.js' 
       }
+    },
+    env: {
+      test: {
+        NODE_ENV: 'test'
+      },
+      prod: {
+        NODE_ENV: 'production'
+      },
+      all: localConfig
     },
     // Watches files for changes and runs tasks based on the changed files
     watch: {
@@ -409,6 +425,7 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
+      'env:all',
       'wiredep',
       'concurrent:server',
       'autoprefixer',
