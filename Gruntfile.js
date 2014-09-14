@@ -29,6 +29,8 @@ module.exports = function (grunt) {
   }catch(e){
     localConfig = {};
   }
+  
+  var modRewrite = require('connect-modrewrite');
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -90,7 +92,7 @@ module.exports = function (grunt) {
     connect: {
       proxies: [
         {
-          context: '/api',
+          context: ['/api', '/authenticate', '/signup'],
           host: 'localhost',
           port: 3000,
           https: false,
@@ -109,6 +111,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               proxy,
+              modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.gif|\\.jpg$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -125,6 +128,7 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               proxy,
+              modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /index.html [L]']),
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
@@ -464,6 +468,12 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin'
+  ]);
+  
+  grunt.registerTask('node', [
+    'env:all',
+    'develop',
+    'watch'
   ]);
 
   grunt.registerTask('default', [
