@@ -6,13 +6,16 @@ module.exports = function(sequelize, DataTypes) {
         return JSON.parse(this.getDataValue('data'));
       },
       set: function(v) {
-        return JSON.stringify(v); 
+        this.setDataValue('data', JSON.stringify(v)); 
       }
-    }
+    },
+    url: DataTypes.STRING,
+    pubDate: DataTypes.DATE
   }, {
     classMethods: {
       associate: function(models) {
         Item.belongsTo(models.Feed);
+        Item.hasMany(models.User, {as: 'Current'});
       }
     }
   });

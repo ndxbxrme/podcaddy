@@ -8,14 +8,14 @@ module.exports = function(sequelize, DataTypes) {
         return JSON.parse(this.getDataValue('data'));
       },
       set: function(v) {
-        return JSON.stringify(v); 
+        this.setDataValue('data', JSON.stringify(v)); 
       }
     }
   }, {
     classMethods: {
       associate: function(models) {
         User.hasOne(models.Item, { as: 'Current' });
-        User.hasMany(models.Item, { as: 'Subscribed' });
+        User.hasMany(models.Feed, { as: 'Subscribed' });
         User.hasMany(models.Playlist);      
       }
     }

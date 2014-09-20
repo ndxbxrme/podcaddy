@@ -16,7 +16,7 @@ db
     throw err[0]; 
   } else {
     http.createServer(app).listen(app.get('port'), function(){
-      console.log('Server listening on port' + app.get('port'));
+      console.log('API Server listening on port ' + app.get('port'));
     });
   }
 });

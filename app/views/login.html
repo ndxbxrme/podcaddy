@@ -3,7 +3,7 @@
         <div class="large-6 large-centered columns">
             {{message}}
             <label class="error">Username
-                <input ng-model="user.username" type="text" name="user" required ensure-unique="username" placeholder="Username" />
+                <input ng-model="user.username" type="text" name="user" required  placeholder="Username" />
                 <small class="error" ng-show="signingUp && !myForm.user.$error.unique">must be unique</small>
             </label>
             <label class="error">Password
