@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="large-12 columns">
+    <ul class="allfeeds">
+      <allfeedsitem ng-repeat="feed in feeds | orderBy:'-data.pubDate' | filter:podfilter" feed="feed"></allfeedsitem>
+    </ul>
+  </div>
+</div>

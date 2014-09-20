@@ -30,6 +30,10 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/allfeeds', {
+        templateUrl: 'views/allfeeds.html',
+        controller: 'AllfeedsCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
