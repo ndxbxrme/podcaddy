@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        Playlist.hasMany(models.Item);
+        Playlist.hasMany(models.Feed);
         Playlist.belongsTo(models.User);
       }
     }

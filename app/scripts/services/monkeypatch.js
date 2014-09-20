@@ -13,15 +13,15 @@ angular.module('podcaddyApp')
       patchSoundManager: function() {
         var throttled = _.throttle(function(){
           $timeout(function(){
-            var time = pagePlayer.getTime(pagePlayer.sounds[0].position);
+            var time = pagePlayer.getTime(pagePlayer.lastSound.position);
             $rootScope.position = time.min+':'+time.sec;
           });
         }, 1000);
         var reportPosition = _.throttle(function(){
           $http.post('/api/position', {
-            itemid:pagePlayer.sounds[0].id,
-            position:pagePlayer.sounds[0].position,
-            history:(pagePlayer.sounds[0].position > pagePlayer.sounds[0].duration/10)
+            itemid:pagePlayer.lastSound.id,
+            position:pagePlayer.lastSound.position,
+            history:(pagePlayer.lastSound.position > pagePlayer.lastSound.duration/10)
           });
         }, 30000);
         soundManager.onready(function(){

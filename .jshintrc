@@ -21,6 +21,9 @@
   "globals": {
     "angular": false,
     "soundManager": false,
-    "_": false
+    "pagePlayer": false,
+    "_": false,
+    "$": false,
+    "S": false
   }
 }

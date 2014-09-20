@@ -17,6 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         Feed.hasMany(models.Item);
         Feed.belongsTo(models.User);
         Feed.hasMany(models.User, {as:'Subscribed'});
+        Feed.hasMany(models.Playlist);
       }
     }
   });

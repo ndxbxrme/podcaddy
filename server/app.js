@@ -10,7 +10,7 @@ require('./config/express')(app);
 
 db
 .sequelize
-.sync({force:false})
+.sync({force:true})
 .complete(function(err){
   if(err){
     throw err[0]; 

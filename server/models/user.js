@@ -10,11 +10,13 @@ module.exports = function(sequelize, DataTypes) {
       set: function(v) {
         this.setDataValue('data', JSON.stringify(v)); 
       }
-    }
+    },
+    position: DataTypes.BIGINT,
+    currentId: DataTypes.BIGINT
   }, {
     classMethods: {
       associate: function(models) {
-        User.hasOne(models.Item, { as: 'Current' });
+        User.hasMany(models.Item, { as: 'History' });
         User.hasMany(models.Feed, { as: 'Subscribed' });
         User.hasMany(models.Playlist);      
       }

@@ -41,11 +41,11 @@ angular
       $locationProvider.html5Mode(true);
   })
   .run(function(MonkeyPatch) {
+    MonkeyPatch.patchSoundManager();
+  })
+;
     soundManager.setup({
       flashVersion: 9,
       preferFlash: true,
       url: 'bower_components/soundmanager/swf/'
     });
-    MonkeyPatch.patchSoundManager();
-  })
-;

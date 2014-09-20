@@ -67,10 +67,15 @@ router.post('/api/addfeed', function(req, res) {
   request(options, function(err, response, body){
     var parser = new xml2js.Parser();
     parser.parseString(body, function(err, data){
-      addUpdateFeed(data.rss.channel[0], req.body.url, req.user.id)
-      .then(function(feed){
-        res.json(_.omit(feed));
-      });
+      if(data && data.rss && data.rss.channel && data.rss.channel.length > 0)
+      {
+        addUpdateFeed(data.rss.channel[0], req.body.url, req.user.id)
+        .then(function(feed){
+          res.json(feed);
+        });
+      } else {
+        res.json({error:true, message:'not a valid feed'}); 
+      }
     });
   });
 });
