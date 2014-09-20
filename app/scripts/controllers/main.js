@@ -9,8 +9,9 @@
  */
 angular.module('podcaddyApp')
   .controller('MainCtrl', function ($scope, $http) {
-    $http.get('/api')
-    .success(function(data){
-      $scope.data = data; 
+    $http.get('/api/subscribed')
+    .success(function(items){
+      $scope.items = items;
+      console.log(items);
     });
   });

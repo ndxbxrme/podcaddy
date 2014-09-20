@@ -1,0 +1,12 @@
+<li class="row" style="margin-bottom: 20px; position: relative;" ng-show="item.data.enclosure[0]">
+    <a href="{{item.data.enclosure[0].$.url}}" id="{{item.id}}">
+        <div class="large-2 medium-3 small-3 columns">
+            <div style="background-size: cover; " class="podimg wow slideInLeft thumbnail"></div>
+        </div>
+        <div class="large-10 medium-9 small-9 columns">  
+            <h3>{{item.data.title[0]}}</h3>
+            <h6><small>{{item.pubDate}}</small> <code>{{item.feed.data.title}}</code></h6>
+            <div class="subtitle">{{item.data.description[0]}}...</div>
+        </div>
+    </a>
+</li>

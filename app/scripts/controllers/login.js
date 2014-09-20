@@ -32,7 +32,7 @@ angular.module('podcaddyApp')
           $http.post('/signup', angular.extend($scope.user, {password:doHash($scope.user.password)}))
           .success(function(data) {
               $window.sessionStorage.token = data.token;
-              $location.path('/');
+              $location.path('/allfeeds');
           })
           .error(function(error){
               delete $window.sessionStorage.token;

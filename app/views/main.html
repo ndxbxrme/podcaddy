@@ -1,1 +1,3 @@
-woah {{ data | uppercase }}
+<ul class="playlist">
+  <audioitem ng-repeat="item in items | filter:search.url" item="item"></audioitem>
+</ul>
