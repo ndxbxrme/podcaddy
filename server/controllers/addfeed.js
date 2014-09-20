@@ -39,7 +39,8 @@ var addUpdateFeed = function(feed, url, userId){
       db.Feed.findOrCreate({url:url}, {data:feeddata, pubDate:feeddata.pubDate, UserId:user.id})
       .success(function(dbfeed, created){
         updateFeedItems(feed, dbfeed, user);
-        dbfeed.addSubscribed(user);
+        //dbfeed.addSubscribed(user);
+        dbfeed.updateAttributes({data: feeddata, pubDate: feeddata.pubDate});
         defer.resolve(dbfeed);
       });
     }

@@ -9,8 +9,9 @@
  */
 angular.module('podcaddyApp')
   .controller('AllfeedsCtrl', function ($scope, $http) {
-    $http.post('/api/allfeeds')
+    $http.post('/api/feeds/all')
     .success(function(feeds){
       $scope.feeds = feeds;
+      console.log(feeds);
     });
   });

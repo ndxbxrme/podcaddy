@@ -20,6 +20,7 @@
   "smarttabs": true,
   "globals": {
     "angular": false,
-    "soundManager": false
+    "soundManager": false,
+    "_": false
   }
 }

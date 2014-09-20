@@ -5,7 +5,7 @@
         </div>
         <div class="large-10 medium-9 small-9 columns">  
             <h3>{{item.data.title[0]}}</h3>
-            <h6><small>{{item.pubDate}}</small> <code>{{item.feed.data.title}}</code></h6>
+            <h6><small>{{item.pubDate | date:'EEE, dd/MM/yyyy, hh:mma'}}</small> <code>{{item.feed.data.title}}</code></h6>
             <div class="subtitle">{{item.data.description[0]}}...</div>
         </div>
     </a>

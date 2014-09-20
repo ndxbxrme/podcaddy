@@ -435,7 +435,7 @@ module.exports = function (grunt) {
       'autoprefixer',
       'configureProxies',
       'connect:livereload',
-      'develop',
+      /*'develop',*/
       'watch'
     ]);
   });
