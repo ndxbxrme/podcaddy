@@ -9,7 +9,7 @@
 angular.module('podcaddyApp')
     .directive('allfeedsitem', function ($http) {
         return {
-            template: '<li ng-click="toggle()" class="item" ng-class="{subscribed:feed.subscribed.length>0}"><h2>{{feed.data.title}}</h2></li>',
+            template: '<li ng-click="toggle()" class="item" ng-class="{subscribed:feed.subscribed.length>0}" data-title="{{feed.data.title}}" data-description="{{feed.data.description}}"><span class="icon-svg482 toggle" ng-show="toggling"></span></li>',
             restrict: 'AE',
             scope: {
                 feed: '='   
@@ -28,9 +28,11 @@ angular.module('podcaddyApp')
                 }
                 
                 scope.toggle = function(){
+                    scope.toggling = true;
                     $http.post('/api/subs/toggle', {
                         feedid: scope.feed.id
                     }).success(function(data){
+                        scope.toggling = false;
                         scope.feed.subscribed = data.subscribed ? [true] : [];
                     });
                 };

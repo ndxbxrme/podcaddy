@@ -5,6 +5,7 @@
 
     @import
         "settings",
+        "ultraicons",
         "foundation";
 
 
@@ -15,13 +16,13 @@
         left: 0px;
         width: 100%;
         height: 44px;
-        backround-color: #fff;
+        backround-color: #ff0;
         border-bottom: 2px solid red;
         z-index: 2000;
     }
 
     .page {
-        margin-top: 48px;   
+        margin-top: 58px;   
     }
 
     @media #{$large-up} { 
@@ -356,6 +357,36 @@
         opacity: 0.3;
         transition: 0.1s linear all;
         cursor: pointer;
+        display: inline-block;
+        overflow: hidden;
+    }
+
+    .allfeeds .item::after,
+    .allfeeds .item::before {
+        position: absolute;
+        width: 100%;
+        height: 50%;
+        color: #fff;
+        z-index: 1;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .allfeeds .item::after {
+        content: attr(data-title);
+        top:0;
+        background: #0083ab;
+        font-weight: 600;
+        padding: 0px;
+        transform: translateY(-0%);
+    }
+
+    .allfeeds .item::before {
+        content: attr(data-description);
+        top: 50%;
+        background: #f27545;
+        font-size: 14px;
+        padding: 20px;
+        transform: translateY(0%);
     }
 
     .allfeeds .item.subscribed {
@@ -379,9 +410,19 @@
         opacity: 1.0;   
     }
 
-    .allfeeds .item:hover h2 {
-        background: rgba(0,0,0,0.9);
+    .allfeeds .item:hover::after,
+    .allfeeds .item:hover::before {
+        transform: translateY(0%);   
+    }
+    
+
+    .allfeeds .toggle {
+        position: absolute;
+        top: 5px;
+        right: 5px;
         color: #fff;
+        text-shadow: 1px 1px 1px #000;
+        transition: 0.2s linear all;
     }
 
     .nav {

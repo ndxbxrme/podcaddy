@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="podcaddyApp" ng-controller="SearchCtrl">
+  <body ng-app="podcaddyApp" ng-controller="NavCtrl">
 
     <div class="navigation">
         <ng-form name="searchForm" novalidate>
@@ -71,6 +71,7 @@
     <script src="bower_components/foundation/js/foundation.js"></script>
     <script src="bower_components/stringjs/lib/string.min.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -86,6 +87,7 @@
         <script src="scripts/directives/allfeedsitem.js"></script>
         <script src="scripts/directives/audioitem.js"></script>
         <script src="scripts/services/monkeypatch.js"></script>
+        <script src="scripts/controllers/nav.js"></script>
         <!-- endbuild -->
 </body>
 </html>

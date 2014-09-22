@@ -1,7 +1,7 @@
 <div class="row">
   <div class="large-12 columns">
     <ul class="allfeeds">
-      <allfeedsitem ng-repeat="feed in feeds | orderBy:'-data.pubDate' | filter:search.url" feed="feed"></allfeedsitem>
+      <allfeedsitem ng-repeat="feed in feeds | orderBy:'-pubDate' | filter:search.url" feed="feed"></allfeedsitem>
     </ul>
   </div>
 </div>
