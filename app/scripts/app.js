@@ -34,6 +34,11 @@ angular
         templateUrl: 'views/allfeeds.html',
         controller: 'AllfeedsCtrl'
       })
+      .when('/:arg1?/:arg2?/:arg3?/:arg4', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl'
+      })
+      
       .otherwise({
         redirectTo: '/'
       });

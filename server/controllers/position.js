@@ -11,7 +11,6 @@ module.exports = function(app){
 router.post('/api/position', function(req,res){
   db.User.find(req.user.id)
   .success(function(user){
-    console.log('got user');
     user.updateAttributes({position:req.body.position, currentId:req.body.itemid});
     if(req.body.history) {
       db.Item.find(req.body.itemid)
@@ -20,7 +19,6 @@ router.post('/api/position', function(req,res){
         .success(function(result){
           if(!result) {
             user.addHistory(item); 
-            console.log('added to history');
           }
         });
       });

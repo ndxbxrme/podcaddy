@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js">
   <head>
+    <base href="/">
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -14,10 +15,10 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="podcaddyApp">
+  <body ng-app="podcaddyApp" ng-controller="SearchCtrl">
 
     <div class="navigation">
-        <ng-form name="searchForm" novalidate ng-controller="SearchCtrl">
+        <ng-form name="searchForm" novalidate>
             <div class="row collapse">
                 <div class="small-10 columns">
                     <input type="text" ng-model="search.url" placeholder="Search or RSS Feed" />
@@ -29,7 +30,7 @@
         </ng-form>
         
     </div>
-    <div ng-view=""></div>
+    <div ng-view="" class="page"></div>
 
 
 

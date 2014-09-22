@@ -16,25 +16,16 @@ angular.module('podcaddyApp')
                 item: '='  
             },
             link: function postLink(scope, element) {
-                var imgsrc;
-                if(scope.item.data['itunes:image']) {
-                    imgsrc = scope.item.data['itunes:image'][0].$.href;   
-                }
-                else {
-                    imgsrc = scope.item.feedimage;   
-                }
-                if(!imgsrc) {
-                    imgsrc = scope.item.data['media:thumbnail'][0].$.url; 
-                }
-                $('<img/>').attr('src', imgsrc).load(function(){
-                    element.find('.thumbnail').css('background-image', 'url(' + imgsrc + ')'); 
+                $('<img/>').attr('src', scope.item.data.image).load(function(){
+                    element.find('.thumbnail').css('background-image', 'url(' + scope.item.data.image + ')'); 
                 }).error(function(){
                     $(this).remove();
                     element.find('.thumbnail').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.item.feedid +')');
                 });
-                if(!imgsrc) {
+                if(!scope.item.data.image) {
                     element.find('.thumbnail').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.item.feedid +')');   
                 }
+                //console.log(scope.item.data.description[0]);
                 scope.item.data.description[0] = S(scope.item.data.description[0]).stripTags().decodeHTMLEntities().s;
             }
         };

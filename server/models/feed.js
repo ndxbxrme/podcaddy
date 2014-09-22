@@ -15,7 +15,6 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         Feed.hasMany(models.Item);
-        Feed.belongsTo(models.User);
         Feed.hasMany(models.User, {as:'Subscribed'});
         Feed.hasMany(models.Playlist);
       }

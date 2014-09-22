@@ -14,4 +14,12 @@ angular.module('podcaddyApp')
       $scope.feeds = feeds;
       console.log(feeds);
     });
+  
+    $scope.initFeeds = function() {
+      $scope.progress = 'Fetching Feeds';
+      $http.post('api/feeds/init')
+      .success(function(){
+        $scope.progres = 'done';
+      });
+    };
   });

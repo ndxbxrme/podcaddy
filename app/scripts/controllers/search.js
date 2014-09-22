@@ -10,7 +10,7 @@
 angular.module('podcaddyApp')
   .controller('SearchCtrl', function ($scope, $http) {
     $scope.submit = function(){
-      $http.post('/api/addfeed', $scope.search)
+      $http.post('/api/feeds/init', $scope.search)
       .success(function(json){
         console.log(json);
       });
