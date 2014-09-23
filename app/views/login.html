@@ -1,21 +1,10 @@
-<form name="myForm" ng-submit="submit()">
-    <div class="row">
-        <div class="large-6 large-centered columns">
-            {{message}}
-            <label class="error">Username
-                <input ng-model="user.username" type="text" name="user" required  placeholder="Username" />
-                <small class="error" ng-show="signingUp && !myForm.user.$error.unique">must be unique</small>
-            </label>
-            <label class="error">Password
-                <input ng-model="user.password" type="password" name="pass" required placeholder="Password" />
-            </label>
+<form name="myForm" class="pure-form login" ng-submit="submit()">
+    <fieldset class="pure-group">
+        <input ng-model="user.username" class="pure-input-1" type="text" name="user" required  placeholder="Username" />
+        <input ng-model="user.password" class="pure-input-1" type="password" name="pass" required placeholder="Password" />
+        <div class="pure-g">
+            <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">Login</button>
+            <button type="button" class="pure-button pure-input-1-2" ng-click="signup()">Sign Up</button>
         </div>
-    </div>
-    <div class="row">
-        <br />
-        <div class="large-6 large-centered columns">
-            <input class="button" type="submit" value="Login" />
-            <input class="button signup" type="button" ng-click="signup()" value="Sign Up" />
-        </div>
-    </div>
+    </fieldset>
 </form>

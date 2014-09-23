@@ -20,13 +20,19 @@ angular.module('podcaddyApp')
                     element.find('.thumbnail').css('background-image', 'url(' + scope.item.data.image + ')'); 
                 }).error(function(){
                     $(this).remove();
-                    element.find('.thumbnail').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.item.feedid +')');
+                    element.find('.thumbnail').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.item.FeedId +')');
                 });
                 if(!scope.item.data.image) {
-                    element.find('.thumbnail').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.item.feedid +')');   
+                    element.find('.thumbnail').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.item.FeedId +')');   
                 }
                 //console.log(scope.item.data.description[0]);
-                scope.item.data.description[0] = S(scope.item.data.description[0]).stripTags().decodeHTMLEntities().s;
+                var d = S(scope.item.data.description[0]).stripTags().decodeHTMLEntities().s;
+                if(d.length>255) {
+                    d = d.substring(0,255);
+                    d = d.replace(/\s+^/, '');
+                    d = d + '...';
+                }
+                scope.item.data.description[0] = d;
             }
         };
     });
