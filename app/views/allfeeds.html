@@ -1,14 +1,10 @@
-<div class="row">
-  <div class="large-12 columns">
-    <ul class="allfeeds">
-      <allfeedsitem ng-repeat="feed in feeds | orderBy:'-pubDate' | filter:search.url" feed="feed"></allfeedsitem>
-    </ul>
-  </div>
+
+<div class="allfeeds">
+  <allfeedsitem ng-repeat="feed in feeds | orderBy:'-pubDate' | filter:search.url" feed="feed">
+  </allfeedsitem>
 </div>
-<div class="row">
-  <div class="large-12 columns text-center">
-    <a class="button" ng-click="initFeeds()" ng-hide="feeds.length>0 || !feeds || progress">Oh no! There are no feeds.  Click Me to change that</a>
-    <div class="progress" ng-show="progress">{{progress}}</div>
-  </div>
+<div class="text-center">
+    <a class="pure-button" ng-click="initFeeds()" ng-hide="feeds.length>0 || !feeds || progress">Oh no! There are no feeds.  Click Me to change that</a>
+<div class="progress" ng-show="progress">{{progress}}</div>
 </div>
 

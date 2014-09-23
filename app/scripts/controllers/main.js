@@ -17,7 +17,7 @@ angular.module('podcaddyApp')
       if(pagePlayer) {
           pagePlayer.init();
       }
-      console.log(items);
+      console.log(pagePlayer.lastSound.url);
     });
   };
   $interval($scope.refreshFeeds, 1000 * 60 * 5);

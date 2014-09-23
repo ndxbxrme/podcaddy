@@ -69,4 +69,11 @@ angular.module('podcaddyApp')
       parseArg($route.current.params.arg4); 
     }
   };
+    
+    $scope.submit = function(){
+      $http.post('/api/feeds/init', $scope.search)
+      .success(function(json){
+        console.log(json);
+      });
+    };
 });
