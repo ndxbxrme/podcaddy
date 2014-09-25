@@ -9,15 +9,14 @@
  */
 angular.module('podcaddyApp')
 .controller('MainCtrl', function ($scope, $http, $route, $interval) {
-  $scope.parseArgs($route);
   $scope.refreshFeeds = function(){
-    $http.get('/api/subscribed/' + $scope.feed + '/' + $scope.playlist + '/' + $scope.period + '/' + $scope.visited + '/' + $scope.direction)
+    $http.get('/api/subscribed/' + $scope.filters.feed + '/' + $scope.filters.playlist + '/' + $scope.filters.period + '/' + $scope.filters.visited + '/' + $scope.filters.direction)
     .success(function(items){
       $scope.items = items;
       if(pagePlayer) {
           pagePlayer.init();
+          //console.log(pagePlayer.lastSound.url);
       }
-      console.log(pagePlayer.lastSound.url);
     });
   };
   $interval($scope.refreshFeeds, 1000 * 60 * 5);

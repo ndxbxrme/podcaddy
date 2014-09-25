@@ -19,7 +19,7 @@ angular.module('podcaddyApp')
         }, 1000);
         var reportPosition = _.throttle(function(){
           $http.post('/api/position', {
-            itemid:pagePlayer.lastSound.id,
+            itemid:pagePlayer.lastSound.id.replace(/[a-z]+/,''),
             position:pagePlayer.lastSound.position,
             history:(pagePlayer.lastSound.position > pagePlayer.lastSound.duration/10)
           });

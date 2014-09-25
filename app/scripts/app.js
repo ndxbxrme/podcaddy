@@ -46,8 +46,11 @@ angular
   
       $locationProvider.html5Mode(true);
   })
-  .run(function(MonkeyPatch) {
+  .run(function(MonkeyPatch, $rootScope, NavService) {
     MonkeyPatch.patchSoundManager();
+    $rootScope.$on('$routeChangeStart', function(e, curr){
+      NavService.parseArgs();
+    });
   })
 ;
     soundManager.setup({

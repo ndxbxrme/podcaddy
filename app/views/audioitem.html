@@ -1,11 +1,15 @@
 <div class="pure-g item" ng-show="item.data.enclosure[0]">
     <div class="pure-u-1-6">
-        <div style="background-size: cover; " class="podimg thumbnail"></div>
+        <a href="{{item.data.enclosure[0].$.url}}" id="i{{item.id}}">
+            <div style="background-size: cover; " class="podimg thumbnail"></div>
+        </a>
     </div>
     <div class="pure-u-5-6">  
-        <a href="{{item.data.enclosure[0].$.url}}" id="{{item.id}}">
+        <a href="{{item.data.enclosure[0].$.url}}" id="t{{item.id}}">
             <h3><span class="icon-svg542"> </span>{{item.data.title[0]}}</h3>
-            <h6><small><span class="icon-svg30"></span> {{item.pubDate | date:'EEE, dd/MM/yyyy, hh:mma'}}</small> <code><span class="icon-svg40"></span> {{item.feed.data.title}}</code></h6>
+        </a>
+        <h6><small><span class="icon-svg30"></span> {{item.pubDate | date:'EEE, dd/MM/yyyy, hh:mma'}}</small> <a href="/feed-{{item.feed.id}}/alltime/all/desc"><code><span class="icon-svg40"></span> {{item.feed.data.title}}</code></a></h6>
+        <a href="{{item.data.enclosure[0].$.url}}" id="d{{item.id}}">
             <div class="subtitle">{{item.data.description[0]}}</div>
             <h6 class="links"><a href="/feed-{{item.feed.id}}/alltime/all/desc"><span class="icon-svg40"></span> Show all</a></h6>
         </a>
