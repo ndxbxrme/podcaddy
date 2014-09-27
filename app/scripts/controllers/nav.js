@@ -8,7 +8,7 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-.controller('NavCtrl', function ($scope, NavService, $location) {
+.controller('NavCtrl', function ($scope, NavService, $location, $http) {
     $scope.filters = NavService.filters;
     $scope.periodList = [
       {value:'day',html:'Day'},
@@ -27,7 +27,9 @@ angular.module('podcaddyApp')
         {value:'asc', html:'Oldest first'}
     ];
     $scope.$watch('filters', function(n){
-      if(!n) return;
+      if(!n) {
+        return;
+      }
       $location.path('/' + $scope.filters.period + '/' + $scope.filters.visited + '/' + $scope.filters.direction);
     }, true);
     $scope.submit = function(){
@@ -37,3 +39,4 @@ angular.module('podcaddyApp')
       });
     };
 });
+

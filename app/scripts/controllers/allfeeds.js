@@ -8,13 +8,10 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-  .controller('AllfeedsCtrl', function ($scope, $http, $timeout) {
+  .controller('AllfeedsCtrl', function ($scope, $http) {
     $http.post('/api/feeds/all')
     .success(function(feeds){
       $scope.feeds = feeds;
-      $timeout(function(){
-      var s = skrollr.init();
-      }, 10);
       console.log(feeds);
     });
   

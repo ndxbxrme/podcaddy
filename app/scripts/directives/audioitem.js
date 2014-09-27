@@ -7,7 +7,7 @@
  * # audioitem
  */
 angular.module('podcaddyApp')
-    .directive('audioitem', function () {
+    .directive('audioitem', function (PagePlayer) {
         return {
             templateUrl: '/views/audioitem.html',
             restrict: 'E',
@@ -16,6 +16,14 @@ angular.module('podcaddyApp')
                 item: '='  
             },
             link: function postLink(scope, element) {
+                if(PagePlayer.lastSound && PagePlayer.lastSound.id==='item_' + item.id) {
+                  if(PagePlayer.lastSound.playState===1) {
+                    element.addClass('playing'); 
+                  } else {
+                    element.addClass('paused');
+                  } 
+                  PagePlayer.updatePosition();
+                }
                 $('<img/>').attr('src', scope.item.data.image).load(function(){
                     element.find('.thumbnail').css('background-image', 'url(' + scope.item.data.image + ')'); 
                 }).error(function(){
@@ -33,6 +41,10 @@ angular.module('podcaddyApp')
                     d = d + '...';
                 }
                 scope.item.data.description[0] = d;
+              
+                scope.togglePlay = function(item) {
+                  PagePlayer.togglePlay(item);
+                };
             }
         };
     });

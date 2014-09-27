@@ -46,15 +46,10 @@ angular
   
       $locationProvider.html5Mode(true);
   })
-  .run(function(MonkeyPatch, $rootScope, NavService) {
-    MonkeyPatch.patchSoundManager();
-    $rootScope.$on('$routeChangeStart', function(e, curr){
-      NavService.parseArgs();
+  .run(function($rootScope, PagePlayer) {
+    $rootScope.$on('$routeChangeStart', function(){
+      PagePlayer.changePage();
     });
   })
 ;
-    soundManager.setup({
-      flashVersion: 9,
-      preferFlash: true,
-      url: 'bower_components/soundmanager/swf/'
-    });
+

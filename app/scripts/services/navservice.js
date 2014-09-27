@@ -15,13 +15,13 @@ angular.module('podcaddyApp')
       direction : 'desc',
       feed : 'all',
       playlist : 'none'
-    }
+    };
     var parseArgs = function($route) {
       function parseArg(arg){
-        if(arg.indexOf('feed-')==0) {
+        if(arg.indexOf('feed-')===0) {
           filters.feed = arg.replace(/feed-/,''); 
         }
-        if(arg.indexOf('playlist-')==0) {
+        if(arg.indexOf('playlist-')===0) {
           filters.playlist = arg.replace(/playlist-/,''); 
         }
         console.log(arg);
