@@ -64,6 +64,7 @@ angular.module('podcaddyApp')
         if (!isNaN(nMsecOffset)) {
           oSound.setPosition(nMsecOffset);
         }
+        oSound.resume();
       };
       this.events = {
         play: function() {
@@ -85,6 +86,7 @@ angular.module('podcaddyApp')
           $('#' + self.lastSound.id).next('img').click();
         },
         whileloading: function() {
+          self.updateTime();
           $('.playing .loading, .paused .loading').css('width', (((this.bytesLoaded/this.bytesTotal)*100)+'%'));
         },
         onload: function() {
@@ -92,7 +94,14 @@ angular.module('podcaddyApp')
         },
         whileplaying: function() {
           self.updatePosition();
+        },
+        error: function(err) {
+          console.log(err); 
         }
+      };
+      this.updateTime = function(){
+        $('.playing .sm2_position').text(self.getTime(self.lastSound.position, true));
+        $('.playing .sm2_total').text(self.getTime(self.getDurationEstimate(self.lastSound),true));
       };
       this.updatePosition = function(){
         $('.playing .position').css('width', (((self.lastSound.position/self.getDurationEstimate(self.lastSound))*100)+'%'));
@@ -129,7 +138,8 @@ angular.module('podcaddyApp')
             onresume: self.events.resume,
             onfinish: self.events.finish,
             whileplaying: self.events.whileplaying,
-            whileloading: self.events.whileloading
+            whileloading: self.events.whileloading,
+            onerror: self.events.error
           });
           self.lastSound = thisSound;
           thisSound.play();
@@ -152,22 +162,19 @@ angular.module('podcaddyApp')
     }
     function getTheDamnTarget(e) {
       return (e.target||($window.event?$window.event.srcElement:null));
-    };
+    }
     $window.addEventListener('mousedown', function(e){
       var o = $(getTheDamnTarget(e));
       if(o.is('.statusbar, .position, .loading')){
         pagePlayer.setPosition(e);
       }
     });
-    soundManager.setup({
-      flashVersion: 9,
-      preferFlash: true,
-      url: 'bower_components/soundmanager/swf/'
-    });
+
   
     soundManager.useFlashBlock = true;
 
     soundManager.onready(function() {
+      console.log('this is me');
       pagePlayer = new PagePlayer();
       pagePlayer.init();
       pagePlayer.fetchData();

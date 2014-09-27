@@ -15,7 +15,7 @@ angular.module('podcaddyApp')
           }
       };
   })
-  .directive('dropDown', function ($timeout) {
+  .directive('dropDown', function ($timeout, PagePlayer) {
     return {
       template: '<div class="cd-dropdown cd-active"><span ng-bind-html="title" ng-click="toggleOpen()"></span><ul><li on-repeat-done="rptDone" ng-repeat="item in data" ng-click="change(item)"><span ng-bind-html="item.html"></span></li></ul></div>',
       restrict: 'E',
@@ -55,6 +55,7 @@ angular.module('podcaddyApp')
               scope.change = function(item) {
                 $timeout(function(){
                   ngModel.$setViewValue(item.value);
+                  PagePlayer.changePage();
                 });
                 close();
               };

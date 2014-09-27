@@ -30,7 +30,7 @@ angular.module('podcaddyApp')
       if(!n) {
         return;
       }
-      $location.path('/' + $scope.filters.period + '/' + $scope.filters.visited + '/' + $scope.filters.direction);
+      //$location.path('/' + $scope.filters.period + '/' + $scope.filters.visited + '/' + $scope.filters.direction);
     }, true);
     $scope.submit = function(){
       $http.post('/api/feeds/init', $scope.search)

@@ -14,17 +14,18 @@ angular.module('podcaddyApp')
             scope: {
                 feed: '='   
             },
+            replace: true,
             link: function postLink(scope, element) {
 
                 $('<img/>').attr('src', scope.feed.data.image).load(function(){
-                    element.find('div').css('background-image', 'url(' + scope.feed.data.image + ')'); 
+                    element.css('background-image', 'url(' + scope.feed.data.image + ')'); 
                 }).error(function(){
                     $(this).remove();
-                    element.find('div').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.feed.id +')');
+                    element.css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.feed.id +')');
                 });
                 if(!scope.feed.data.image) {
                     console.log('yo');
-                    element.find('div').css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.feed.id +')');   
+                    element.css('background-image', 'url(http://unsplash.it/200/200?image=' + scope.feed.id +')');   
                 }
                 
                 scope.toggle = function(){

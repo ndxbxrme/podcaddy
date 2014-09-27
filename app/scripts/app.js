@@ -35,10 +35,10 @@ angular
         templateUrl: 'views/allfeeds.html',
         controller: 'AllfeedsCtrl'
       })
-      .when('/:arg1?/:arg2?/:arg3?/:arg4', {
+      /*.when('/:arg1?/:arg2?/:arg3?/:arg4', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      })
+      })*/
       
       .otherwise({
         redirectTo: '/'
@@ -47,9 +47,16 @@ angular
       $locationProvider.html5Mode(true);
   })
   .run(function($rootScope, PagePlayer) {
-    $rootScope.$on('$routeChangeStart', function(){
-      PagePlayer.changePage();
+    $rootScope.$on('$routeChangeStart', function(evt, next){
+      console.log(evt);
+      console.log(next);
+      //PagePlayer.changePage();
     });
   })
 ;
 
+soundManager.setup({
+  flashVersion: 9,
+  preferFlash: true,
+  url: 'bower_components/soundmanager/swf/'
+});

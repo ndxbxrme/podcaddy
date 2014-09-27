@@ -46,7 +46,7 @@ a {
 
 .playlist {
     width: 1000px;   
-    margin: 60px auto !important;
+    margin: 80px auto !important;
     text-align: left;
     
     h3, h6 {
@@ -187,7 +187,7 @@ z-index: 1;
 }
 
 .page {
-    margin-top: 58px;   
+    margin-top: 68px;   
 }
 
 
@@ -219,11 +219,9 @@ html {
 
 .allfeeds {
     padding-top: 80px; 
-    background: #fcfcfc;
 }
 
 .allfeeds .item {
-    float: left;
     width: 200px;
     height: 200px;
     background-size: cover;
@@ -231,19 +229,20 @@ html {
     position: relative;
     margin: 5px !important;
     border: 1px solid #999;
-    opacity: 0.3;
+    opacity: 0.7;
     transition: 0.1s linear all;
     cursor: pointer;
     display: inline-block;
     box-sizing: border-box;
     transform-origin: 0% 0%;
+    overflow: hidden;
 }
 
 .allfeeds .item::after,
 .allfeeds .item::before {
     position: absolute;
     width: 100%;
-    height: 100%;
+    height: 50%;
     top: 0px;
     left: 0px;
     color: #fff;
@@ -258,7 +257,7 @@ html {
     font-weight: 900;
     padding: 10px;
     text-shadow: 0px 0px 1px black;
-    transform: translateX(0%);
+    transform: translateX(-100%);
 }
 
 .allfeeds .item::before {
@@ -269,7 +268,7 @@ html {
     line-height: 16px;
     padding: 10px;
     text-shadow: 0px 0px 1px black;
-    transform: translateX(0%);
+    transform: translateX(100%);
 }
 
 .allfeeds .item.subscribed {

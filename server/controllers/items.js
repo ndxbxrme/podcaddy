@@ -48,10 +48,8 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
         required: subRequired
       }]
     },{
-      model:db.User, 
-      attributes:['data'],
-      as:'History',
-      where:{id:req.user.id},
+      model:db.History, 
+      where:{UserId:req.user.id},
       required: false
     }]
   })

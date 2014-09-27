@@ -1,5 +1,6 @@
 
 <div class="allfeeds">
+  <h2>Select some feeds then start listening <a href="/">here</a></h2>
   <allfeedsitem ng-repeat="feed in feeds | orderBy:'-pubDate' | filter:search.url" feed="feed">
   </allfeedsitem>
 </div>

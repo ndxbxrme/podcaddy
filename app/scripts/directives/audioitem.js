@@ -16,7 +16,7 @@ angular.module('podcaddyApp')
                 item: '='  
             },
             link: function postLink(scope, element) {
-                if(PagePlayer.lastSound && PagePlayer.lastSound.id==='item_' + item.id) {
+                if(PagePlayer.lastSound && PagePlayer.lastSound.id==='item_' + scope.item.id) {
                   if(PagePlayer.lastSound.playState===1) {
                     element.addClass('playing'); 
                   } else {
