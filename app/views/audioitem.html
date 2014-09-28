@@ -10,7 +10,7 @@
         </a>
         <h6><small><span class="icon-svg30"></span> {{item.pubDate | date:'EEE, dd/MM/yyyy, hh:mma'}}</small> <a href="/feed-{{item.feed.id}}/alltime/all/desc"><code><span class="icon-svg40"></span> {{item.feed.data.title}}</code></a></h6>
         <a ng-click="togglePlay(item)">
-            <div class="subtitle">{{item.data.description[0]}}</div>
+            <p class="subtitle">{{item.data.description[0]}}</p>
             <h6 class="links"><a href="/feed-{{item.feed.id}}/alltime/all/desc"><span class="icon-svg40"></span> Show all</a></h6>
             
             <div class="controls">

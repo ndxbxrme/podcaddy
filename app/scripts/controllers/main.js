@@ -8,5 +8,6 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-.controller('MainCtrl', function () {
+.controller('MainCtrl', function ($rootScope) {
+  $rootScope.hasNav = true;
 });

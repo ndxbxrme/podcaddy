@@ -83,7 +83,7 @@ angular.module('podcaddyApp')
         },
         finish: function() {
           $('#' + self.lastSound.id).removeClass('playing'); 
-          $('#' + self.lastSound.id).next('img').click();
+          $('#' + self.lastSound.id).next().find('.podimg').click()
         },
         whileloading: function() {
           self.updateTime();
@@ -152,10 +152,12 @@ angular.module('podcaddyApp')
                   NavService.filters.period + '/' + 
                   NavService.filters.visited + '/' + 
                   NavService.filters.direction)
-        .success(function(items){
-          $timeout(function(){
-            $rootScope.items = items;
-          });
+        .success(function(items, status){
+          if(status===200) {
+            $timeout(function(){
+              $rootScope.items = items;
+            });
+          }
         });
       };
       var self = this;

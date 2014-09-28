@@ -1,6 +1,7 @@
 podcaddy
 ========
 a podcast playing website and server. 
+
 under development so don't expect it to work `just yet`
 
 ##installation
@@ -13,6 +14,7 @@ bower install
 ```
 
 make a new postgres database called podcaddy-development.
+
 clone server/config/local.env.js.sample,remove .sample from the file name, then fill in your database details and make up a secret key.
 
 ```

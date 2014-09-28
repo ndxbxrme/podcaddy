@@ -47,6 +47,7 @@ angular
       $locationProvider.html5Mode(true);
   })
   .run(function($rootScope, PagePlayer) {
+    $rootScope.items = [];
     $rootScope.$on('$routeChangeStart', function(evt, next){
       console.log(evt);
       console.log(next);

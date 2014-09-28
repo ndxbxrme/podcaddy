@@ -28,8 +28,6 @@
 
 body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
-	background: #f4f4f4 url(../images/grid_DominikKiss_SubtlePatterns.jpg);
-	font-weight: 300;
 	font-size: 15px;
 	color: #333;
 	overflow: scroll;
@@ -39,9 +37,11 @@ body {
 .cd-dropdown,
 .cd-select {
 	position: relative;
-	width: 200px;
-	margin: 0px auto;
+	width: 160px;
+    height: 40px;
+	margin: 10px 10px 0px 0px;
 	display: inline-block;
+    text-align: left;
 }
 
 .cd-dropdown > span {
@@ -49,11 +49,11 @@ body {
 	height: 40px;
 	line-height: 40px;
 	color: #999;
-	font-weight: 700;
-	font-size: 16px;
+	font-weight: 500;
+	font-size: 14px;
 	background: #fff;
 	display: block;
-	padding: 0 50px 0 30px;
+	padding: 0 50px 0 20px;
 	position: relative;
 	cursor: pointer;
 }
@@ -65,7 +65,7 @@ body {
 	top: 15%;
 	width: 50px;
 	text-align: center;
-	font-size: 12px;
+	font-size: 10px;
 	padding: 10px;
 	height: 70%;
 	line-height: 12px;
@@ -93,11 +93,12 @@ body {
 	width: 100%;
 	background: #fff;
 	line-height: 40px;
-	padding: 0 30px 0 75px;
+	padding: 0 30px 0 50px;
 	display: block;
 	color: #bcbcbc;
 	cursor: pointer;
 	font-weight: 700;
+    font-size: 12px;
 }
 
 .cd-dropdown > span,

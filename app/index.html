@@ -22,7 +22,7 @@
   </head>
   <body ng-app="podcaddyApp" ng-controller="NavCtrl">
 
-    <div class="navigation">
+    <div class="navigation" ng-show="hasNav">
        <div class="inner">
             <drop-down data="periodList" ng-model="filters.period"></drop-down>
             <drop-down data="visitedList" ng-model="filters.visited"></drop-down>
