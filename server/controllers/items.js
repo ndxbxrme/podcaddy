@@ -27,6 +27,10 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
       now = new Date(1970,1,1);
       break;
   }
+  var order = '"pubDate" DESC';
+  if(req.params.direction==='asc') {
+    order = '"pubDate" ASC'; 
+  }
   var subRequired = true;
   var feedWhere = {};
   if(req.params.feed!=='all') {

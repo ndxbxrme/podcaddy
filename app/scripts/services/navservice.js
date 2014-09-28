@@ -8,7 +8,7 @@
  * Factory in the podcaddyApp.
  */
 angular.module('podcaddyApp')
-  .factory('NavService', function () {
+  .factory('NavService', function ($route,$location) {
     var filters = {
       period : 'week',
       visited : 'unvisited',
@@ -16,7 +16,7 @@ angular.module('podcaddyApp')
       feed : 'all',
       playlist : 'none'
     };
-    var parseArgs = function($route) {
+    var parseArgs = function() {
       function parseArg(arg){
         if(arg.indexOf('feed-')===0) {
           filters.feed = arg.replace(/feed-/,''); 
@@ -74,8 +74,18 @@ angular.module('podcaddyApp')
       }
     };
     
+    var redirect = function(){
+      var url = (filters.feed==='all'?'':'/feed-'+filters.feed) +
+          (filters.playlist==='none'?'':'/playlist-'+filters.playlist) + 
+          (filters.period==='week'?'':'/'+filters.period) +
+          (filters.visited==='unvisited'?'':'/'+filters.visited) + 
+          (filters.direction==='desc'?'':'/'+filters.direction);
+      $location.path(url);
+    };
+  
     return {
       parseArgs: parseArgs,
-      filters: filters
+      filters: filters,
+      redirect: redirect
     };
   });

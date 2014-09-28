@@ -10,12 +10,12 @@ angular.module('podcaddyApp')
   .directive('onRepeatDone', function() {
       return {
           restrict: 'A',
-          link: function(scope, element, attributes ) {
+          link: function(scope, element, attributes, NavService ) {
               scope.$emit(attributes.onRepeatDone || 'repeat_done', element);
           }
       };
   })
-  .directive('dropDown', function ($timeout, PagePlayer) {
+  .directive('dropDown', function ($timeout, NavService) {
     return {
       template: '<div class="cd-dropdown cd-active"><span ng-bind-html="title" ng-click="toggleOpen()"></span><ul><li on-repeat-done="rptDone" ng-repeat="item in data" ng-click="change(item)"><span ng-bind-html="item.html"></span></li></ul></div>',
       restrict: 'E',
@@ -40,11 +40,11 @@ angular.module('podcaddyApp')
                 }
               });
             });
-            scope.$on('rptDone', function(l,m){
+            scope.$on('rptDone', function(){
               var selectLabel = iElem.find('span')[0];
               var listopts = iElem.find('ul')[0];
               var opts = iElem.find('li');
-              var optsCount = opts.length
+              var optsCount = opts.length;
               if(optsCount<scope.data.length) {
                 return; 
               }
@@ -59,7 +59,7 @@ angular.module('podcaddyApp')
                 scope.change = function(item) {
                   $timeout(function(){
                     ngModel.$setViewValue(item.value);
-                    PagePlayer.changePage();
+                    NavService.redirect();
                   });
                   close();
                 };

@@ -35,10 +35,10 @@ angular
         templateUrl: 'views/allfeeds.html',
         controller: 'AllfeedsCtrl'
       })
-      /*.when('/:arg1?/:arg2?/:arg3?/:arg4', {
+      .when('/:arg1?/:arg2?/:arg3?/:arg4', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
-      })*/
+      })
       
       .otherwise({
         redirectTo: '/'
@@ -48,10 +48,8 @@ angular
   })
   .run(function($rootScope, PagePlayer) {
     $rootScope.items = [];
-    $rootScope.$on('$routeChangeStart', function(evt, next){
-      console.log(evt);
-      console.log(next);
-      //PagePlayer.changePage();
+    $rootScope.$on('$routeChangeSuccess', function(){
+      PagePlayer.changePage();
     });
   })
 ;

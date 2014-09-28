@@ -83,7 +83,7 @@ angular.module('podcaddyApp')
         },
         finish: function() {
           $('#' + self.lastSound.id).removeClass('playing'); 
-          $('#' + self.lastSound.id).next().find('.podimg').click()
+          $('#' + self.lastSound.id).next().find('.podimg').click();
         },
         whileloading: function() {
           self.updateTime();
@@ -189,6 +189,9 @@ angular.module('podcaddyApp')
         if(pagePlayer) {
           pagePlayer.fetchData();
         }
+      },
+      fetchData: function(){
+        pagePlayer.fetchData();
       },
       togglePlay: function(item){
         pagePlayer.togglePlay(item);

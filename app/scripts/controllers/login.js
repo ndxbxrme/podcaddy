@@ -1,7 +1,8 @@
 'use strict';
 /*jshint bitwise:false*/
 angular.module('podcaddyApp')
-.controller('LoginCtrl', function($scope, $http, $window, $location) {
+.controller('LoginCtrl', function($scope, $http, $window, $rootScope, $location) {
+    $rootScope.hasNav = false;
     $scope.message = '';  
   
     var doHash = function(str){
