@@ -1,16 +1,20 @@
 podcaddy
 ========
-#testing
-the `readme` file format
+a podcast playing website and server
+under development so don't expect it to work `yet`
 
-##some script
-```javascript
-var D = 3;
-if(3===D) {
-  console.log('hello world');
-}
+##installation
+
+```
+git clone https://github.com/ndxbxrme/podcaddy
+cd podcaddy
+npm install
+bower install
 ```
 
-a list
+make a new postgres database called podcaddy-development
+clone server/config/local.env.js.sample and remove .sample from the file name, then fill in your database details and make up a secret key.
 
-  * `myoption` - This `option` is useful
+```
+grunt serve
+```
