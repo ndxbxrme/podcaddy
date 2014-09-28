@@ -29,7 +29,7 @@
             <drop-down data="dirList" ng-model="filters.direction"></drop-down>
             <ng-form name="searchForm" class="pure-form" novalidate>
                 <input type="text" ng-model="search.url" placeholder="Search or RSS Feed" />
-                <input type="submit" class="pure-button" ng-click="submit()" value="Submit" />
+                <input type="submit" class="pure-button" ng-click="submit()" value="Submit" ng-show="search.url && search.url.indexOf('http')!==-1" />
             </ng-form>
         </div>
     </div>

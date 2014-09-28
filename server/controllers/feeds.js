@@ -55,6 +55,7 @@ setInterval(refreshFeeds, 1000 * 60 * 5);
 router.post('/api/feeds/init', function(req, res) {
 
   importFeeds();
+  res.json({message:'import underway'});
   /*_.each(sf.feeds, function(feed){
     console.log(feed);
     da.checkFeed(feed, req.user.id)

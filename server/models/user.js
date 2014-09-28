@@ -5,7 +5,12 @@ module.exports = function(sequelize, DataTypes) {
     data: {
       type: DataTypes.TEXT,
       get: function() {
-        return JSON.parse(this.getDataValue('data'));
+        var d = this.getDataValue('data');
+        if(d) {
+          return JSON.parse(d);
+        } else {
+          return {}
+        }
       },
       set: function(v) {
         this.setDataValue('data', JSON.stringify(v)); 
@@ -16,7 +21,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        User.hasMany(models.History);
+        User.hasMany(models.Item, {as: 'History'});
+        User.hasMany(models.Item, {as: 'Skipped'});
         User.hasMany(models.Feed, { as: 'Subscribed' });
         User.hasMany(models.Playlist);      
       }

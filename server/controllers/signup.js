@@ -16,7 +16,7 @@ router.post('/signup', function(req, res) {
       res.status(401).json({success:false, message:'username taken'});
     }
     else {
-      db.User.create({username: req.body.username, password: req.body.password})
+      db.User.create({username: req.body.username, password: req.body.password, data:{}})
       .success(function(user){
         var token = jwt.sign(user, process.env.JWT_SECRET, {expiresInMinutes:60*5});
         res.json({token:token});

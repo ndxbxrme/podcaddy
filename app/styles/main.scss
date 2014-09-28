@@ -17,6 +17,16 @@ body {
     visibility: hidden;
 }
 
+.progress span[class^="icon-"] {
+  opacity: 0.5; 
+  animation: SPIN 1.0s linear infinite;
+}
+
+@keyframes SPIN {
+  0% {transform: rotateZ(0deg)}
+  100% {transform: rotateZ(360deg)}
+}
+
 .big-icons {
     font-size: 111px;
     text-shadow: rgba(255, 255, 255, 0.498039) 0px 0px 5px 0px inset;
@@ -64,6 +74,8 @@ a {
     
     .item {
         position: relative;
+        margin-top: 20px;
+        display: block;
         
         .timing {
             position: absolute;
@@ -186,6 +198,7 @@ a {
     z-index: 10000;
     background: rgba(255,255,255,0.9);
     text-align: right;
+    padding: 0px 10px;
 }
 
 .inner {
@@ -209,7 +222,7 @@ a {
     height: 130px; 
     border-radius: 10px; 
     box-shadow: 1px 1px 1px rgba(0,0,0,0.5); 
-    margin-top: 10px;
+    margin-top: 6px;
     background-position: center;
 }
 

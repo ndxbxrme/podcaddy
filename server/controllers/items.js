@@ -37,8 +37,12 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
     subRequired = false;
     feedWhere = {id:req.params.feed}; 
   }
+  var visited = null;
+  if(req.params.visited==='visited') {
+    visited = {gt:0}; 
+  }
   db.Item.findAll({
-    where:{pubDate: {gt:now}}, 
+    where:{pubDate: {gt:now}, '"History.id"': visited}, 
     order:'"pubDate" DESC',
     include:[{
       attributes:['id','data','url'],
@@ -52,8 +56,10 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
         required: subRequired
       }]
     },{
-      model:db.History, 
-      where:{UserId:req.user.id},
+      model:db.User,
+      attributes:['id'],
+      as:'History',
+      where:{id:req.user.id},
       required: false
     }]
   })

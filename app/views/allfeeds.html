@@ -1,11 +1,11 @@
 
 <div class="allfeeds">
-  <h2>Select some feeds then start listening <a href="/">here</a></h2>
+  <h2 ng-show="feeds.length>0">Select some feeds then start listening <a href="/">here</a></h2>
   <allfeedsitem ng-repeat="feed in feeds | orderBy:'-pubDate' | filter:search.url" feed="feed">
   </allfeedsitem>
 </div>
 <div class="text-center">
-    <a class="pure-button" ng-click="initFeeds()" ng-hide="feeds.length>0 || !feeds || progress">Oh no! There are no feeds.  Click Me to change that</a>
-<div class="progress" ng-show="progress">{{progress}}</div>
+    <a class="pure-button" ng-click="initFeeds()" ng-show="feeds.length===0&&!fetchingFeeds">Oh no! There are no feeds.  Click Me to change that</a>
+    <div class="progress" ng-show="fetchingFeeds"><span class="icon-svg772"></span> &nbsp;&nbsp;Fetching feeds &nbsp;&nbsp;<span class="icon-svg792"></span></div>
 </div>
 

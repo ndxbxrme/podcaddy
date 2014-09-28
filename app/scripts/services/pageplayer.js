@@ -9,8 +9,13 @@
  */
 angular.module('podcaddyApp')
   .factory('PagePlayer', function (NavService, $http, $timeout, $rootScope, $window) {
-    // Service logic
-    // ...
+    var reportPosition = _.throttle(function(){
+      $http.post('/api/position', {
+        itemid:pagePlayer.lastSound.id.replace(/[a-z_]+/,''),
+        position:pagePlayer.lastSound.position,
+        history:(pagePlayer.lastSound.position > pagePlayer.lastSound.duration/10)
+      });
+    }, 30000);
     var pagePlayer;
     function PagePlayer() {
       var sm = soundManager;
@@ -86,14 +91,15 @@ angular.module('podcaddyApp')
           $('#' + self.lastSound.id).next().find('.podimg').click();
         },
         whileloading: function() {
-          self.updateTime();
           $('.playing .loading, .paused .loading').css('width', (((this.bytesLoaded/this.bytesTotal)*100)+'%'));
         },
         onload: function() {
           
         },
         whileplaying: function() {
+          self.updateTime();
           self.updatePosition();
+          reportPosition();
         },
         error: function(err) {
           console.log(err); 
