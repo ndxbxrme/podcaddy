@@ -1,6 +1,6 @@
 podcaddy
 ========
-a podcast playing website and server. 
+a podcast playing website and aggregating server. 
 
 under development so don't expect it to work `just yet`
 

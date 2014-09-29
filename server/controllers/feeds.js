@@ -49,19 +49,22 @@ function refreshFeeds() {
   now.setHours(now.getHours()-1);
   db.Feed.findAll({where:{updatedAt:{lt:now}}})
   .success(function(feeds) {
+    var count = 0;
     _.each(feeds, function(feed){
-      da.checkFeed(feed.url);
+      if(count++ < 20) {
+        da.checkFeed(feed.url);
+      }
     });
   });
 }
 
-setInterval(refreshFeeds, 1000 * 60 * 5);
+setInterval(refreshFeeds, 1000 * 60 * 3);
 //refreshFeeds();
 
 router.post('/api/feeds/init', function(req, res) {
 
-  importFeeds();
-  res.json({message:'import underway'});
+  importFeeds(0);
+  res.json({message:'import done'});
   /*_.each(sf.feeds, function(feed){
     console.log(feed);
     da.checkFeed(feed, req.user.id)

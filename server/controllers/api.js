@@ -7,6 +7,6 @@ module.exports = function(app){
   app.use('/', router);
 };
 
-router.get('/api', function(req, res) {
+router.post('/api', function(req, res) {
   res.send('welcome to api m\'dear' + JSON.stringify(req.user.id));
 });

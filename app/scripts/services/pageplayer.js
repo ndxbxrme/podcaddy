@@ -159,15 +159,15 @@ angular.module('podcaddyApp')
           NavService.filters.visited + '/' + 
           NavService.filters.direction
         )
-        .success(function(items, status){
+        .success(function(data, status){
           if(status===200) {
             var needsUpdate = false;
-            if(items.length!==$rootScope.items.length) {
+            if(data.items.length!==$rootScope.items.length) {
               needsUpdate = true; 
             }
             else {
-              for(var f=0; f<items.length; f++) {
-                if(items[f].id!==$rootScope.items[f].id) {
+              for(var f=0; f<data.items.length; f++) {
+                if(data.items[f].id!==$rootScope.items[f].id) {
                   needsUpdate = true;
                   break;
                 }
@@ -175,7 +175,7 @@ angular.module('podcaddyApp')
             }
             if(needsUpdate) {
               $timeout(function(){
-                $rootScope.items = items;
+                $rootScope.items = data.items;
                 if(self.lastSound) {
                   $timeout(function(){
                     $('#' + self.lastSound.id).addClass('playing'); 

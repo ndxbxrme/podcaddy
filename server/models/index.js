@@ -4,7 +4,9 @@ var fs = require('fs'),
   lodash = require('lodash'),
   db = {};
 
-var sequelize = new Sequelize(process.env.DB_URL);
+var sequelize = new Sequelize(process.env.DB_URL, {
+  debug: false
+});
 
 fs.readdirSync(__dirname).filter(function (file) {
   return (file.indexOf('.') !== 0) && (file !== 'index.js');

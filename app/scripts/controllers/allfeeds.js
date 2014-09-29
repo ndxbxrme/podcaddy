@@ -8,7 +8,7 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-  .controller('AllfeedsCtrl', function ($scope, $http, $timeout, $location) {
+  .controller('AllfeedsCtrl', function ($scope, $http, $location, $window) {
     console.log('check me out');
     $http.post('/api/feeds/all')
     .success(function(feeds){
@@ -17,9 +17,12 @@ angular.module('podcaddyApp')
   
     $scope.initFeeds = function() {
       $scope.fetchingFeeds = true;
-      $http.post('api/feeds/init');
-      $timeout(function(){
-        $location.path('/allfeeds');
-      }, 1000 * 60 * 3);
+      $http.post('api/feeds/init')
+      .success(function(data){
+        //$location.path('/allfeeds');
+      });
     };
+    $($window).scroll(function(){
+      console.log('yo');
+    });
   });

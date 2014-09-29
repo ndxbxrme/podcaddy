@@ -95,6 +95,25 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
     }]
   })
   .success(function(items){
-    res.json(items);
+    //current item
+    db.User.find(req.user.id)
+    .success(function(user){
+      db.Item.find(user.currentId)
+      .success(function(current) {
+        if(current) {
+        current.position = user.position;
+        res.json({items:items,current:current});
+        } else {
+          res.json({items:items,current:{}});
+        }
+      })
+      .error(function(){
+        res.json({items:items,current:{}});
+      });
+    })
+    .error(function(){
+      res.json({items:items,current:{}});
+    });
+    //res.json(items);
   });
 });
