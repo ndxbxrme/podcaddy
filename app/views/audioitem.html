@@ -11,21 +11,21 @@
         <h6><small><span class="icon-svg30"></span> {{item.pubDate | date:'EEE, dd/MM/yyyy, hh:mma'}}</small> <a href="/feed-{{item.feed.id}}/alltime/all/desc"><code><span class="icon-svg40"></span> {{item.feed.data.title}}</code></a></h6>
         <a ng-click="togglePlay(item)">
             <p class="subtitle">{{item.data.description[0]}}</p>
-            <h6 class="links"><a href="/feed-{{item.feed.id}}/alltime/all/desc"><span class="icon-svg40"></span> Show all</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ng-click="skip(item)"><span class="icon-svg36"></span> Skip podcast</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{{item.data.enclosure[0].$.url}}"><span class="icon-svg94"></span> Download podcast</a></h6>
-            
-            <div class="controls">
-              <div class="statusbar">
-                <div class="loading"></div>
-                <div class="position"></div>
-              </div>
-            </div>
-
-            <div class="timing">
-              <div id="sm2_timing" class="timing-data">
-                <span class="sm2_position"></span> / <span class="sm2_total"></span>
-              </div>
-            </div>
-
         </a>
+        <h6 class="links"><a href="/feed-{{item.feed.id}}/alltime/all/desc"><span class="icon-svg432"></span> Show all</a><a ng-click="skip(item)"><span class="icon-svg36"></span> Skip podcast</a><a href="{{item.data.enclosure[0].$.url}}"><span class="icon-svg94"></span> Download podcast</a></h6>
+
+        <div class="controls">
+          <div class="statusbar">
+            <div class="loading"></div>
+            <div class="position"></div>
+          </div>
+        </div>
+
+        <div class="timing">
+          <div id="sm2_timing" class="timing-data">
+            <span class="sm2_position"></span> / <span class="sm2_total"></span>
+          </div>
+        </div>
+
     </div>
 </div>

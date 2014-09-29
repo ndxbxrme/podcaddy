@@ -68,6 +68,16 @@ a {
         padding-right: 2em;
     }
   
+    h6 span[class^="icon-"] {
+        font-size: 1.2em; 
+        padding-right: 4px;
+    }
+  
+    h6 a {
+        cursor: pointer; 
+        padding-right: 18px;
+    }
+  
     p {
       margin: 0px 0px 10px 0px; 
     }
@@ -207,7 +217,7 @@ a {
       line-height: 55px; 
       margin: 0px; 
       color: #ccc;
-      text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+      text-shadow: 1px 1px 1px rgba(135,14,117,0.5);
     }
 }
 
@@ -234,6 +244,7 @@ a {
     box-shadow: 1px 1px 1px rgba(0,0,0,0.5); 
     margin-top: 6px;
     background-position: center;
+    border: 2px solid #fff;
 }
 
 
