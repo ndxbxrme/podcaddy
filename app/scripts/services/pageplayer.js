@@ -153,21 +153,36 @@ angular.module('podcaddyApp')
       };
       this.fetchData = function(){
         $http.get('/api/subscribed/' + 
-                  NavService.filters.feed + '/' + 
-                  NavService.filters.playlist + '/' + 
-                  NavService.filters.period + '/' + 
-                  NavService.filters.visited + '/' + 
-                  NavService.filters.direction)
+          NavService.filters.feed + '/' + 
+          NavService.filters.playlist + '/' + 
+          NavService.filters.period + '/' + 
+          NavService.filters.visited + '/' + 
+          NavService.filters.direction
+        )
         .success(function(items, status){
           if(status===200) {
-            $timeout(function(){
-              $rootScope.items = items;
-              if(self.lastSound) {
-                $timeout(function(){
-                  $('#' + self.lastSound.id).addClass('playing'); 
-                });
+            var needsUpdate = false;
+            if(items.length!==$rootScope.items.length) {
+              needsUpdate = true; 
+            }
+            else {
+              for(var f=0; f<items.length; f++) {
+                if(items[f].id!==$rootScope.items[f].id) {
+                  needsUpdate = true;
+                  break;
+                }
               }
-            });
+            }
+            if(needsUpdate) {
+              $timeout(function(){
+                $rootScope.items = items;
+                if(self.lastSound) {
+                  $timeout(function(){
+                    $('#' + self.lastSound.id).addClass('playing'); 
+                  });
+                }
+              });
+            }
           }
         });
       };

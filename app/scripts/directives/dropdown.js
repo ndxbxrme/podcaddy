@@ -10,7 +10,7 @@ angular.module('podcaddyApp')
   .directive('onRepeatDone', function() {
       return {
           restrict: 'A',
-          link: function(scope, element, attributes, NavService ) {
+          link: function(scope, element, attributes ) {
               scope.$emit(attributes.onRepeatDone || 'repeat_done', element);
           }
       };

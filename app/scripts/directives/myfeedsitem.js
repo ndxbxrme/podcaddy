@@ -7,7 +7,7 @@
  * # myfeedsitem
  */
 angular.module('podcaddyApp')
-  .directive('myfeedsitem', function () {
+  .directive('myfeedsitem', function ($http) {
         return {
             templateUrl: '/views/myfeedsitem.html',
             restrict: 'AE',
