@@ -14,8 +14,7 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch',
-    'ui.utils'
+    'ngTouch'
   ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
@@ -34,6 +33,10 @@ angular
       .when('/allfeeds', {
         templateUrl: 'views/allfeeds.html',
         controller: 'AllfeedsCtrl'
+      })
+      .when('/myfeeds', {
+        templateUrl: 'views/myfeeds.html',
+        controller: 'MyfeedsCtrl'
       })
       .when('/:arg1?/:arg2?/:arg3?/:arg4', {
         templateUrl: 'views/main.html',

@@ -10,6 +10,11 @@
 angular.module('podcaddyApp')
 .controller('NavCtrl', function ($scope, NavService, $location, $http) {
     $scope.filters = NavService.filters;
+    $scope.pageList = [
+      {value:'/', html:'Home'},
+      {value:'/myfeeds', html:'My feeds'},
+      {value:'/allfeeds', html:'Directory'}
+    ];
     $scope.periodList = [
       {value:'day',html:'Day'},
       {value:'week',html:'Week'},
@@ -26,12 +31,6 @@ angular.module('podcaddyApp')
         {value:'desc',html:'Newest first'},
         {value:'asc', html:'Oldest first'}
     ];
-    $scope.$watch('filters', function(n){
-      if(!n) {
-        return;
-      }
-      //$location.path('/' + $scope.filters.period + '/' + $scope.filters.visited + '/' + $scope.filters.direction);
-    }, true);
     $scope.submit = function(){
       $http.post('/api/feeds/init', $scope.search)
       .success(function(json){

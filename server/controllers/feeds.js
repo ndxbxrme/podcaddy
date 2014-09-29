@@ -23,6 +23,12 @@ router.post('/api/feeds/all', function(req, res){
   }); 
 });
 
+router.post('/api/feeds/subs', function(req, res){
+  db.Feed.findAll({include:[{model:db.User, as:'Subscribed', where:{id:req.user.id},required:true}]}).success(function(feeds){
+    res.json(feeds);
+  });
+});
+
 router.post('/api/feeds/add', function(req, res) {
   da.checkFeed(req.body.url)
   .then(function(feed){

@@ -71,6 +71,15 @@ angular.module('podcaddyApp')
         if($route.current.params.arg4) {
           parseArg($route.current.params.arg4); 
         }
+        if($route.current.$$route.controller==='MainCtrl') {
+          filters.page = '/';
+        }
+        else if($route.current.$$route.controller==='AllfeedsCtrl') {
+          filters.page = '/allfeeds';          
+        }
+        else if($route.current.$$route.controller==='MyfeedsCtrl') {
+          filters.page = '/myfeeds';          
+        }
       }
     };
     
@@ -80,6 +89,12 @@ angular.module('podcaddyApp')
           (filters.period==='week'?'':'/'+filters.period) +
           (filters.visited==='unvisited'?'':'/'+filters.visited) + 
           (filters.direction==='desc'?'':'/'+filters.direction);
+      if(filters.page==='/allfeeds') {
+        url = '/allfeeds'; 
+      }
+      else if(filters.page==='/myfeeds') {
+        url = '/myfeeds'; 
+      }
       $location.path(url);
     };
   

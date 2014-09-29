@@ -40,7 +40,3 @@ angular.module('podcaddyApp')
             }
         };
     });
-
-/*
-<div ng-click="toggle()" class="item" ng-class="{subscribed:feed.subscribed.length>0}" data-title="{{feed.data.title}}" data-description="{{feed.data.description.substring(0,140)}}"><span class="icon-svg482 toggle" ng-show="toggling"></span></div>
-*/

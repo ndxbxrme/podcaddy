@@ -13,7 +13,6 @@ angular.module('podcaddyApp')
     $http.post('/api/feeds/all')
     .success(function(feeds){
       $scope.feeds = feeds;
-      console.log(feeds);
     });
   
     $scope.initFeeds = function() {

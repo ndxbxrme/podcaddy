@@ -24,6 +24,8 @@
 
     <div class="navigation" ng-show="hasNav">
        <div class="inner">
+            <h1>podcaddy</h1>
+            <drop-down data="pageList" ng-model="filters.page"></drop-down>
             <drop-down data="periodList" ng-model="filters.period"></drop-down>
             <drop-down data="visitedList" ng-model="filters.visited"></drop-down>
             <drop-down data="dirList" ng-model="filters.direction"></drop-down>
@@ -68,8 +70,6 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/stringjs/lib/string.min.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
-    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
-    <script src="bower_components/skrollr/src/skrollr.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -88,6 +88,8 @@
         <script src="scripts/services/navservice.js"></script>
         <script src="scripts/directives/dropdown.js"></script>
         <script src="scripts/services/pageplayer.js"></script>
+        <script src="scripts/controllers/myfeeds.js"></script>
+        <script src="scripts/directives/myfeedsitem.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -162,6 +162,11 @@ angular.module('podcaddyApp')
           if(status===200) {
             $timeout(function(){
               $rootScope.items = items;
+              if(self.lastSound) {
+                $timeout(function(){
+                  $('#' + self.lastSound.id).addClass('playing'); 
+                });
+              }
             });
           }
         });

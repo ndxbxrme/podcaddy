@@ -199,6 +199,16 @@ a {
     background: rgba(255,255,255,0.9);
     text-align: right;
     padding: 0px 10px;
+  
+    h1 {
+      position: absolute; 
+      top: 0px; 
+      left: 10px; 
+      line-height: 55px; 
+      margin: 0px; 
+      color: #ccc;
+      text-shadow: 1px 1px 1px rgba(0,0,0,0.4);
+    }
 }
 
 .inner {
