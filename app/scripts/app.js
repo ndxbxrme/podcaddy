@@ -46,11 +46,12 @@ angular
   
       $locationProvider.html5Mode(true);
   })
-  .run(function($rootScope, PagePlayer) {
+  .run(function($rootScope, PagePlayer, $http) {
     $rootScope.items = [];
     $rootScope.$on('$routeChangeSuccess', function(){
       PagePlayer.changePage();
     });
+    $http.post('/api'); //kickstart login
   })
 ;
 

@@ -7,7 +7,7 @@
  * # audioitem
  */
 angular.module('podcaddyApp')
-    .directive('audioitem', function (PagePlayer) {
+    .directive('audioitem', function (PagePlayer, $http) {
         return {
             templateUrl: '/views/audioitem.html',
             restrict: 'E',
@@ -44,6 +44,12 @@ angular.module('podcaddyApp')
               
                 scope.togglePlay = function(item) {
                   PagePlayer.togglePlay(item);
+                };
+                scope.skip = function(item) {
+                  $http.post('/api/skip', {id:item.id})
+                  .success(function(){
+                    PagePlayer.fetchData();
+                  });
                 };
             }
         };

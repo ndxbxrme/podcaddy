@@ -2,11 +2,28 @@
 
 var express = require('express'),
     router = express.Router(),
-    db = require('../models');
+    db = require('../models'),
+    Sequelize = require('sequelize');
 
 module.exports = function(app){
   app.use('/', router);
 };
+
+router.post('/api/skip', function(req,res){
+  db.User.find(req.user.id)
+  .success(function(user){
+    db.Item.find(req.body.id)
+    .success(function(item){
+      user.hasSkipped(item)
+      .success(function(result){
+        if(!result){
+          user.addSkipped(item); 
+          res.json({msg:'skipped'});
+        }
+      });
+    });
+  });
+});
 
 router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', function(req, res) {
   var now = new Date();
@@ -38,13 +55,16 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
     feedWhere = {id:req.params.feed}; 
   }
   var where = {pubDate: {gt:now}};
-  var visited = null;
   if(req.params.visited==='visited') {
-    visited = {gt:0}; 
-    where['"History.id"'] = {gt:0};
+    where = Sequelize.and(where, Sequelize.or({
+      "History.id":{gt:0}},
+      Sequelize.or({
+        "Skipped.id":{gt:0}
+      })))
   }
   else if(req.params.visited==='unvisited') {
     where['"History.id"'] = null; 
+    where['"Skipped.id"'] = null; 
   }
   db.Item.findAll({
     where:where, 
@@ -64,6 +84,12 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
       model:db.User,
       attributes:['id'],
       as:'History',
+      where:{id:req.user.id},
+      required: false
+    },{
+      model:db.User,
+      attributes:['id'],
+      as:'Skipped',
       where:{id:req.user.id},
       required: false
     }]
