@@ -15,7 +15,7 @@ bower install
 
 make a new postgres database called podcaddy-development.
 
-clone server/config/local.env.js.sample, remove .sample from the file name, fill in your database details and make up a secret key.
+clone `server/config/local.env.js.sample`, remove `.sample` from the file name, fill in your database details and make up a secret key.
 
 ```
 grunt serve
