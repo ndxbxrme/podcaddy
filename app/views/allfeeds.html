@@ -1,7 +1,7 @@
 
 <div class="allfeeds">
   <h2 ng-show="feeds.length>0">Select some feeds then start listening <a href="/">here</a></h2>
-  <allfeedsitem ng-repeat="feed in feeds | orderBy:'-pubDate' | filter:search.url" feed="feed">
+  <allfeedsitem ng-repeat="feed in lazyLoad.items | orderBy:'-pubDate' | filter:search.url" feed="feed">
   </allfeedsitem>
 </div>
 <div class="text-center">
