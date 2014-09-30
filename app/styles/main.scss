@@ -277,6 +277,7 @@ html {
     box-sizing: border-box;
     transform-origin: 0% 0%;
     overflow: hidden;
+    transition: transform 0.3s ease-in-out;
 }
 
 .allfeeds .item::after,
@@ -366,3 +367,6 @@ html {
 
 }
 
+.hidden {
+    visibility: hidden; 
+}
