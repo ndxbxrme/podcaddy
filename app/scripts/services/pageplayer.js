@@ -8,7 +8,7 @@
  * Factory in the podcaddyApp.
  */
 angular.module('podcaddyApp')
-  .factory('PagePlayer', function (NavService, $http, $timeout, $rootScope, $window) {
+  .factory('PagePlayer', function (NavService, $http, $timeout, $rootScope, $window, LazyLoad) {
     var reportPosition = _.throttle(function(){
       $http.post('/api/position', {
         itemid:pagePlayer.lastSound.id.replace(/[a-z_]+/,''),
@@ -151,6 +151,7 @@ angular.module('podcaddyApp')
           thisSound.play();
         }
       };
+      $rootScope.lazyLoad = new LazyLoad([]);
       this.fetchData = function(){
         $http.get('/api/subscribed/' + 
           NavService.filters.feed + '/' + 
@@ -162,12 +163,12 @@ angular.module('podcaddyApp')
         .success(function(data, status){
           if(status===200) {
             var needsUpdate = false;
-            if(data.items.length!==$rootScope.items.length) {
+            if(data.items.length!==$rootScope.lazyLoad.items.length) {
               needsUpdate = true; 
             }
             else {
               for(var f=0; f<data.items.length; f++) {
-                if(data.items[f].id!==$rootScope.items[f].id) {
+                if(data.items[f].id!==$rootScope.lazyLoad.items[f].id) {
                   needsUpdate = true;
                   break;
                 }
@@ -175,7 +176,7 @@ angular.module('podcaddyApp')
             }
             if(needsUpdate) {
               $timeout(function(){
-                $rootScope.items = data.items;
+                $rootScope.lazyLoad.reinit(data.items);
                 if(self.lastSound) {
                   $timeout(function(){
                     $('#' + self.lastSound.id).addClass('playing'); 

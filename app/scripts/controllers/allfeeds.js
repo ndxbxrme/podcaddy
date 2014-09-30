@@ -8,8 +8,8 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-  .controller('AllfeedsCtrl', function ($scope, $http, $location, LazyLoad) {
-    console.log('check me out');
+  .controller('AllfeedsCtrl', function ($scope, $http, $location, LazyLoad, Timer) {
+    Timer.stop();
     $http.post('/api/feeds/all')
     .success(function(feeds){
       $scope.lazyLoad = new LazyLoad(feeds);

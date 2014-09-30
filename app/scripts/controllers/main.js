@@ -8,9 +8,7 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-.controller('MainCtrl', function ($rootScope,$interval,PagePlayer) {
+.controller('MainCtrl', function ($rootScope, Timer) {
   $rootScope.hasNav = true;
-  $interval(function(){
-    PagePlayer.fetchData();
-  }, 1000 * 60 * 5);
+  Timer.start();
 });

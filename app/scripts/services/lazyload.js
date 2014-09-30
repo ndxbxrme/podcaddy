@@ -18,11 +18,16 @@ angular.module('podcaddyApp')
           _.each(self.items, function(item){
             item.w = {
               scrollTop:$w.scrollTop(),
-              height:$w.height()
+              height:$w.height(),
+              rnd:Math.random()
             };
           });
         });     
-      }
+      };
+      this.reinit = function(items){
+        self.items = items;
+        self.doScroll();
+      };
       self.doScroll();
       $w.scroll(self.doScroll);
       $w.resize(self.doScroll);
