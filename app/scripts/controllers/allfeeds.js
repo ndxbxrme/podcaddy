@@ -8,11 +8,12 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-  .controller('AllfeedsCtrl', function ($scope, $http, $location, $window) {
+  .controller('AllfeedsCtrl', function ($scope, $http, $location, $timeout, $window) {
     console.log('check me out');
     $http.post('/api/feeds/all')
     .success(function(feeds){
       $scope.feeds = feeds;
+      doScroll();
     });
   
     $scope.initFeeds = function() {
@@ -22,7 +23,17 @@ angular.module('podcaddyApp')
         //$location.path('/allfeeds');
       });
     };
-    $($window).scroll(function(){
-      console.log('yo');
-    });
+    var $w = $($window);
+    $w.scroll(doScroll);
+    $w.resize(doScroll);
+    function doScroll(){
+       $timeout(function(){
+        _.each($scope.feeds, function(feed){
+          feed.w = {
+            scrollTop:$w.scrollTop(),
+            height:$w.height()
+          };
+        });
+      });     
+    }
   });
