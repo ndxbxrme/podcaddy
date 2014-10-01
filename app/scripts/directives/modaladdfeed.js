@@ -24,7 +24,7 @@ angular.module('podcaddyApp')
                 feedid: scope.feed.id
             }).success(function(data){
                 scope.toggling = false;
-                scope.feed.subscribed = data.subscribed ? [true] : [];
+                scope.close();
             });
         };
       }

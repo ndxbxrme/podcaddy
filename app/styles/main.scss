@@ -260,7 +260,7 @@ html {
 }
 
 .allfeeds {
-    padding-top: 80px; 
+    padding-top: 0px; 
 }
 
 .allfeeds .item {
@@ -370,4 +370,8 @@ html {
 
 .hidden {
     visibility: hidden; 
+}
+
+.text-center {
+    text-align: center; 
 }

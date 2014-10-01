@@ -32,18 +32,18 @@ angular.module('podcaddyApp')
         {value:'asc', html:'Oldest first'}
     ];
     $scope.submit = function(){
-      $('.md-modal').addClass('md-show');
       $http.post('/api/feeds/add', $scope.search)
       .success(function(feed){
+        $scope.search = '';
         $timeout(function(){
           if(!feed.error) {
+            feed.message = 'You have added a podcast!';
             $rootScope.modalFeed = feed;
           } else {
             $rootScope.modalFeed = {
               message:'There was an error',
-              data: {
-                description:'We couldn\'t read that feed, it was too funky'
-              }
+              error: true,
+              description:'We couldn\'t read that feed, it was too funky'
             };
           }
             $('.md-modal').addClass('md-show');

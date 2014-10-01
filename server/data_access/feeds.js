@@ -31,6 +31,9 @@ var extractFeedImage = function(feed){
   if(feed['itunes:image'] && feed['itunes:image'].length > 0 && feed['itunes:image'][0].$ && feed['itunes:image'][0].$.href) {
     image = feed['itunes:image'][0].$.href; 
   }
+  else if(feed['media:thumbnail'] && feed['media:thumbnail'].length > 0 && feed['media:thumbnail'][0].$ && feed['media:thumbnail'][0].$.url && feed['media:thumbnail'][0].$.url.length>0) {
+    image = feed['media:thumbnail'][0].$.url[0];
+  }
   else if(feed.image && feed.image.length > 0 && feed.image[0].url && feed.image[0].url.length > 0){
     image = feed.image[0].url[0]; 
   }

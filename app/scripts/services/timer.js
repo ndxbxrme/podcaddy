@@ -16,8 +16,8 @@ angular.module('podcaddyApp')
       }, 1000 * 60 * 5);
     };
     var stop = function(){
-      if(int) {
-        int.clearInterval(); 
+      if(angular.isDefined(int)) {
+        $interval.cancel(int); 
       }
     };
     return {

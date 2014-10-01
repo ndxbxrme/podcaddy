@@ -36,7 +36,11 @@ router.post('/api/feeds/add', function(req, res) {
       if(subfeed){
         res.json(subfeed);
       } else {
-        res.json({error:true}); 
+        if(feed) {
+          res.json(feed);
+        } else {
+          res.json({error:true}); 
+        }
       }
     });
   }, function(err){
