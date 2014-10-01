@@ -32,9 +32,15 @@ router.post('/api/feeds/subs', function(req, res){
 router.post('/api/feeds/add', function(req, res) {
   da.checkFeed(req.body.url)
   .then(function(feed){
-    res.json(feed);
+    db.Feed.find({where:{id:feed.id},include:[{model:db.User, as:'Subscribed', attributes:['id'], where:{id:req.user.id},required:false}]}).success(function(subfeed){
+      if(subfeed){
+        res.json(subfeed);
+      } else {
+        res.json({error:true}); 
+      }
+    });
   }, function(err){
-    res.json(err);
+    res.json({error:true});
   });
 });
 

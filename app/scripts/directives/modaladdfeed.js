@@ -11,8 +11,22 @@ angular.module('podcaddyApp')
     return {
       templateUrl: '/views/modaladdfeed.html',
       restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        
+      scope: {
+        feed: '=' 
+      },
+      link:function(scope, element, attrs) {
+        scope.close = function(){
+          element.find('.md-modal').removeClass('md-show'); 
+        }
+        scope.toggle = function(){
+            scope.toggling = true;
+            $http.post('/api/subs/toggle', {
+                feedid: scope.feed.id
+            }).success(function(data){
+                scope.toggling = false;
+                scope.feed.subscribed = data.subscribed ? [true] : [];
+            });
+        };
       }
     };
   });
