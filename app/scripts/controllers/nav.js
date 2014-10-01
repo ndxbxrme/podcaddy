@@ -32,9 +32,9 @@ angular.module('podcaddyApp')
         {value:'asc', html:'Oldest first'}
     ];
     $scope.submit = function(){
-      $http.post('/api/feeds/init', $scope.search)
-      .success(function(json){
-        console.log(json);
+      $http.post('/api/feeds/add', $scope.search)
+      .success(function(feed){
+        console.log(feed);
       });
     };
 });
