@@ -54,50 +54,52 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
     subRequired = false;
     feedWhere = {id:req.params.feed}; 
   }
+
+  db.User.find(req.user.id)
+  .success(function(user){
   var where = {pubDate: {gt:now}};
-  if(req.params.visited==='visited') {
-    where = Sequelize.and(where, Sequelize.or({
-      "History.id":{gt:0}},
-      Sequelize.or({
-        "Skipped.id":{gt:0}
-      })))
-  }
-  else if(req.params.visited==='unvisited') {
-    where['"History.id"'] = null; 
-    where['"Skipped.id"'] = null; 
-  }
-  db.Item.findAll({
-    where:where, 
-    order:'"pubDate" DESC',
-    include:[{
-      attributes:['id','data','url'],
-      model:db.Feed, 
-      where: feedWhere,
+    if(req.params.visited==='visited') {
+      where = Sequelize.and(where, Sequelize.or(
+        {"History.id":{gt:0}},
+        {"Skipped.id":{gt:0}}
+        ));
+    }
+    else if(req.params.visited==='unvisited') {
+      where = Sequelize.and(where, {'Skipped.id':null}, Sequelize.or({
+        'History.id':null},{
+        'id':user.currentId
+      })); 
+    }
+    db.Item.findAll({
+      where:where, 
+      order:order,
       include:[{
-        model:db.User, 
-        attributes:['data'],
-        as:'Subscribed',
+        attributes:['id','data','url'],
+        model:db.Feed, 
+        where: feedWhere,
+        include:[{
+          model:db.User, 
+          attributes:['data'],
+          as:'Subscribed',
+          where:{id:req.user.id},
+          required: subRequired
+        }]
+      },{
+        model:db.User,
+        attributes:['id'],
+        as:'History',
         where:{id:req.user.id},
-        required: subRequired
+        required: false
+      },{
+        model:db.User,
+        attributes:['id'],
+        as:'Skipped',
+        where:{id:req.user.id},
+        required: false
       }]
-    },{
-      model:db.User,
-      attributes:['id'],
-      as:'History',
-      where:{id:req.user.id},
-      required: false
-    },{
-      model:db.User,
-      attributes:['id'],
-      as:'Skipped',
-      where:{id:req.user.id},
-      required: false
-    }]
-  })
-  .success(function(items){
-    //current item
-    db.User.find(req.user.id)
-    .success(function(user){
+    })
+    .success(function(items){
+      //current item
       db.Item.find(user.currentId)
       .success(function(current) {
         if(current) {
@@ -110,10 +112,7 @@ router.get('/api/subscribed/:feed/:playlist/:period/:visited/:direction', functi
       .error(function(){
         res.json({items:items,current:{}});
       });
-    })
-    .error(function(){
-      res.json({items:items,current:{}});
+      //res.json(items);
     });
-    //res.json(items);
   });
 });
