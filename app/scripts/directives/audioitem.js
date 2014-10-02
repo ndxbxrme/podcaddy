@@ -7,7 +7,7 @@
  * # audioitem
  */
 angular.module('podcaddyApp')
-    .directive('audioitem', function (PagePlayer, $http, LazyLoad) {
+    .directive('audioitem', function (PagePlayer, $http, $timeout, LazyLoad) {
         return {
             templateUrl: '/views/audioitem.html',
             restrict: 'E',
@@ -50,6 +50,16 @@ angular.module('podcaddyApp')
                   .success(function(){
                     PagePlayer.fetchData();
                   });
+                };
+                scope.toggleSub = function(feedId){
+                    $http.post('/api/subs/toggle', {
+                        feedid: feedId
+                    }).success(function(data){
+                        scope.toggling = false;
+                        $timeout(function(data){
+                          PagePlayer.fetchData();
+                        },100);
+                    });
                 };
             }
         };

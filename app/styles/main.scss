@@ -87,6 +87,10 @@ a {
         position: relative;
         margin-top: 20px;
         display: block;
+      
+        a {
+          cursor: pointer; 
+        }
         
         .timing {
             position: absolute;
