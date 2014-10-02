@@ -32,9 +32,12 @@ angular.module('podcaddyApp')
         {value:'asc', html:'Oldest first'}
     ];
     $scope.submit = function(){
-      $http.post('/api/feeds/add', $scope.search)
+      if($scope.search.url === 'http://addall'){
+        return addAll(); 
+      }
+      $http.post('/api/feeds/add', $scope.search.url)
       .success(function(feed){
-        $scope.search = '';
+        $scope.search.url = '';
         $timeout(function(){
           if(!feed.error) {
             feed.message = 'You have added a podcast!';
@@ -50,5 +53,11 @@ angular.module('podcaddyApp')
         });
       });
     };
+    function addAll(){
+      $http.post('/api/subs/all')
+      .success(function(data){
+        console.log(data);
+      });
+    }
 });
 
