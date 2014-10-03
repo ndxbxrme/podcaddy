@@ -5,7 +5,8 @@ var bodyParser = require('body-parser');
 var compress = require('compression');
 var methodOverride = require('method-override');
 var path = require('path');
-var expressJwt = require('express-jwt');
+var expressJwt = require('express-jwt'),
+    gzippo = require('gzippo');
 
 
 module.exports = function(app, config){
@@ -23,6 +24,15 @@ module.exports = function(app, config){
   controllers.forEach(function(controller){
     require(controller)(app);
   });
+
+app.use('/scripts', gzippo.staticGzip(__dirname + '/../../dist/scripts'));
+app.use('/images', gzippo.staticGzip(__dirname + '/../../dist/images'));
+app.use('/styles', gzippo.staticGzip(__dirname + '/../../dist/styles'));
+app.use('/views', gzippo.staticGzip(__dirname + '/../../dist/views'));
+app.use('/swf', gzippo.staticGzip(__dirname + '/../../dist/swf'));
+app.all('/*', function(req, res) {
+  res.sendFile('index.html', {root: __dirname + '/../../dist'});
+});  
   
   app.use(function (req, res, next) {
     var err = new Error('Not Found');

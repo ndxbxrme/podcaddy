@@ -5,7 +5,8 @@ var fs = require('fs'),
   db = {};
 
 var sequelize = new Sequelize(process.env.DB_URL, {
-  debug: false
+  debug: false,
+  logging: false
 });
 
 fs.readdirSync(__dirname).filter(function (file) {

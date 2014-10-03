@@ -61,5 +61,5 @@ angular
 soundManager.setup({
   flashVersion: 9,
   preferFlash: true,
-  url: 'bower_components/soundmanager/swf/'
+  url: 'swf/'
 });
