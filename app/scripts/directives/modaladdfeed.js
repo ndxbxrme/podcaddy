@@ -7,7 +7,7 @@
  * # modalAddFeed
  */
 angular.module('podcaddyApp')
-  .directive('modalAddFeed', function () {
+  .directive('modalAddFeed', function ($http) {
     return {
       templateUrl: '/views/modaladdfeed.html',
       restrict: 'E',

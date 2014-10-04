@@ -20,3 +20,17 @@ clone `server/config/local.env.js.sample`, remove `.sample` from the file name, 
 ```
 grunt serve
 ```
+
+
+###deploy to heroku
+```
+heroku login
+heroku create
+heroku addons:add heroku-postgresql:dev
+heroku pg:promote HEROKU_POSTGRESQL_PINK //find colour by looking at heroku config
+heroku config:set JWT_SECRET=secret
+grunt build
+git push heroku master
+heroku ps:scale web=1
+heroku open
+```
