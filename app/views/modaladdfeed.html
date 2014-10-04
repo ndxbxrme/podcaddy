@@ -9,7 +9,7 @@
       <div class="pure-u-2-3">
         <h4>{{feed.data.title}}</h4>
         <p>{{feed.data.description}}</p>
-        <button class="pure-button" ng-click="toggle()">{{feed.subscribed.length>0 ? 'Unsubscribe':'Subscribe'}}</button>
+        <button class="pure-button" ng-click="toggle()">{{feed.subscribed ? 'Unsubscribe':'Subscribe'}}</button>
       </div>
     </div>
     <div class="pure-g" ng-if="feed.error">

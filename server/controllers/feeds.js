@@ -36,7 +36,10 @@ router.post('/api/feeds/add', function(req, res) {
     .then(function(feed){
       user.hasSubscribed(feed)
       .success(function(result){
-        res.json(_.extend(feed, {subscribed:result}));
+        console.log('i\'m doin it');
+        console.log(result);
+        feed.data.subscribed = result;
+        res.json(feed);
       });      
     }, function(err){
       res.json({error:true});
