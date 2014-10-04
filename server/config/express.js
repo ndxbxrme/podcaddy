@@ -10,7 +10,7 @@ var expressJwt = require('express-jwt'),
 
 
 module.exports = function(app, config){
-  app.set('port', /*process.env.PORT ||*/ 3000);
+  app.set('port', process.env.PORT || 3000);
   app.use('/api', expressJwt({secret:process.env.JWT_SECRET}));
   app.use(logger('dev'));
   app.use(bodyParser.json());
