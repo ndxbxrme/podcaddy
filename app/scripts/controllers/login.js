@@ -2,7 +2,7 @@
 /*jshint bitwise:false*/
 angular.module('podcaddyApp')
 .controller('LoginCtrl', function($scope, $http, $window, $rootScope, $location) {
-    $rootScope.hasNav = false;
+    $rootScope.cssPage = 'loginPage';
     $scope.message = '';  
   
     var doHash = function(str){

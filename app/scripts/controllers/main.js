@@ -9,6 +9,6 @@
  */
 angular.module('podcaddyApp')
 .controller('MainCtrl', function ($rootScope, Timer) {
-  $rootScope.hasNav = true;
+  $rootScope.cssPage = 'mainPage';
   Timer.start();
 });

@@ -20,11 +20,11 @@
     <!-- endbuild -->
     
   </head>
-  <body ng-app="podcaddyApp" ng-controller="NavCtrl">
+  <body ng-app="podcaddyApp" ng-controller="NavCtrl" class="{{cssPage}}">
 
-    <div class="navigation" ng-show="hasNav">
+    <h1 class="logo">podcaddy</h1>
+    <div class="navigation">
        <div class="inner">
-            <h1>podcaddy</h1>
             <drop-down data="pageList" ng-model="filters.page"></drop-down>
             <drop-down data="periodList" ng-model="filters.period"></drop-down>
             <drop-down data="visitedList" ng-model="filters.visited"></drop-down>
