@@ -137,7 +137,7 @@ angular.module('podcaddyApp')
           }
           var thisSound = sm.createSound({
             id:'item_' + item.id,
-            url:decodeURI(item.data.enclosure[0].$.url),
+            url:decodeURI(item.data.url),
             onplay: self.events.play,
             onstop: self.events.stop,
             onpause: self.events.pause,
