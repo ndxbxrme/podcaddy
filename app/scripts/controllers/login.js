@@ -1,7 +1,8 @@
 'use strict';
 /*jshint bitwise:false*/
 angular.module('podcaddyApp')
-.controller('LoginCtrl', function($scope, $http, $window, $rootScope, $location) {
+.controller('LoginCtrl', function($scope, $http, $window, $rootScope, $location, Timer) {
+    Timer.stop();
     $rootScope.cssPage = 'loginPage';
     $scope.message = '';  
   

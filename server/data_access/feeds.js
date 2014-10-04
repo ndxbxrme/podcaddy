@@ -4,7 +4,8 @@ var db = require('../models'),
     q = require('q'),
     request = require('request'),
     xml2js = require('xml2js'),
-    _ = require('underscore');
+    _ = require('underscore'),
+    S = require('string');
 
 var extractItemImage = function(item){
   var image;
@@ -48,9 +49,18 @@ var addUpdateFeed = function(feed, url){
   _.each(feed['itunes:category'], function(item){
       categories.push(item.$.text); 
   });
+  var d = S((feed.description&&feed.description.length>0)?feed.description[0]:'')
+  .replace(/<!\[CDATA|]]>/g,'')
+  .stripTags()
+  .decodeHTMLEntities();
+  var t = S((feed.title&&feed.title.length>0)?feed.title[0]:'')
+  .replace(/<!\[CDATA|]]>/g,'')
+  .stripTags()
+  .decodeHTMLEntities().truncate(255);
   var feeddata = {
-      title: feed.title[0],
-      description: feed.description[0],
+      title: t.s,
+      shortDesc: d.truncate(255).s,
+      description: d.s,
       image: imgsrc,
       pubDate: feed.item[0].pubDate,
       categories: categories,
@@ -78,11 +88,29 @@ function checkValidFeed(feed)
 var updateFeedItems = function(feed, dbfeed, feedimage) {
   _.each(feed.item, function(item){
     if(checkValidItem(item)){
-      item.image = extractItemImage(item) || feedimage;
+      var d = S((item.description&&item.description.length>0)?item.description[0]:'')
+      .replace(/<!\[CDATA|]]>/g,'')
+      .stripTags()
+      .decodeHTMLEntities();
+      var t = S((item.title&&item.title.length>0)?item.title[0]:'')
+      .replace(/<!\[CDATA|]]>/g,'')
+      .stripTags()
+      .decodeHTMLEntities().truncate(255);
+      var s = S((item['itunes:subtitle']&&item['itunes:subtitle'].length>0)?item['itunes:subtitle'][0]:'')
+      .replace(/<!\[CDATA|]]>/g,'')
+      .stripTags()
+      .decodeHTMLEntities().truncate(255);
+      var itemdata = {
+        title: t.s,
+        shortDesc: d.truncate(255).s,
+        description: d.s,
+        subtitle: s.s,
+        image: extractItemImage(item) || feedimage
+      };
       if(item.description && item.description.length>0) {
         item.description[0] = item.description[0].replace(/<!\[CDATA|]]>/g,''); 
       }
-      db.Item.findOrCreate({url: item.enclosure[0].$.url, FeedId: dbfeed.id}, {pubDate: item.pubDate, data:item})
+      db.Item.findOrCreate({url: item.enclosure[0].$.url, FeedId: dbfeed.id}, {pubDate: item.pubDate, data:itemdata})
       .success(function(dbitem, created){
       });
     }

@@ -32,15 +32,6 @@ angular.module('podcaddyApp')
                   }
                   loaded = LazyLoad.checkScroll(w, $e, scope.item.data.image, scope.item.feedId, loaded);
                 }, true);
-                var d = S(scope.item.data.description[0])
-                .stripTags()
-                .decodeHTMLEntities().s;
-                if(d.length>255) {
-                    d = d.substring(0,255);
-                    d = d.replace(/\s+^/, '');
-                    d = d + '...';
-                }
-                scope.item.data.description[0] = d;
               
                 scope.togglePlay = function(item) {
                   PagePlayer.togglePlay(item);

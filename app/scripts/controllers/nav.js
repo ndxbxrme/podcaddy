@@ -35,7 +35,7 @@ angular.module('podcaddyApp')
       if($scope.search.url === 'http://addall'){
         return addAll(); 
       }
-      $http.post('/api/feeds/add', $scope.search.url)
+      $http.post('/api/feeds/add', {url:$scope.search.url})
       .success(function(feed){
         $scope.search.url = '';
         $timeout(function(){

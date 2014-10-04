@@ -8,7 +8,8 @@
  * Controller of the podcaddyApp
  */
 angular.module('podcaddyApp')
-  .controller('MyfeedsCtrl', function ($scope, $http) {
+  .controller('MyfeedsCtrl', function ($scope, $http, Timer) {
+    Timer.stop();
     $http.post('/api/feeds/subs')
     .success(function(feeds){
       $scope.feeds = feeds;

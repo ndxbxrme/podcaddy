@@ -175,14 +175,12 @@ angular.module('podcaddyApp')
               }
             }
             if(needsUpdate) {
-              $timeout(function(){
-                $rootScope.lazyLoad.reinit(data.items);
-                if(self.lastSound) {
-                  $timeout(function(){
-                    $('#' + self.lastSound.id).addClass('playing'); 
-                  });
-                }
-              });
+              $rootScope.lazyLoad.reinit(data.items);
+              if(self.lastSound) {
+                $timeout(function(){
+                  $('#' + self.lastSound.id).addClass('playing'); 
+                });
+              }
             }
           }
         });

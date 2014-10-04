@@ -4,7 +4,7 @@ var fs = require('fs'),
   lodash = require('lodash'),
   db = {};
 
-var sequelize = new Sequelize(process.env.DB_URL, {
+var sequelize = new Sequelize(process.env.HEROKU_POSTGRESQL_PINK_URL, {
   debug: false,
   logging: false
 });

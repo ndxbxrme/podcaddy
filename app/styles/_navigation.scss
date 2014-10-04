@@ -3,7 +3,7 @@
   margin: 0px; padding: 0px;
   color: rgb(0,0,0);
   opacity: 0;
-  top: 0px;
+  top: 3px;
   left: 50%;
   transform: translateX(-50%);
   text-shadow: rgba(255, 255, 255, 0.498039) 0px 0px 5px 0px inset;
@@ -47,10 +47,26 @@
     left: 10px;
     transform: translateX(0);
     font-size: 2.2em;
-    opacity: 0.6;
+    opacity: 0.4;
   }
   .navigation {
     opacity: 1;
     top: 0px;
+  }
+}
+
+.allfeedsPage {
+  .logo {
+    left: 10px;
+    transform: translateX(0);
+    font-size: 2.2em;
+    opacity: 0.4;
+  }
+  .navigation {
+    opacity: 1;
+    top: 0px;
+  }
+  .filters {
+    display: none; 
   }
 }

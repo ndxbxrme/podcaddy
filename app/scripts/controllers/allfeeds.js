@@ -9,7 +9,7 @@
  */
 angular.module('podcaddyApp')
   .controller('AllfeedsCtrl', function ($scope, $rootScope, $http, $location, LazyLoad, Timer) {
-    $rootScope.cssClass = 'allfeedsPage';
+    $rootScope.cssPage = 'allfeedsPage';
     Timer.stop();
     $http.post('/api/feeds/all')
     .success(function(feeds){

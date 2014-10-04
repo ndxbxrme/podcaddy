@@ -1,5 +1,4 @@
-/* General Demo Style */
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
 
 *,
 *:after,
@@ -26,20 +25,20 @@
 	*zoom: 1;
 }
 
-body {
+/*body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
 	font-size: 15px;
 	color: #333;
 	overflow: scroll;
 	overflow-x: hidden;
-}
+}*/
 
 .cd-dropdown,
 .cd-select {
 	position: relative;
-	width: 160px;
+	width: 120px;
     height: 40px;
-	margin: 10px 10px 0px 0px;
+	margin: 10px 0px 0px 0px;
 	display: inline-block;
     text-align: left;
 }
@@ -50,10 +49,10 @@ body {
 	line-height: 40px;
 	color: #999;
 	font-weight: 500;
-	font-size: 14px;
+	font-size: 12px;
 	background: #fff;
 	display: block;
-	padding: 0 50px 0 20px;
+	padding: 0 20px 0 10px;
 	position: relative;
 	cursor: pointer;
 }
@@ -63,12 +62,12 @@ body {
 	position: absolute;
 	right: 0px;
 	top: 15%;
-	width: 50px;
+	width: 30px;
 	text-align: center;
 	font-size: 10px;
 	padding: 10px;
 	height: 70%;
-	line-height: 12px;
+	line-height: 10px;
 	border-left: 1px solid #ddd;
 }
 
@@ -93,12 +92,12 @@ body {
 	width: 100%;
 	background: #fff;
 	line-height: 40px;
-	padding: 0 30px 0 50px;
+	padding: 0 10px 0 20px;
 	display: block;
 	color: #bcbcbc;
 	cursor: pointer;
 	font-weight: 700;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .cd-dropdown > span,

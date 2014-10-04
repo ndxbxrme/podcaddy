@@ -30,21 +30,18 @@ router.post('/api/feeds/subs', function(req, res){
 });
 
 router.post('/api/feeds/add', function(req, res) {
-  da.checkFeed(req.body.url)
-  .then(function(feed){
-    db.Feed.find({where:{id:feed.id},include:[{model:db.User, as:'Subscribed', attributes:['id'], where:{id:req.user.id},required:false}]}).success(function(subfeed){
-      if(subfeed){
-        res.json(subfeed);
-      } else {
-        if(feed) {
-          res.json(feed);
-        } else {
-          res.json({error:true}); 
-        }
-      }
+  db.User.find(req.user.id)
+  .success(function(user) {
+    da.checkFeed(req.body.url)
+    .then(function(feed){
+      user.hasSubscribed(feed)
+      .success(function(result){
+        res.json(_.extend(feed, {subscribed:result}));
+      });      
+    }, function(err){
+      res.json({error:true});
     });
-  }, function(err){
-    res.json({error:true});
+    
   });
 });
 

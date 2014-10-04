@@ -26,9 +26,11 @@
     <div class="navigation">
        <div class="inner">
             <drop-down data="pageList" ng-model="filters.page"></drop-down>
-            <drop-down data="periodList" ng-model="filters.period"></drop-down>
-            <drop-down data="visitedList" ng-model="filters.visited"></drop-down>
-            <drop-down data="dirList" ng-model="filters.direction"></drop-down>
+            <span class="filters">
+              <drop-down data="periodList" ng-model="filters.period"></drop-down>
+              <drop-down data="visitedList" ng-model="filters.visited"></drop-down>
+              <drop-down data="dirList" ng-model="filters.direction"></drop-down>
+            </span>
             <ng-form name="searchForm" class="pure-form" novalidate>
                 <input type="text" ng-model="search.url" ng-change="lazyLoad.doScroll()" placeholder="Search or RSS Feed" />
                 <input type="submit" class="pure-button" ng-click="submit()" value="Submit" ng-show="search.url && search.url.indexOf('http')!==-1" />

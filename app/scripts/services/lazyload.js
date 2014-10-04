@@ -25,8 +25,10 @@ angular.module('podcaddyApp')
         });     
       };
       this.reinit = function(items){
-        self.items = items;
-        self.doScroll();
+        $timeout(function(){
+          self.items = items;
+          self.doScroll();
+        });
       };
       self.doScroll();
       $w.scroll(self.doScroll);
