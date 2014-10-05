@@ -20,7 +20,7 @@ angular.module('podcaddyApp')
     $scope.initFeeds = function() {
       $scope.fetchingFeeds = true;
       $http.post('api/feeds/init')
-      .success(function(data){
+      .success(function(){
         //$location.path('/allfeeds');
       });
     };

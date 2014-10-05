@@ -59,6 +59,8 @@ angular.module('podcaddyApp')
         }
       }
       if($route && $route.current) {
+        filters.feed = 'all';
+        filters.playlist = 'none';
         if($route.current.params.arg1) {
           parseArg($route.current.params.arg1); 
         }
@@ -83,7 +85,14 @@ angular.module('podcaddyApp')
       }
     };
     
-    var redirect = function(){
+    var redirect = function(page){
+      if(page==='/') {
+        filters.feed = 'all';
+        filters.playlist = 'none';
+        filters.period = 'week';
+        filters.visited = 'unvisited';
+        filters.direction = 'desc';
+      }
       var url = (filters.feed==='all'?'':'/feed-'+filters.feed) +
           (filters.playlist==='none'?'':'/playlist-'+filters.playlist) + 
           (filters.period==='week'?'':'/'+filters.period) +
@@ -97,10 +106,20 @@ angular.module('podcaddyApp')
       }
       $location.path(url);
     };
+    var goHome = function(){
+      filters = {
+        period : 'week',
+        visited : 'unvisited',
+        direction : 'desc',
+        feed : 'all',
+        playlist : 'none'
+      };
+    };
   
     return {
       parseArgs: parseArgs,
       filters: filters,
-      redirect: redirect
+      redirect: redirect,
+      goHome: goHome
     };
   });

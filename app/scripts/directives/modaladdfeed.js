@@ -14,15 +14,15 @@ angular.module('podcaddyApp')
       scope: {
         feed: '=' 
       },
-      link:function(scope, element, attrs) {
+      link:function(scope, element) {
         scope.close = function(){
           element.find('.md-modal').removeClass('md-show'); 
-        }
+        };
         scope.toggle = function(){
             scope.toggling = true;
             $http.post('/api/subs/toggle', {
                 feedid: scope.feed.id
-            }).success(function(data){
+            }).success(function(){
                 scope.toggling = false;
                 scope.close();
             });

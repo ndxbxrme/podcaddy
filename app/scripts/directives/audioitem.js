@@ -45,9 +45,9 @@ angular.module('podcaddyApp')
                 scope.toggleSub = function(feedId){
                     $http.post('/api/subs/toggle', {
                         feedid: feedId
-                    }).success(function(data){
+                    }).success(function(){
                         scope.toggling = false;
-                        $timeout(function(data){
+                        $timeout(function(){
                           PagePlayer.fetchData();
                         },100);
                     });

@@ -57,10 +57,12 @@ angular.module('podcaddyApp')
                   opt.style.top = '0px';
                 }); 
                 scope.change = function(item) {
-                  $timeout(function(){
-                    ngModel.$setViewValue(item.value);
-                    NavService.redirect();
-                  });
+
+                    $timeout(function(){
+                      ngModel.$setViewValue(item.value);
+                      NavService.redirect(item.value);
+                    });
+                  
                   close();
                 };
                 function open(){
@@ -75,6 +77,7 @@ angular.module('podcaddyApp')
                   angular.forEach(opts, function(opt) {
                     opt.style.top = '0px';
                   });
+                  listopts.style.height = 'auto';
                   opened = false;
                 }
                 scope.toggleOpen = function() {
