@@ -28,8 +28,62 @@
   transition-delay: 0.5s;
   opacity: 0;
   
-  .nowPlaying {
+  .now-playing {
     background: rgba(0,0,0,0.2); 
+    color: #fff;
+    font-size: 0.8em;
+    line-height: 1em;
+    padding-top: 1px;
+    overflow: hidden;
+    height: 0px;
+    transition: 0.3s ease-in-out all;
+    text-shadow: 1px 1px 0px #666;
+    
+    .title, .controls, .timing {
+      margin-right: 20px; 
+    }
+    
+    .controls {
+      span {
+        cursor: pointer; 
+      }
+      span:hover {
+        color: $main-color;
+      }
+      .pause {
+        display: none;
+      }
+      .play {
+        
+      }
+      .skip {
+        
+      }
+    }
+  }
+  
+  .now-playing.playing {
+    height: 1.6em;
+    .controls {
+      .pause {
+        display: inline; 
+      }
+      .play {
+        display: none; 
+      }
+    }
+  }
+  
+  .now-playing.paused {
+    height: 1.6em;
+    .controls {
+      .pause {
+        display: none;
+      }
+      .play {
+        display: inline;
+      }
+    }
   }
 }
 

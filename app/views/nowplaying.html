@@ -1,1 +1,9 @@
-<div class="nowPlaying">&nbsp;</div>
+<div class="now-playing">
+  <span class="title">{{currentitem.data.title}}</span>
+  <span class="controls">
+    <span class="icon-svg46 pause" ng-click="togglePlay(currentitem)"></span>
+    <span class="icon-svg45 play" ng-click="togglePlay(currentitem)"></span>
+    <span class="icon-svg50 skip"></span>
+  </span>
+  <span class="timing"><span class="sm2_position"></span>/<span class="sm2_total"></span></span>
+</div>

@@ -7,12 +7,15 @@
  * # nowPlaying
  */
 angular.module('podcaddyApp')
-  .directive('nowPlaying', function () {
+  .directive('nowPlaying', function (PagePlayer) {
     return {
       templateUrl: '/views/nowplaying.html',
       restrict: 'E',
       replace: true,
-      link: function() {
+      link: function(scope) {
+        scope.togglePlay = function(item){
+          PagePlayer.togglePlay(item);
+        };
       }
     };
   });

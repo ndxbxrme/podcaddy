@@ -74,20 +74,20 @@ angular.module('podcaddyApp')
       this.events = {
         play: function() {
           $('.playing').removeClass('playing');
-          $('#' + self.lastSound.id).addClass('playing');
+          $('#' + self.lastSound.id + ', .now-playing').addClass('playing');
         },
         stop: function() {
-          $('#' + self.lastSound.id).removeClass('playing');
+          $('.playing').removeClass('playing');
         },
         pause: function() {
-          $('#' + self.lastSound.id).removeClass('playing').addClass('paused');
+          $('.playing').removeClass('playing').addClass('paused');
         },
         resume: function() {
           $('.playing').removeClass('playing');
-          $('#' + self.lastSound.id).removeClass('paused').addClass('playing');
+          $('.paused').removeClass('paused').addClass('playing');
         },
         finish: function() {
-          $('#' + self.lastSound.id).removeClass('playing'); 
+          $('.playing').removeClass('playing'); 
           $('#' + self.lastSound.id).next().find('.podimg').click();
         },
         whileloading: function() {
@@ -149,6 +149,9 @@ angular.module('podcaddyApp')
           });
           self.lastSound = thisSound;
           thisSound.play();
+          $timeout(function(){
+            $rootScope.currentitem = item;
+          });
         }
       };
       $rootScope.lazyLoad = new LazyLoad([]);
