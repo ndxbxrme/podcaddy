@@ -36,8 +36,6 @@ router.post('/api/feeds/add', function(req, res) {
     .then(function(feed){
       user.hasSubscribed(feed)
       .success(function(result){
-        console.log('i\'m doin it');
-        console.log(result);
         feed.data.subscribed = result;
         res.json(feed);
       });      
@@ -59,6 +57,7 @@ function refreshFeeds() {
   now.setHours(now.getHours()-1);
   db.Feed.findAll({where:{updatedAt:{lt:now}}})
   .success(function(feeds) {
+    console.log('refreshing ' + ((feeds)?feeds.length:'0') + 'feeds at ' + (new Date()));
     var count = 0;
     _.each(feeds, function(feed){
       if(count++ < 20) {
