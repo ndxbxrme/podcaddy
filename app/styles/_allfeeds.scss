@@ -10,7 +10,6 @@
     position: relative;
     margin: 5px !important;
     border: 1px solid #999;
-    opacity: 0.7;
     transition: 0.1s linear all;
     cursor: pointer;
     display: inline-block;
@@ -24,7 +23,6 @@
 .allfeeds .item::before {
     position: absolute;
     width: 100%;
-    height: 50%;
     top: 0px;
     left: 0px;
     color: #fff;
@@ -34,6 +32,7 @@
 
 .allfeeds .item::after {
     content: attr(data-title);
+    height: 30%;
     top:0;
     background: rgba(251,103,38,0.8);
     font-weight: 900;
@@ -44,7 +43,9 @@
 
 .allfeeds .item::before {
     content: attr(data-description);
-    top: 50%;
+    height: 70%;
+    top: 30%;
+    text-align: left;
     background: rgba(0,0,0,0.9);
     font-size: 12px;
     line-height: 16px;
@@ -54,7 +55,8 @@
 }
 
 .allfeeds .item.subscribed {
-    opacity: 1.0;   
+    border: 1px solid #fff;
+    box-shadow: inset 0px 0px 9px 6px rgba(255,255,255,0.6);
 }
 
 .allfeeds .item h2 {
@@ -88,4 +90,15 @@
     text-shadow: 1px 1px 1px #000;
     transition: 0.2s linear all;
     z-index: 100;
+}
+
+.allfeeds .sub-label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    color: #fff;
+    z-index: 100;
+    font-size: 2em;
+    opacity: 0.8;
+    text-shadow: 1px 1px 1px #000;
 }
