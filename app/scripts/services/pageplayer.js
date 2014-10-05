@@ -87,8 +87,8 @@ angular.module('podcaddyApp')
           $('.paused').removeClass('paused').addClass('playing');
         },
         finish: function() {
-          $('.playing').removeClass('playing'); 
-          $('#' + self.lastSound.id).next().find('.podimg').click();
+          $('.playing').removeClass('playing');
+          self.skip(self.lastSound.id);
         },
         whileloading: function() {
           $('.playing .loading, .paused .loading').css('width', (((this.bytesLoaded/this.bytesTotal)*100)+'%'));
@@ -118,6 +118,11 @@ angular.module('podcaddyApp')
         } else {
           return (oSound.durationEstimate||0);
         }
+      };
+      this.skip = function(itemId){
+        $timeout(function(){
+          $('#' + itemId).next().find('.podimg').click();
+        });
       };
       this.togglePlay = function(item){
         if(self.lastSound && self.lastSound.id==='item_' + item.id) {
@@ -149,9 +154,8 @@ angular.module('podcaddyApp')
           });
           self.lastSound = thisSound;
           thisSound.play();
-          $timeout(function(){
-            $rootScope.currentitem = item;
-          });
+          $rootScope.currentitem = item;
+         
         }
       };
       $rootScope.lazyLoad = new LazyLoad([]);
@@ -223,6 +227,10 @@ angular.module('podcaddyApp')
       },
       togglePlay: function(item){
         pagePlayer.togglePlay(item);
+      },
+      skip: function(item){
+        console.log(item.id);
+        pagePlayer.skip('item_' + item.id); 
       }
     };
   });

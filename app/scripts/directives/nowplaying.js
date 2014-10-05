@@ -16,6 +16,9 @@ angular.module('podcaddyApp')
         scope.togglePlay = function(item){
           PagePlayer.togglePlay(item);
         };
+        scope.skip = function(item){
+          PagePlayer.skip(item);
+        };
       }
     };
   });
