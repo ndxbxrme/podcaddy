@@ -31,6 +31,8 @@ heroku pg:promote HEROKU_POSTGRESQL_PINK //find colour by looking at heroku conf
 heroku config:set JWT_SECRET=secret
 heroku config:set BETA_KEY=mybetakey
 grunt build
+git add --all
+git commit -m "heroku"
 git push heroku master
 heroku ps:scale web=1
 heroku open
