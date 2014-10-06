@@ -85,8 +85,9 @@ angular.module('podcaddyApp')
       }
     };
     
-    var redirect = function(page){
-      if(page==='/') {
+    var redirect = function(changedValue){
+      if(changedValue==='/') {
+        //reset filters if we're redirecting to home
         filters.feed = 'all';
         filters.playlist = 'none';
         filters.period = 'week';

@@ -7,7 +7,7 @@
  * # modalAddFeed
  */
 angular.module('podcaddyApp')
-  .directive('modalAddFeed', function ($http) {
+  .directive('modalAddFeed', function ($http, $rootScope) {
     return {
       templateUrl: '/views/modaladdfeed.html',
       restrict: 'E',
@@ -25,6 +25,7 @@ angular.module('podcaddyApp')
             }).success(function(){
                 scope.toggling = false;
                 scope.close();
+                $rootScope.pagePlayer.fetchData();
             });
         };
       }
