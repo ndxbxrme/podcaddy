@@ -6,7 +6,7 @@
   max-width: 630px;
   min-width: 320px;
   height: auto;
-  z-index: 2000;
+  z-index: 3000;
   visibility: hidden;
   backface-visibility: hidden;
   transform: translateX(-50%) translateY(-50%);
@@ -25,7 +25,7 @@
   visibility: hidden;
   top: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 2500;
   opacity: 0;
   background: rgba(20,0,0,0.4);
   transition: all 0.3s;

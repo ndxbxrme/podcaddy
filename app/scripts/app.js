@@ -49,10 +49,26 @@ angular
   
       $locationProvider.html5Mode(true);
   })
-  .run(function($rootScope, PagePlayer, $http) {
+  .run(function($rootScope, PagePlayer, NavService, $route, $http) {
     $rootScope.items = [];
     $rootScope.$on('$routeChangeSuccess', function(){
-      PagePlayer.changePage();
+        if($route && $route.current) {
+            NavService.filters.feed = 'all';
+            NavService.filters.playlist = 'none';
+            for(var f=1; f<5; f++) {
+                NavService.parseArg($route.current.params['arg' + f]);   
+            }
+            if($route.current.$$route.controller==='MainCtrl') {
+              NavService.filters.page = '/';
+              PagePlayer.changePage();
+            }
+            else if($route.current.$$route.controller==='AllfeedsCtrl') {
+              NavService.filters.page = '/allfeeds';          
+            }
+            else if($route.current.$$route.controller==='MyfeedsCtrl') {
+              NavService.filters.page = '/myfeeds';          
+            }
+        }
     });
     $http.post('/api'); //kickstart login
   })

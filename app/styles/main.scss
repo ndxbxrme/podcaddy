@@ -1,5 +1,4 @@
 
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
 @import
     "settings",
     "ultraicons",
@@ -11,9 +10,6 @@
 
 
 body {
-    font-family: 'Lato';
-    font-size: 0.9em;
-    text-align: center;  
     background: url(http://subtlepatterns.com/patterns/seamless_paper_texture.png);
     -webkit-font-smoothing: antialiased;
     -webkit-backface-visibility: hidden;
@@ -90,44 +86,6 @@ a {
     width: 100%;
 }
 
-.podimg {
-    width: 130px; 
-    height: 130px; 
-    border-radius: 10px; 
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.5); 
-    margin-top: 6px;
-    background-position: center;
-    border: 2px solid #fff;
-}
-
-
-html {
-    position: relative;   
-}
-
-
-
-#control-template {
-    display:none;
-}
-
-
-.nav {
-    position: fixed;
-    top: 0px; left: 0px;
-    width: 100%;
-    z-index: 1000;
-}
-
-.header {
-    background-image: url(http://33.media.tumblr.com/ab93cebbefa4b5b72ccb5c9c63bddf28/tumblr_naj39vH5ad1st5lhmo1_1280.jpg);
-    background-position: center;
-    background-size: cover;
-    height: 200px;
-    width: 100%;
-    display: none;
-
-}
 
 .hidden {
     visibility: hidden; 
@@ -138,7 +96,9 @@ html {
 }
 
 .footer {
-  margin-top: 60px; 
+  margin: 60px; 
+  text-align: center;
+  opacity: 0.6;
 }
 
 button {

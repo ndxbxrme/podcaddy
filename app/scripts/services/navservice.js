@@ -8,119 +8,93 @@
  * Factory in the podcaddyApp.
  */
 angular.module('podcaddyApp')
-  .factory('NavService', function ($route,$location) {
+.factory('NavService', function($route, $rootScope, $location){
     var filters = {
-      period : 'week',
-      visited : 'unvisited',
-      direction : 'desc',
-      feed : 'all',
-      playlist : 'none'
-    };
-    var parseArgs = function() {
-      function parseArg(arg){
-        if(arg.indexOf('feed-')===0) {
-          filters.feed = arg.replace(/feed-/,''); 
-        }
-        if(arg.indexOf('playlist-')===0) {
-          filters.playlist = arg.replace(/playlist-/,''); 
-        }
-        console.log(arg);
-        switch(arg) {
-          case 'day':
-            filters.period = 'day';
-            break;
-          case 'week':
-            filters.period = 'week';
-            break;
-          case 'month':
-            filters.period = 'month';
-            break;
-          case 'year':
-            filters.period = 'year';
-            break;
-          case 'alltime':
-            filters.period = 'alltime';
-            break;
-          case 'visited':
-            filters.visited = 'visited';
-            break;
-          case 'unvisited':
-            filters.visited = 'unvisited';
-            break;
-          case 'all':
-            filters.visited = 'all';
-            break;
-          case 'desc':
-            filters.direction = 'desc';
-            break;
-          case 'asc':
-            filters.direction = 'asc';
-            break;
-        }
-      }
-      if($route && $route.current) {
-        filters.feed = 'all';
-        filters.playlist = 'none';
-        if($route.current.params.arg1) {
-          parseArg($route.current.params.arg1); 
-        }
-        if($route.current.params.arg2) {
-          parseArg($route.current.params.arg2); 
-        }
-        if($route.current.params.arg3) {
-          parseArg($route.current.params.arg3); 
-        }
-        if($route.current.params.arg4) {
-          parseArg($route.current.params.arg4); 
-        }
-        if($route.current.$$route.controller==='MainCtrl') {
-          filters.page = '/';
-        }
-        else if($route.current.$$route.controller==='AllfeedsCtrl') {
-          filters.page = '/allfeeds';          
-        }
-        else if($route.current.$$route.controller==='MyfeedsCtrl') {
-          filters.page = '/myfeeds';          
-        }
-      }
-    };
-    
-    var redirect = function(changedValue){
-      if(changedValue==='/') {
-        //reset filters if we're redirecting to home
-        filters.feed = 'all';
-        filters.playlist = 'none';
-        filters.period = 'week';
-        filters.visited = 'unvisited';
-        filters.direction = 'desc';
-      }
-      var url = (filters.feed==='all'?'':'/feed-'+filters.feed) +
-          (filters.playlist==='none'?'':'/playlist-'+filters.playlist) + 
-          (filters.period==='week'?'':'/'+filters.period) +
-          (filters.visited==='unvisited'?'':'/'+filters.visited) + 
-          (filters.direction==='desc'?'':'/'+filters.direction);
-      if(filters.page==='/allfeeds') {
-        url = '/allfeeds'; 
-      }
-      else if(filters.page==='/myfeeds') {
-        url = '/myfeeds'; 
-      }
-      $location.path(url);
-    };
-    var goHome = function(){
-      filters = {
+        page: '/',
         period : 'week',
         visited : 'unvisited',
         direction : 'desc',
         feed : 'all',
         playlist : 'none'
-      };
     };
-  
+    function parseArg(arg){
+        if(!arg) {
+            return;
+        }
+        if(arg.indexOf('feed-')===0) {
+            filters.feed = arg.replace(/feed-/,''); 
+        }
+        if(arg.indexOf('playlist-')===0) {
+            filters.playlist = arg.replace(/playlist-/,''); 
+        }
+        switch(arg) {
+            case 'day':
+                filters.period = 'day';
+                break;
+            case 'week':
+                filters.period = 'week';
+                break;
+            case 'month':
+                filters.period = 'month';
+                break;
+            case 'year':
+                filters.period = 'year';
+                break;
+            case 'alltime':
+                filters.period = 'alltime';
+                break;
+            case 'visited':
+                filters.visited = 'visited';
+                break;
+            case 'unvisited':
+                filters.visited = 'unvisited';
+                break;
+            case 'all':
+                filters.visited = 'all';
+                break;
+            case 'desc':
+                filters.direction = 'desc';
+                break;
+            case 'asc':
+                filters.direction = 'asc';
+                break;
+        }
+    }
     return {
-      parseArgs: parseArgs,
-      filters: filters,
-      redirect: redirect,
-      goHome: goHome
+        pageList: [
+            {value:'/', text:'Home', action:'go()'},
+            {value:'/myfeeds', text:'My feeds', action:'go()'},
+            {value:'/allfeeds', text:'Directory', action:'go()'}
+        ],
+        periodList: [
+            {value:'day',text:'Day', action:'filter()'},
+            {value:'week',text:'Week', action:'filter()'},
+            {value:'month',text:'Month', action:'filter()'},
+            {value:'year',text:'Year', action:'filter()'},
+            {value:'alltime',text:'All Time', action:'filter()'}
+        ],
+        visitedList: [
+            {value:'unvisited',text:'New', action:'filter()'},
+            {value:'visited', text:'Old', action:'filter()'},
+            {value:'all', text:'All', action:'filter()'}
+        ],
+        dirList: [
+            {value:'desc',text:'Newest first', action:'filter()'},
+            {value:'asc', text:'Oldest first', action:'filter()'}
+        ],
+        filters: filters,
+        filter: function(){
+            var url = (filters.feed==='all'?'':'/feed-'+filters.feed) +
+                (filters.playlist==='none'?'':'/playlist-'+filters.playlist) + 
+                (filters.period==='week'?'':'/'+filters.period) +
+                (filters.visited==='unvisited'?'':'/'+filters.visited) + 
+                (filters.direction==='desc'?'':'/'+filters.direction);
+            $location.path(url);
+        },
+        go: function(){
+            $location.path(filters.page);
+        },
+        parseArg: parseArg
+        
     };
-  });
+});

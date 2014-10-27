@@ -18,28 +18,12 @@ angular.module('podcaddyApp')
     }, 30000);
     var pagePlayer;
     function PagePlayer() {
-      var sm = soundManager;
+      var sm = soundManager,
+          ua = navigator.userAgent,
+          isTouchDevice = (ua.match(/ipad|ipod|iphone/i));
       this.init = function(){
         sm.useFlashBlock = true;
       };
-      this.hasClass = function(o, cStr) {
-        return (typeof(o.className)!=='undefined'?new RegExp('(^|\\s)'+cStr+'(\\s|$)').test(o.className):false);
-      };
-      this.getOffX = function(o) {
-        // http://www.xs4all.nl/~ppk/js/findpos.html
-        var curleft = 0;
-        if (o.offsetParent) {
-          while (o.offsetParent) {
-            curleft += o.offsetLeft;
-            o = o.offsetParent;
-          }
-        }
-        else if (o.x) {
-          curleft += o.x;
-        }
-        return curleft;
-      };
-
       this.getTime = function(nMSec, bAsString) {
         // convert milliseconds to mm:ss, return as object literal or string
         var nSec = Math.floor(nMSec/1000),
@@ -48,21 +32,11 @@ angular.module('podcaddyApp')
         // if (min === 0 && sec === 0) return null; // return 0:00 as null
         return (bAsString?(min+':'+(sec<10?'0'+sec:sec)):{'min':min,'sec':sec});
       };
-      this.setPosition = function(e) {
-        // called from slider control
-        var oThis = getTheDamnTarget(e),
-            x, oControl, oSound, nMsecOffset;
-        if (!oThis) {
-          return true;
-        }
-        oControl = oThis;
-        while (!self.hasClass(oControl,'statusbar') && oControl.parentNode) {
-          oControl = oControl.parentNode;
-        }
-        oSound = self.lastSound;
-        x = parseInt(e.clientX,10);
-        // play sound at this position
-        nMsecOffset = Math.floor((x-self.getOffX(oControl)-4)/(oControl.offsetWidth)*self.getDurationEstimate(oSound));
+      this.setPosition = function(pos) {
+
+        var oSound = self.lastSound;
+
+        var nMsecOffset = Math.floor(pos*self.getDurationEstimate(oSound));
         if (!isNaN(nMsecOffset)) {
           nMsecOffset = Math.min(nMsecOffset,oSound.duration);
         }
@@ -138,7 +112,9 @@ angular.module('podcaddyApp')
         } else {
           if(self.lastSound) {
             sm.stop(self.lastSound.id);
-            sm.unload(self.lastSound.id);//might have to do something here for IOS
+            if(!isTouchDevice) {
+              sm.unload(self.lastSound.id);
+            }
           }
           var thisSound = sm.createSound({
             id:'item_' + item.id,
@@ -185,7 +161,14 @@ angular.module('podcaddyApp')
               $rootScope.lazyLoad.reinit(data.items);
               if(self.lastSound) {
                 $timeout(function(){
-                  $('#' + self.lastSound.id).addClass('playing'); 
+                  if(self.lastSound.playState===1) {
+                    $('#' + self.lastSound.id).addClass('playing'); 
+                  }
+                  else {
+                    $('#' + self.lastSound.id).addClass('paused'); 
+                  }
+                  self.updateTime();
+                  self.updatePosition();
                 });
               }
             }
@@ -208,7 +191,6 @@ angular.module('podcaddyApp')
     soundManager.useFlashBlock = true;
 
     soundManager.onready(function() {
-      console.log('this is me');
       pagePlayer = new PagePlayer();
       pagePlayer.init();
       pagePlayer.fetchData();
@@ -217,7 +199,6 @@ angular.module('podcaddyApp')
     // Public API here
     return {
       changePage: function(){
-        NavService.parseArgs();
         if(pagePlayer) {
           pagePlayer.fetchData();
         }
@@ -229,8 +210,10 @@ angular.module('podcaddyApp')
         pagePlayer.togglePlay(item);
       },
       skip: function(item){
-        console.log(item.id);
         pagePlayer.skip('item_' + item.id); 
+      },
+      setPosition: function(pos){
+        pagePlayer.setPosition(pos); 
       }
     };
   });
