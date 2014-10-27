@@ -11,11 +11,15 @@ angular.module('podcaddyApp')
         },
         response: function(response) {
             if(response.status === 401) {
+                $rootScope.loggedIn = false;
                 $location.path('/login');
+            } else {
+                $rootScope.loggedIn = true; 
             }
             return response || $q.when(response);
         },
         responseError: function(response) {
+            $rootScope.loggedIn = false;
             if(response.status === 401) {
                 $location.path('/login');
             }
