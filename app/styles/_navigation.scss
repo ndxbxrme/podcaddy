@@ -2,12 +2,13 @@
 body {
     .fix {
         position: fixed;
-        top: 0; left: 0;
+        top: -100px; left: 0;
         width: 100%;
         z-index: 2000;
         zoom: 1;
         transform: translateZ(0);
         -webkit-transform: translateZ(0);
+        transition: 0.6s all ease-in-out;
     }
     header {
         background: #eee;   
@@ -35,7 +36,11 @@ body {
     }
 }
 
-
+body.mainPage {
+  .fix {
+      top: 0px; 
+  }
+}
 
 .now-playing {
     width: 100%;
