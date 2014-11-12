@@ -4,12 +4,12 @@ module.exports = {
   facebookAuth: {
     clientID: process.env.FACEBOOK_KEY,
     clientSecret: process.env.FACEBOOK_SECRET,
-    callbackURL: 'http://localhost:9000/api/facebook/callback'
+    callbackURL: 'http://www.podcaddy.co.uk/api/facebook/callback'
   },
   twitterAuth: {
     consumerKey: process.env.TWITTER_KEY,
     consumerSecret: process.env.TWITTER_SECRET,
-    callbackURL: 'http://localhost:9000/api/twitter/callback'
+    callbackURL: 'http://www.podcaddy.co.uk/api/twitter/callback'
   },
   googleAuth: {
     
@@ -17,6 +17,6 @@ module.exports = {
   githubAuth: {
     clientID: process.env.GITHUB_KEY,
     clientSecret: process.env.GITHUB_SECRET,
-    callbackURL: 'http://localhost:9000/api/github/callback'
+    callbackURL: 'http://www.podcaddy.co.uk/api/github/callback'
   },
 };
