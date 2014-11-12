@@ -16,6 +16,7 @@ angular.module('myApp')
             },
             replace: true,
             link: function postLink(scope, element) {
+                console.log(scope.feed);
                 var $e = $('img', element);
                 var loaded = false;
                 scope.$watch('feed.w', function(w){
