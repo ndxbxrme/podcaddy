@@ -1,0 +1,30 @@
+.login-form {
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+  
+  h1 {
+    margin: 0px;   
+    padding-left: 10px;
+    font-weight: 500;
+    font-size: 3.6em;
+    line-height: 2em;
+    transition: 0.6s all ease-in-out;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 0.5px 0.5px 0px #fff; 
+    text-align: center;
+    
+    small {
+      font-size: 0.3em; 
+    }
+  }
+}
+
+.text-right {
+  text-align: right; 
+}
+
+.pure-group {
+  margin: 0px!important;
+  padding: 0px!important;
+}

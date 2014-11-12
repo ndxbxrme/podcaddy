@@ -1,0 +1,186 @@
+.pure-g > div {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.l-box {
+  padding-right: 10px;
+}
+
+body .playlist {
+  width: 90%;
+  max-width: 900px;
+  margin: 80px auto;
+  transition: margin 0.6s ease-in-out;
+  .item {
+    position: relative;
+    margin-bottom: 26px;
+    .thumbnail {
+      width: 120px;
+      margin-top: 2px;
+      border-radius: 10px;
+      border: 2px solid #fff;
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    }
+    h3, h6, p {
+      margin: 0px 0px 10px 0px;
+    }
+    h3, h6 {
+        color: rgb(45,45,45) !important;
+        margin: 0px 0px 10px 0px;
+    }
+    h3 {
+      font-family: Raleway;
+      font-weight: 500;
+      margin-right: 100px;
+    }
+    
+    h6 small {
+        font-size: 1em;
+        padding-right: 2em;
+    }
+  
+    h6 span[class^="icomoon-"] {
+        font-size: 1.2em; 
+        padding-right: 4px;
+    }
+  
+    h6 a {
+        cursor: pointer; 
+        padding-right: 18px;
+        white-space: nowrap;
+    }
+    code {
+      white-space: nowrap;
+    }
+    p {
+      font-size: 0.9em;
+      line-height: 1.5em;
+      opacity: 0.8;
+    }
+    .timing {
+      position: absolute;
+      top: 4px;
+      right: 0;
+      letter-spacing: 0px;
+      font-size: 0.7em;
+      display: none;
+    }
+    .controls {
+      margin-top: 10px;
+      width: 100%;
+      height: 16px;
+      display: none;
+    }
+    .statusbar {
+      background-color: #222222;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+      box-shadow: rgba(0, 0, 0, 0.49804) -1px -1px 0px 0px, rgba(255, 255, 255, 0.09804) 1px 1px 0px 0px;
+      position: relative;
+    }
+    .loading, .position {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+    .loading {
+      width: 0%;
+      background-color: #474747;
+      border-radius: 4px;
+    }
+  .position {
+      width: 0%;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      border-radius: 4px;
+      background: #007fd1;
+      background: -moz-linear-gradient(left, #007fd1, #c600ff);
+      background: -o-linear-gradient(left, #007fd1, #c600ff);
+      background: -webkit-linear-gradient(left, #007fd1, #c600ff);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #007fd1), color-stop(1, #c600ff));
+      filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr=#007fd1, EndColorStr=#c600ff)";
+      background: linear-gradient(to right, #007fd1, #c600ff);
+    }
+  }
+}
+.thumbnail {
+    position: relative;
+}
+.hover .thumbnail {
+}
+.playlist .item {
+    cursor: pointer;
+}
+.imgParent {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+.imgParent:after {
+    content: '\e690';
+    font-family: 'ultra-icons-solid-v-1-0';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    text-align: center;
+    background: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    font-size: 300%;
+    line-height: 2.5em;
+    color: #fff;
+    text-shadow: 1px 1px 1px #000;
+    z-index: 100;
+    opacity: 0;
+    transition: 0.5s ease-in-out all;
+}
+.item.hover .imgParent:after {
+    opacity: 1; 
+}
+.item.hover.playing .thumbnail:after {
+    content: '\e691';
+}
+.l-box {
+    padding-right: 20px;
+}
+.timing, .timing div, .timing span {
+    pointer-events: none;
+    font-family: 'Lucida Sans Typewriter', 'Lucida Console', monaco, 'Bitstream Vera Sans Mono', monospace;
+}
+
+@media screen and (min-width: 568px) and (max-width: 860px) {
+  body .playlist .item .thumbnail {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 568px) {
+  body .playlist {
+    margin-top: 110px;
+    .thumbnail {
+      max-width: 100%;
+    }
+    .item .description {
+      display: none;
+    }
+    h3 {
+      margin-right: 0px !important;
+    }
+    .timing {
+      top: auto !important;
+      bottom: 2px;
+      right: 2px !important;
+      color: #fff;
+    }
+  }
+}
+.item.playing .timing, .item.playing .controls {
+    display: block !important; 
+    opacity: 0.6;
+}
+.item.paused .timing, .item.paused .controls {
+    display: block !important; 
+    opacity: 0.2;
+}

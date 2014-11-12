@@ -1,9 +1,117 @@
-<!doctype html> <html class="no-js"> <head> <base href="/"> <meta charset="utf-8"> <title>podcaddy</title> <meta name="description" content=""> <meta name="viewport" content="width=device-width,initial-scale=1"> <!-- Place favicon.ico and apple-touch-icon.png in the root directory --> <link rel="stylesheet" href="styles/vendor.73c1ce14.css"> <link rel="stylesheet" href="styles/main.c5dc817c.css">  <body ng-app="myApp" ng-controller="NavCtrl" class="{{cssPage}}"> <!-- Add your site or application content here --> <div> <div class="fix"> <header class="pure-g"> <div class="logo pure-u-1 pure-u-sm-1-3 pure-u-md-1-3 pure-u-lg-1-2"><h1>podcaddy <i class="icomoon-search" ng-click="searching=!searching"></i></h1></div> <div class="pure-u-1 pure-u-sm-2-3 pure-u-md-2-3 pure-u-lg-1-2"> <div class="nav pure-g"> <div class="pure-u-1-4"> <div dropdown="nav.pageList" ng-model="nav.filters.page"></div> </div> <div class="pure-u-1-4"> <div dropdown="nav.periodList" ng-model="nav.filters.period"></div> </div> <div class="pure-u-1-4"> <div dropdown="nav.visitedList" ng-model="nav.filters.visited"></div> </div> <div class="pure-u-1-4"> <div dropdown="nav.dirList" ng-model="nav.filters.direction"></div> </div> </div> </div> </header> <div class="search ng-hide pure-g" ng-show="searching"> <form name="searchForm" style="width: 100%; position: relative" ng-submit="addfeed()" novalidate> <input type="text" ng-model="search.url" ng-change="lazyLoad.doScroll()" placeholder="Search or RSS Feed URL" class="pure-u-7-8"> <input type="submit" class="pure-button pure-u-1-8" value="Submit"> </form> </div> <now-playing></now-playing> </div> <div ng-view=""></div> <div class="footer c3">made by <a href="http://rainstormweb.com" title="RainstormWeb">rainstormweb</a></div> </div> <!-- Google Analytics: change UA-XXXXX-X to be your site's ID --> <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+<!doctype html>
+<html class="no-js">
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>podcaddy</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
+    <link rel="stylesheet" href="bower_components/pure/pure.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/pure/grids-responsive-min.css" />
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="myApp" ng-controller="NavCtrl" class="{{cssPage}}">
+
+    <!-- Add your site or application content here -->
+    <div>
+      <div class="fix">
+          <header class="pure-g">
+              <div class="logo pure-u-1 pure-u-sm-1-3 pure-u-md-1-3 pure-u-lg-1-2"><h1>podcaddy <i class="icomoon-search" ng-click="searching=!searching"></i></h1></div>
+              <div class="pure-u-1 pure-u-sm-2-3 pure-u-md-2-3 pure-u-lg-1-2">
+                  <div class="nav pure-g">
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.pageList" ng-model="nav.filters.page"></div>
+                      </div>
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.periodList" ng-model="nav.filters.period"></div>
+                      </div>
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.visitedList" ng-model="nav.filters.visited"></div>
+                      </div>
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.dirList" ng-model="nav.filters.direction"></div>
+                      </div>
+                  </div>
+              </div>
+          </header>
+          <div class="search ng-hide pure-g" ng-show="searching">
+              <form name="searchForm" style="width: 100%; position: relative;" ng-submit="addfeed()" novalidate>
+                  <input type="text" ng-model="search.url" ng-change="lazyLoad.doScroll()" placeholder="Search or RSS Feed URL" class="pure-u-7-8" />
+                  <input type="submit" class="pure-button pure-u-1-8" value="Submit" />
+              </form>
+          </div>
+          <now-playing></now-playing>
+      </div>
+      <div ng-view=""></div>
+
+      <div class="footer c3">made by <a href="http://rainstormweb.com" title="RainstormWeb">rainstormweb</a></div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
        ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');</script> <!--[if lt IE 9]>
-    <script src="scripts/oldieshim.a466b7b1.js"></script>
-    <![endif]--> <script src="scripts/vendor.3fe85e33.js"></script> <script src="scripts/scripts.c5300a24.js"></script>  
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <script src="bower_components/soundmanager/script/soundmanager2.js"></script>
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/controllers/pageplayer.js"></script>
+    <script src="scripts/services/navservice.js"></script>
+    <script src="scripts/services/pageplayer.js"></script>
+    <script src="scripts/services/timer.js"></script>
+    <script src="scripts/directives/allfeedsitem.js"></script>
+    <script src="scripts/directives/audioitem.js"></script>
+    <script src="scripts/directives/dropdown.js"></script>
+    <script src="scripts/directives/ensureunique.js"></script>
+    <script src="scripts/directives/modaladdfeed.js"></script>
+    <script src="scripts/directives/myfeedsitem.js"></script>
+    <script src="scripts/directives/nowplaying.js"></script>
+    <script src="scripts/filters/widow.js"></script>
+    <script src="scripts/services/lazyload.js"></script>
+    <script src="scripts/controllers/allfeeds.js"></script>
+    <script src="scripts/controllers/myfeeds.js"></script>
+    <script src="scripts/controllers/addabunchoffeeds.js"></script>
+    <!-- endbuild -->
+  </body>
+</html>
