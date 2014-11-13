@@ -109,14 +109,14 @@ var updateFeedItems = function(feed, pod, callback) {
             });
           }
           else {
-            Item.findOne({podSlug:pod.titleSlug, image:dbImg(imgsrc)})
-            .exec(function(err, imgItem) {
+            Item.find({podSlug:pod.titleSlug, image:dbImg(imgsrc)})
+            .exec(function(err, imgItems) {
               if(err) {
                 throw err; 
               }
-              if(imgItem) {
-                newItem.image = imgItem.image;
-                newItem.cloudinary = imgItem.cloudinary;
+              if(imgItems && imgItems.length>0) {
+                newItem.image = imgItems[0].image;
+                newItem.cloudinary = imgItems[0].cloudinary;
                 newItem.save(function(err){
                   if(err) {
                     throw err; 
