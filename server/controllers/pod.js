@@ -54,6 +54,11 @@ function checkValidFeed(feed)
   return feed && feed.rss && feed.rss.channel && feed.rss.channel.length > 0 && feed.rss.channel[0].item && feed.rss.channel[0].item.length > 0;
 }
 
+function dbImg(imgsrc)
+{
+  return imgsrc.match(/\/[^\/]+$/)[0];
+}
+
 //END UTILITY FUNCTIONS
 
 var updateFeedItems = function(feed, pod, callback) {
@@ -90,7 +95,8 @@ var updateFeedItems = function(feed, pod, callback) {
           newItem.podTitle = pod.title;
           newItem.podLink = pod.link;
           var imgsrc = extractItemImage(item);
-          if(!imgsrc || imgsrc==='' || imgsrc.match(/\/[^\/]+$/)[0]===pod.image.match(/\/[^\/]+$/)[0]) {
+          console.log(dbImg(imgsrc) + ', ' + pod.image);
+          if(!imgsrc || imgsrc==='' || dbImg(imgsrc)===pod.image) {
             newItem.image = pod.image;
             newItem.cloudinary = pod.cloudinary;
             newItem.save(function(err){
@@ -100,35 +106,53 @@ var updateFeedItems = function(feed, pod, callback) {
             });
           }
           else {
-             cloudinary.uploader.upload(
-              imgsrc,
-              function(cRes) {
-                if(!cRes.error) {
-                  newItem.image = imgsrc;
-                  newItem.cloudinary = cRes;
-                  newItem.save(function(err){
-                    if(err) {
-                      throw err; 
-                    }
-                  });
-                }
-                else {
-                  newItem.image = pod.image;
-                  newItem.cloudinary = pod.cloudinary;
-                  newItem.save(function(err){
-                    if(err) {
-                      throw err; 
-                    }
-                  });
-                }
-              },
-              {
-                crop: 'thumb',
-                width: 200,
-                height: 200,
-                tags: ['podcast','item_image']
+            Item.findOne({podSlug:pod.titleSlug, image:dbImg(imgsrc)})
+            .exec(function(err, imgItem) {
+              if(err) {
+                throw err; 
               }
-            );           
+              if(imgItem) {
+                newItem.image = imgItem.image;
+                newItem.cloudinary = imgItem.cloudinary;
+                newItem.save(function(err){
+                  if(err) {
+                    throw err; 
+                  }
+                });
+              }
+              else {
+                console.log('uploading image ' + dbImg(imgsrc));
+                cloudinary.uploader.upload(
+                  imgsrc,
+                  function(cRes) {
+                    if(!cRes.error) {
+                      newItem.image = dbImg(imgsrc);
+                      newItem.cloudinary = cRes;
+                      newItem.save(function(err){
+                        if(err) {
+                          throw err; 
+                        }
+                      });
+                    }
+                    else {
+                      newItem.image = dbImg(pod.image);
+                      newItem.cloudinary = pod.cloudinary;
+                      newItem.save(function(err){
+                        if(err) {
+                          throw err; 
+                        }
+                      });
+                    }
+                  },
+                  {
+                    crop: 'thumb',
+                    width: 200,
+                    height: 200,
+                    tags: ['podcast','item_image']
+                  }
+                );  
+              }
+            });
           }
         }
       });
@@ -172,12 +196,12 @@ var checkFeed = function(url, callback) {
               pod.pubDate = Date.parse(feed.item[0].pubDate[0]);
               pod.updatedAt = Date.now();
               pod.categories = categories;
-              if(pod.image!==imgsrc) {
+              if(pod.image!==dbImg(imgsrc)) {
                 cloudinary.uploader.upload(
                   imgsrc,
                   function(cRes) {
                     if(!cRes.error) {
-                      pod.image = imgsrc;
+                      pod.image = dbImg(imgsrc);
                       pod.cloudinary = cRes;
                       pod.save(function(err){
                         if(err) {
@@ -193,7 +217,7 @@ var checkFeed = function(url, callback) {
                       cloudinary.uploader.upload(
                         'https://unsplash.it/200/200/?random',
                         function(cRes1) {
-                          pod.image = imgsrc;
+                          pod.image = dbImg(imgsrc);
                           pod.cloudinary = cRes1;
                           pod.save(function(err) {
                             if(err) {
@@ -243,7 +267,7 @@ var checkFeed = function(url, callback) {
                 imgsrc,
                 function(cRes) {
                   if(!cRes.error) {
-                    newPod.image = imgsrc;
+                    newPod.image = dbImg(imgsrc);
                     newPod.cloudinary = cRes;
                     newPod.save(function(err){
                       if(err) {
@@ -259,7 +283,7 @@ var checkFeed = function(url, callback) {
                     cloudinary.uploader.upload(
                       'https://unsplash.it/200/200/?random',
                       function(cRes1) {
-                        newPod.image = imgsrc;
+                        newPod.image = dbImg(imgsrc);
                         newPod.cloudinary = cRes1;
                         newPod.save(function(err) {
                           if(err) {
@@ -432,5 +456,8 @@ function refreshFeeds() {
   });
 }
 
-setInterval(refreshFeeds, 1000 * 60 * 3);
-refreshFeeds();
+Item.remove().exec();
+Pod.remove().exec();
+
+//setInterval(refreshFeeds, 1000 * 60 * 3);
+//refreshFeeds();

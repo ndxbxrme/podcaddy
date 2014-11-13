@@ -41,6 +41,6 @@ setInterval(function() {
   });
 }, 12000);
 */
-/*podCtrl.checkFeed('http://feeds.serialpodcast.org/serialpodcast', function(pod) {
+/*podCtrl.checkFeed('http://cashinginwithtjmiller.libsyn.com/rss', function(pod) {
   console.dir(pod);
 });*/
