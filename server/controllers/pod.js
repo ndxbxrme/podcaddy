@@ -366,7 +366,7 @@ module.exports.fetchSubs = function(req, res) {
 
 module.exports.addPod = function(req, res) {
   checkFeed(req.body.url, function(pod) {
-    if(pod.subscribers) {
+    if(pod && pod.subscribers) {
       if(_.findWhere(pod.subscribers, {'userId':req.user._id.toString()})) {
         pod.subscribed = true; 
       }
