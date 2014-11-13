@@ -366,11 +366,13 @@ module.exports.fetchSubs = function(req, res) {
 
 module.exports.addPod = function(req, res) {
   checkFeed(req.body.url, function(pod) {
-    if(_.findWhere(pod.subscribers, {'userId':req.user._id.toString()})) {
-      pod.subscribed = true; 
+    if(pod.subscribers) {
+      if(_.findWhere(pod.subscribers, {'userId':req.user._id.toString()})) {
+        pod.subscribed = true; 
+      }
+      pod.noSubscribers = pod.subscribers.length;
+      pod.subscribers = undefined;
     }
-    pod.noSubscribers = pod.subscribers.length;
-    pod.subscribers = undefined;
     res.json(pod);
   });
 };
