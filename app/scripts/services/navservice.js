@@ -64,7 +64,8 @@ angular.module('myApp')
         pageList: [
             {value:'/', text:'Home', action:'go()'},
             {value:'/myfeeds', text:'My feeds', action:'go()'},
-            {value:'/allfeeds', text:'Directory', action:'go()'}
+            {value:'/allfeeds', text:'Directory', action:'go()'},
+            {value:'/profile', text:'Profile', action:'go()'}
         ],
         periodList: [
             {value:'day',text:'Day', action:'filter()'},

@@ -1,12 +1,29 @@
 
 <div class="allfeeds">
-  <!--<h2 ng-show="lazyLoad.items.length>0">Select some feeds then start listening <a href="/">here</a></h2>-->
-  <allfeedsitem ng-repeat="feed in lazyLoad.items | orderBy:'-pubDate' | filter:search.url" feed="feed">
-  </allfeedsitem>
-</div>
-<div class="text-center">
-    <a class="pure-button" ng-click="initFeeds()" ng-show="lazyLoad.items.length===0&&!fetchingFeeds">Oh no! There are no feeds.  Click Me to change that</a>
-    <div class="progress" ng-show="fetchingFeeds"><span class="icon-svg772"></span> &nbsp;&nbsp;Fetching feeds &nbsp;&nbsp;<span class="icon-svg792"></span>
-    <br /><br />This could take a while, watch the console and refresh this page when it calms down.</div>
-</div>
+  <div class="pure-g">
+    <div class="section-title pure-u-1">Popular<span>Now</span></div>
+    <!--<h2 ng-show="lazyLoad.items.length>0">Select some feeds then start listening <a href="/">here</a></h2>-->
+    <allfeedsitem ng-repeat="feed in lazyLoad.items | orderBy:'-listensWeek' | limitTo:10" feed="feed" class="pure-u-1-5">
+    </allfeedsitem>
 
+    <div class="section-title pure-u-1"><br />Categories</div>
+    <div ng-repeat="cat in ['comedy','tech','business','politics','news','something']" class="pure-u-1-5 pure-button" ng-click="$parent.category=cat">{{cat}}</div>
+    <div class="section-title pure-u-1"><br />{{category}}</div>
+  </div>
+  <div class="pure-g">
+    <div ng-repeat="feed in lazyLoad.items | orderBy:'title' | filter:{categories:category} | filter:search.url" class="list-feed pure-u-1-4">
+      <div class="content">
+        <img src="{{feed.cloudinary.url}}" />
+        <h2 ng-bind-html="feed.title | widow"></h2>
+        <h4 ng-show="feed.subscribed">Subscribed</h4>
+        <p ng-bind-html="feed.shortDesc?feed.shortDesc:'&nbsp;' | widow"></p>&nbsp;
+      </div>
+      <div class="controls"><a href="{{feed.link}}">Website</a></div>
+    </div>
+  </div>
+  <div class="text-center">
+      <a class="pure-button" ng-click="initFeeds()" ng-show="lazyLoad.items.length===0&&!fetchingFeeds">Oh no! There are no feeds.  Click Me to change that</a>
+      <div class="progress" ng-show="fetchingFeeds"><span class="icon-svg772"></span> &nbsp;&nbsp;Fetching feeds &nbsp;&nbsp;<span class="icon-svg792"></span>
+      <br /><br />This could take a while, watch the console and refresh this page when it calms down.</div>
+  </div>
+</div>

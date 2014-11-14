@@ -82,9 +82,9 @@ module.exports = function(app, passport) {
     failureFlash: true
   }));
   
-  app.get('/api/connect/twitter', passport.authorize('twitter', {scope:'email'}));
-  app.get('/api/connect/facebook', passport.authorize('facebook', {scope:'email'}));
-  app.get('/api/connect/github', passport.authorize('github', {scope:['user','user:email']}));
+  app.get('/api/connect/twitter', passport.authorize('twitter', {scope:'email',successRedirect:'/profile'}));
+  app.get('/api/connect/facebook', passport.authorize('facebook', {scope:'email',successRedirect:'/profile'}));
+  app.get('/api/connect/github', passport.authorize('github', {scope:['user','user:email'],successRedirect:'/profile'}));
   
   //UNLINK ACCOUNTS
   app.get('/api/unlink/local', function(req, res) {

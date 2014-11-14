@@ -11,7 +11,7 @@ angular.module('myApp')
   .factory('PagePlayer', function (NavService, $http, $timeout, $rootScope, $window, LazyLoad) {
     var reportPosition = _.throttle(function(){
       $http.post('/api/position', {
-        itemid:pagePlayer.lastSound.id.replace(/[a-z_]+/,''),
+        itemid:pagePlayer.lastSound.id,
         position:pagePlayer.lastSound.position,
         history:(pagePlayer.lastSound.position > pagePlayer.lastSound.duration/10)
       });
@@ -99,7 +99,7 @@ angular.module('myApp')
         });
       };
       this.togglePlay = function(item){
-        if(self.lastSound && self.lastSound.id==='item_' + item._id) {
+        if(self.lastSound && self.lastSound.id===item._id) {
           if(self.lastSound.readyState !== 2) {
             if(self.lastSound.playState !== 1) {
               self.lastSound.play();
@@ -117,7 +117,7 @@ angular.module('myApp')
             }
           }
           var thisSound = sm.createSound({
-            id:'item_' + item._id,
+            id:item._id,
             url:decodeURI(item.url),
             onplay: self.events.play,
             onstop: self.events.stop,
@@ -157,7 +157,6 @@ angular.module('myApp')
                 }
               }
             }
-            console.log(!self.lastSound || (self.lastSound.id + ', ' + self.lastSound.playState));
             if(needsUpdate) {
               $rootScope.lazyLoad.reinit(data.items);
               if(self.lastSound) {
@@ -212,10 +211,13 @@ angular.module('myApp')
         pagePlayer.togglePlay(item);
       },
       skip: function(item){
-        pagePlayer.skip('item_' + item._id); 
+        pagePlayer.skip(item._id); 
       },
       setPosition: function(pos){
         pagePlayer.setPosition(pos); 
+      },
+      lastSoundId: function(){
+        return pagePlayer.lastSound?pagePlayer.lastSound.id:'';
       }
     };
   });

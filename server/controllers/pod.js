@@ -124,6 +124,14 @@ var updateFeedItems = function(feed, pod, callback) {
                 });
               }
               else {
+                newItem.image = pod.image;
+                newItem.cloudinary = pod.cloudinary;
+                newItem.save(function(err){
+                  if(err) {
+                    throw err; 
+                  }
+                });
+                /*
                 console.log('uploading image ' + dbImg(imgsrc));
                 cloudinary.uploader.upload(
                   imgsrc,
@@ -153,7 +161,8 @@ var updateFeedItems = function(feed, pod, callback) {
                     height: 200,
                     tags: ['podcast','item_image']
                   }
-                );  
+                );
+                */
               }
             });
           }
@@ -183,9 +192,16 @@ var checkFeed = function(url, callback) {
             var feed = data.rss.channel[0];
             var imgsrc = extractFeedImage(feed);
             var categories = [];
-            _.each(feed['itunes:category'], function(item){
-              categories.push(item.$.text.toLowerCase()); 
-            });
+            if(feed['itunes:category']) {
+              _.each(feed['itunes:category'], function(item){
+                categories.push(item.$.text.toLowerCase()); 
+              });
+            }
+            else if(feed.category) {
+              _.each(feed.category, function(item){
+                categories.push(item.$.text.toLowerCase()); 
+              });               
+            }
             var d = S((feed.description&&feed.description.length>0)?feed.description[0]:'')
             .replace(/<!\[CDATA|]]>/g,'').stripTags().decodeHTMLEntities();
             var t = S((feed.title&&feed.title.length>0)?feed.title[0]:'')
@@ -408,6 +424,9 @@ module.exports.toggle = function(req, res) {
 
 
 function updateStats(pod) {
+  if(!pod) {
+    return; 
+  }
   pod.listensToday = pod.listensWeek = pod.listensAlltime = 0;
   var today = new Date();
   var week = new Date();

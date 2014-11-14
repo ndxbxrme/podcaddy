@@ -55,7 +55,7 @@ angular.module('myApp')
             });
           
           
-            if(PagePlayer.lastSound && PagePlayer.lastSound.id==='item_' + scope.item.id) {
+            if(PagePlayer.lastSoundId() === scope.item.id) {
               if(PagePlayer.lastSound.playState===1) {
                 elem.addClass('playing'); 
               } else {

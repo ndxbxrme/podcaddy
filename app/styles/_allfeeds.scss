@@ -1,76 +1,139 @@
 .allfeeds {
+  width:90%;
+  max-width:1000px;
   margin: 80px auto;
+  box-sizing: border-box;
+  
+  .section-title {
+    clear:both;
+    font-family: 'Raleway';
+    font-size: 2em;
+    font-weight: 300;
+    text-transform: lowercase;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 0.3px 0.3px 0px #fff;
+    
+    span {
+      font-weight: 800!important; 
+      padding-left: 3px;
+    }
+  }
+  
+  .list-feed {
+    padding-bottom: 3em;
+    transition: transform 0.1s;
+    position: relative;
+    
+    img {
+      width: 60px;
+      float: left;
+      margin-right: 20px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+    
+    h2 {
+      margin: 0px;
+      font-size: 0.8em;
+      line-height: 1.3em;
+      opacity: 0.7;
+    }
+    
+    h4 {
+      margin: 0px;
+      font-weight: 200;
+      font-size: 0.7em;
+      line-height: 1.0em;
+      opacity: 0.7;
+    }
+    
+    p {
+      margin: 0.5em 0px 0px 0px;
+      font-size: 0.8em;
+      line-height: 1.5em;
+      opacity: 0.7;
+    }
+    .controls {
+      position: absolute;
+      top: 100%;
+      left: 0%;
+      width: 100%;
+      height: 2em;
+      opacity: 0;
+      transition: all 0.3s; 
+    }
+    
+    .content {
+      padding: 7px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 4px;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.1s; 
+      box-shadow: 0.5px 0.5px 0px #fff;
+    }
+  }
+  
+  .list-feed:hover .content {
+    transform:  translate3d(0,-1em,0); 
+  }
+  
+  .list-feed:hover .controls {
+    transform: translate3d(0,-3em,0); 
+    opacity: 1;
+  }
+  
+  .list-feed:nth-of-type(4n+1) {
+    padding-right: 1em;
+    .controls {
+      padding-right: 1em;
+    }
+  }  
+  .list-feed:nth-of-type(4n+2), .list-feed:nth-of-type(4n+3) {
+    padding-left: 1em;
+    padding-right: 1em;
+    .controls {
+      padding-left: 1em;
+      padding-right: 1em;
+    }
+  }  
+  .list-feed:nth-of-type(4n+4) {
+    padding-left: 1em;
+    .controls {
+      padding-left: 1em;
+    }
+  }
 }
 
 .allfeeds .item {
-    width: 200px;
-    height: 200px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    margin: 5px !important;
-    border: 1px solid #999;
-    transition: 0.1s linear all;
-    cursor: pointer;
-    display: inline-block;
-    box-sizing: border-box;
-    transform-origin: 0% 0%;
-    overflow: hidden;
-    transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+  line-height: 0px !important;
+  position: relative;
+}
+
+.allfeeds .item img {
+  width: 100%; 
+  transition: transform 0.35s;
+}
+
+.allfeeds .item:hover img {
+  transform: scale3d(0.95,0.95,1); 
 }
 
 .allfeeds .item::after,
 .allfeeds .item::before {
-    position: absolute;
-    width: 100%;
-    top: 0px;
-    left: 0px;
-    color: #fff;
-    z-index: 1;
-    transition: transform 0.3s ease-in-out;
 }
 
 .allfeeds .item::after {
-    content: attr(data-title);
-    height: 30%;
-    top:0;
-    background: rgba(251,103,38,0.8);
-    font-weight: 900;
-    padding: 10px;
-    text-shadow: 0px 0px 1px black;
-    transform: translateX(-100%);
 }
 
 .allfeeds .item::before {
-    content: attr(data-description);
-    height: 70%;
-    top: 30%;
-    text-align: left;
-    background: rgba(0,0,0,0.9);
-    font-size: 12px;
-    line-height: 16px;
-    padding: 10px;
-    text-shadow: 0px 0px 1px black;
-    transform: translateX(100%);
 }
 
 .allfeeds .item.subscribed {
-    border: 1px solid #fff;
-    box-shadow: inset 0px 0px 9px 6px rgba(255,255,255,0.6);
 }
 
-.allfeeds .item h2 {
-    background: rgba(255,255,255,0.9);
-    position: absolute;
-    left: 0px; bottom: 0px;
-    font-size: 0.8em;
-    line-height: 1.5em;
-    width: 100%;
-    border-top: 1px solid #999;
-    margin: 0px;
-    padding: 5px;
-    transition: 0.1s linear all;
-}
+
 
 .allfeeds .item:hover {
     opacity: 1.0;   

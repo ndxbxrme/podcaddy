@@ -3,6 +3,7 @@
 var Item = require('../models/item'),
     User = require('../models/user'),
     Pod = require('../models/pod'),
+    mongoose = require('mongoose'),
     _ = require('underscore');
 
 module.exports.fetchSubs = function(req, res){
