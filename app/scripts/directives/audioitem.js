@@ -16,6 +16,7 @@ angular.module('myApp')
             item: '='  
         },
         link: function(scope, elem) {
+            scope.item.timeago = $.timeago(scope.item.pubDate);
             var getOffX = function(o) {
                 var curleft = 0;
                 if (o.offsetParent) {
@@ -69,6 +70,7 @@ angular.module('myApp')
               if(!w) {
                 return; 
               }
+              scope.item.timeago = $.timeago(scope.item.pubDate);
               loaded = LazyLoad.checkScroll(w, $e, scope.item.cloudinary.url, scope.item.feedId, loaded);
             }, true);
             scope.skip = function(item) {

@@ -8,10 +8,10 @@
  * Controller of the myApp
  */
 angular.module('myApp')
-  .controller('MyfeedsCtrl', function ($scope, $http, Timer) {
+  .controller('MyfeedsCtrl', function ($scope, $http, Timer, LazyLoad) {
     Timer.stop();
-    $http.post('/api/feeds/subs')
+    $http.post('/api/pods/subs')
     .success(function(feeds){
-      $scope.feeds = feeds;
+      $scope.lazyLoad = new LazyLoad(feeds);
     });
   });

@@ -93,6 +93,7 @@ angular.module('myApp')
             $location.path(url);
         },
         go: function(){
+            $rootScope.lazyLoad = undefined;
             $location.path(filters.page);
         },
         parseArg: parseArg

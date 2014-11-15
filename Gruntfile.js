@@ -58,6 +58,14 @@ module.exports = function (grunt) {
           livereload: '<%= connect.options.livereload %>'
         }
       },
+      nodejs: {
+          files: [
+              'server/**/*.js',
+              'server/*.js'
+          ],
+          tasks: ['env:test','develop'],
+          options: { nospawn: true }
+      },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
