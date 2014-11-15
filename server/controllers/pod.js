@@ -194,7 +194,9 @@ var checkFeed = function(url, callback) {
             var categories = [];
             if(feed['itunes:category']) {
               _.each(feed['itunes:category'], function(item){
-                categories.push(item.$.text.toLowerCase()); 
+                if(item && item.$ && item.$.text) {
+                  categories.push(item.$.text.toLowerCase()); 
+                }
               });
             }
             else if(feed.category) {
