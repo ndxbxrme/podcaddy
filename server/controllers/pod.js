@@ -201,7 +201,14 @@ var checkFeed = function(url, callback) {
             }
             else if(feed.category) {
               _.each(feed.category, function(item){
-                categories.push(item.$.text.toLowerCase()); 
+                if(item) {
+                  if(item.$ && item.$.text) {
+                    categories.push(item.$.text.toLowerCase());
+                  }
+                  else {
+                    categories.push(item.toString()); 
+                  }
+                }
               });               
             }
             var d = S((feed.description&&feed.description.length>0)?feed.description[0]:'')
