@@ -1,0 +1,24 @@
+svg {
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  top: 100px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: rgba(235,235,235,0.8);
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+#headset-sound {
+  fill: none; 
+  stroke: black;
+  stroke-width: 0.4;
+  stroke-dasharray: 0 50;
+  animation: offset 2s linear infinite;
+  transform: rotateY(-30deg);
+  transform-origin: 50% 50%;
+}
+@keyframes offset {
+  70% {stroke-dasharray: 100 100; opacity: 1; transform: rotateY(30deg);}
+  90% {stroke-dasharray: 100 100; opacity: 0; transform: rotateY(90deg);}
+}

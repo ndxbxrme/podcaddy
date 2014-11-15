@@ -377,6 +377,7 @@ module.exports.fetchAll = function(req, res) {
 
 module.exports.fetchSubs = function(req, res) {
   Pod.find({'subscribers.userId':req.user.id.toString()})
+  .lean()
   .exec(function(err, pods) {
     if(err) {
       throw err; 
@@ -384,6 +385,7 @@ module.exports.fetchSubs = function(req, res) {
     for(var f=0; f<pods.length; f++) {
       pods[f].noSubscribers = pods[f].subscribers.length
       pods[f].subscribers = undefined; 
+      pods[f].subscribed = true;
     }
     res.json(pods);
   });
@@ -397,7 +399,6 @@ module.exports.addPod = function(req, res) {
       }
       pod.noSubscribers = pod.subscribers.length;
       pod.subscribers = undefined;
-      pod.subscribed = true;
     }
     res.json(pod);
   });

@@ -136,6 +136,7 @@ angular.module('myApp')
       };
       $rootScope.lazyLoad = new LazyLoad([]);
       this.fetchData = function(){
+        $rootScope.loading = true;
         $http.get('/api/subscribed/' + 
           NavService.filters.feed + '/' + 
           NavService.filters.playlist + '/' + 
@@ -144,9 +145,10 @@ angular.module('myApp')
           NavService.filters.direction
         )
         .success(function(data, status){
+          $rootScope.loading = false;
           if(status===200) {
             var needsUpdate = false;
-            if(data.items.length!==$rootScope.lazyLoad.items.length) {
+            if(!$rootScope.lazyLoad || data.items.length!==$rootScope.lazyLoad.items.length) {
               needsUpdate = true; 
             }
             else {
@@ -158,7 +160,12 @@ angular.module('myApp')
               }
             }
             if(needsUpdate) {
-              $rootScope.lazyLoad.reinit(data.items);
+              if($rootScope.lazyLoad) {
+                $rootScope.lazyLoad.reinit(data.items);
+              }
+              else {
+                $rootScope.lazyLoad = new LazyLoad(data.items); 
+              }
               if(self.lastSound) {
                 $timeout(function(){
                   $('.playing, .paused').removeClass('playing').removeClass('paused');

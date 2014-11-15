@@ -27,4 +27,5 @@
   <div class="playlist">
     <audioitem ng-repeat="item in lazyLoad.items | listened | filter:search.url | orderBy:(nav.filters.direction==='desc')?'-pubDate':'pubDate'" item="item"></audioitem>
   </div> 
+  <div ng-show="loading"><br /><br /><br /><br /><br /></div>
 </div>

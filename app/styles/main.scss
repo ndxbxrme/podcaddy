@@ -9,7 +9,8 @@
     "audioitem",
     "login",
     "profile",
-    "icomoon";
+    "icomoon",
+    "animations";
 
 
 body {
@@ -55,6 +56,11 @@ body {
 a {
     text-decoration: none;
     color: rgb(119,119,119);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: rgb(0,0,0);
 }
 
 * {

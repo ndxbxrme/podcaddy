@@ -9,6 +9,7 @@
  */
 angular.module('myApp')
 .controller('NavCtrl', function ($scope, NavService, $location, $http, $rootScope, $timeout, User) {
+
     $scope.nav = NavService;
     $scope.go = NavService.go;
     $scope.filter = NavService.filter;

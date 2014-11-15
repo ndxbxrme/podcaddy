@@ -8,7 +8,8 @@
  * Controller of the myApp
  */
 angular.module('myApp')
-.controller('MainCtrl', function ($scope, $http, $location) {
+.controller('MainCtrl', function ($scope, $rootScope, $http, $location) {
+  $rootScope.cssPage = 'noPage';
   $scope.login = function(){
     $scope.submitted = true;
     if($scope.loginForm.$valid) {

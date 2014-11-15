@@ -87,10 +87,36 @@ angular
         redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
+  })
+  .run(function($rootScope, PagePlayer, NavService, $route, $http) {
+    $rootScope.$on('$routeChangeSuccess', function(){
+      if($route && $route.current) {
+          NavService.filters.feed = 'all';
+          NavService.filters.playlist = 'none';
+          NavService.filters.period = 'week';
+          NavService.filters.direction = 'desc';
+          NavService.filters.visited = 'unvisited';
+          for(var f=1; f<5; f++) {
+              NavService.parseArg($route.current.params['arg' + f]);   
+          }
+          if($route.current.$$route.controller==='MainCtrl') {
+            NavService.filters.page = '/';
+            PagePlayer.changePage();
+          }
+          else if($route.current.$$route.controller==='AllfeedsCtrl') {
+            NavService.filters.page = '/allfeeds';          
+          }
+          else if($route.current.$$route.controller==='MyfeedsCtrl') {
+            NavService.filters.page = '/myfeeds';          
+          }
+          else if($route.current.$$route.controller==='ProfileCtrl') {
+            NavService.filters.page = '/profile';          
+          }
+      }
+    });
   });
-
-soundManager.setup({
-  flashVersion: 9,
-  preferFlash: true,
-  url: 'swf/'
-});
+  soundManager.setup({
+    flashVersion: 9,
+    preferFlash: true,
+    url: 'swf/'
+  });

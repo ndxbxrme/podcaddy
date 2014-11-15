@@ -22,7 +22,7 @@
     </div>
 
     <div class="section-title pure-u-1"><br /></div>
-    <div ng-repeat="cat in ['Comedy','Technology','TV & Film','Arts','Entertainment','Games & Hobbies','Health','Music','News','Politics','Religion','Spirituality','Science','Culture','Sports']" class="pure-u-1-5 pure-button" ng-class="{'pure-button-primary':$parent.category===cat}" ng-click="$parent.category=cat">{{cat}}</div>
+    <div ng-show="!loading && lazyLoad.items.length > 0" ng-repeat="cat in ['Comedy','Technology','TV & Film','Arts','Entertainment','Games & Hobbies','Health','Music','News','Politics','Religion','Spirituality','Science','Culture','Sports']" class="pure-u-1-5 pure-button" ng-class="{'pure-button-primary':$parent.category===cat}" ng-click="$parent.category=cat">{{cat}}</div>
     <div class="section-title pure-u-1"><br /></div>
   </div>
   <div class="pure-g" ng-init="category=['Comedy','Technology']">
@@ -30,8 +30,6 @@
     </directoryitem>
   </div>
   <div class="text-center">
-      <a class="pure-button" ng-click="initFeeds()" ng-show="lazyLoad.items.length===0&&!fetchingFeeds">Oh no! There are no feeds.  Click Me to change that</a>
-      <div class="progress" ng-show="fetchingFeeds"><span class="icon-svg772"></span> &nbsp;&nbsp;Fetching feeds &nbsp;&nbsp;<span class="icon-svg792"></span>
-      <br /><br />This could take a while, watch the console and refresh this page when it calms down.</div>
+      <a class="pure-button" ng-click="initFeeds()" ng-show="lazyLoad.items.length===0&&!loading">Oh no! There are no feeds.</a>
   </div>
 </div>
