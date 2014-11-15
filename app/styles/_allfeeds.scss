@@ -1,9 +1,10 @@
 .allfeeds {
   width:90%;
   max-width:1000px;
-  margin: 80px auto;
+  margin: 69px auto;
   box-sizing: border-box;
   
+
   .section-title {
     clear:both;
     font-family: 'Raleway';
@@ -16,6 +17,82 @@
     span {
       font-weight: 800!important; 
       padding-left: 3px;
+    }
+  }
+  
+  .popular {
+    position: relative;
+    
+    .pop-left, .pop-right {
+      opacity: 0.1; 
+    }
+    
+    .pop-left {
+      position: absolute;
+      top: 0px;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      
+      img {
+        width: 100%; 
+      }
+    }
+    .pop-right {
+      position: absolute;
+      top: 0px;
+      left: 100%;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .prev, .next {
+      position: absolute;
+      top: 0px;
+      display: table-cell;
+      vertical-align: center;
+      background: rgba(255,255,255,0.2);
+      font-size: 100px;
+      height: 100%;
+      line-height: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+      font-family: 'Raleway'
+    }
+    .prev:hover, .next:hover {
+      background: rgba(255,255,255,0.4); 
+    }
+    .prev {
+      left: 0%;
+      transform: translate(-100%, 0%);
+    }
+    .prev:after {
+      content: '<';
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translate(-30%, -50%) scale(1.0,3.0);
+      transition: transform 0.35s;
+      opacity: 0.3;
+    }
+    .prev:hover:after {
+      transform: translate(-50%, -50%) scale(1.0,3.0); 
+    }
+    .next {
+      left: 100%;
+    }
+    .next:after {
+      content: '>';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(30%, -50%) scale(1.0,3.0);
+      transition: transform 0.35s;
+      opacity: 0.3;
+    }
+    .next:hover:after {
+      transform: translate(50%, -50%) scale(1.0,3.0); 
     }
   }
   
@@ -37,6 +114,7 @@
       font-size: 0.8em;
       line-height: 1.3em;
       opacity: 0.7;
+      padding-bottom: 3px;
     }
     
     h4 {
@@ -45,6 +123,11 @@
       font-size: 0.7em;
       line-height: 1.0em;
       opacity: 0.7;
+    }
+    
+    .timeago {
+      font-size: 0.7em;
+      text-align: right;
     }
     
     p {
@@ -61,6 +144,16 @@
       height: 2em;
       opacity: 0;
       transition: all 0.3s; 
+      
+      a {
+        font-size: 0.8em;
+        cursor: pointer;
+        opacity: 0.7;
+      }
+      a:hover {
+        opacity: 1.0;
+        text-decoration: underline;
+      }
     }
     
     .content {
@@ -71,6 +164,7 @@
       height: 100%;
       transition: transform 0.1s; 
       box-shadow: 0.5px 0.5px 0px #fff;
+      cursor: pointer;
     }
   }
   
@@ -109,6 +203,7 @@
   overflow: hidden;
   line-height: 0px !important;
   position: relative;
+  cursor: pointer;
 }
 
 .allfeeds .item img {
@@ -117,20 +212,49 @@
 }
 
 .allfeeds .item:hover img {
-  transform: scale3d(0.95,0.95,1); 
+  transform: scale3d(1.05,1.05,1); 
 }
 
 .allfeeds .item::after,
 .allfeeds .item::before {
+  position: absolute;
+  transition: transform 0.35s;
 }
 
 .allfeeds .item::after {
+  content: attr(data-title);
+  top: 0px; left: 0px;
+  background: black;
+  color: white;
+  font-size: 0.7em;
+  line-height: 1.3em;
+  padding: 0.6em;
+  font-family: 'Raleway';
+  font-weight: 800;
+  transform: translate(0,-100%);
 }
 
 .allfeeds .item::before {
+  content: attr(data-description);
+  bottom: 0px; left: 0px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  font-size: 0.7em;
+  line-height: 1.3em;
+  padding: 0.6em;
+  font-family: 'Raleway';
+  transform: translate(-100%, 0);
+  transition-delay: 0.3s;
+  z-index: 20;
 }
 
 .allfeeds .item.subscribed {
+}
+
+.allfeeds span {
+  overflow: hidden;
+  line-height: 0px !important;
+  position: relative;
 }
 
 
@@ -140,8 +264,8 @@
 }
 
 .allfeeds .item:hover::after,
-.allfeeds .item:hover::before {
-    transform: translateX(0%);   
+.allfeeds .item:hover::before { 
+  transform: translate(0,0);
 }
 
 

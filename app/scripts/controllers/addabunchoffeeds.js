@@ -17,12 +17,12 @@ angular.module('myApp')
           $http.post('/api/pods/add', {url:urls[$scope.count++]})
           .success(function(data){
             $scope.message = data;
-            if($scope.count<urls.length-1) {
+            if($scope.count<urls.length) {
               addPod(); 
             }
           });
           $scope.message = $scope.count + '/' + urls.length + ', ' + urls[$scope.count-1];       
-        },12000);
+        },2000);
       }
       addPod();
     };

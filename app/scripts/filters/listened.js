@@ -22,7 +22,7 @@ angular.module('myApp')
               filteredItems.push(item); 
             }
           }
-          else if(NavService.filters.visited=='visited') {
+          else if(NavService.filters.visited==='visited') {
             if(item.listened) {
               filteredItems.push(item); 
             }
