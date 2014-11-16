@@ -8,7 +8,7 @@
  * Factory in the myApp.
  */
 angular.module('myApp')
-.factory('NavService', function($route, $rootScope, $location){
+.factory('NavService', function($route, $rootScope, $location, $http){
     var filters = {
         page: '/',
         period : 'week',
@@ -65,7 +65,8 @@ angular.module('myApp')
             {value:'/', text:'Home', action:'go()'},
             {value:'/myfeeds', text:'My feeds', action:'go()'},
             {value:'/allfeeds', text:'Directory', action:'go()'},
-            {value:'/profile', text:'Profile', action:'go()'}
+            {value:'/profile', text:'Profile', action:'go()'},
+            {value:'/logout', text:'Log out', action:'logout()'}
         ],
         periodList: [
             {value:'day',text:'Day', action:'filter()'},
@@ -95,6 +96,9 @@ angular.module('myApp')
         go: function(){
             $rootScope.lazyLoad = undefined;
             $location.path(filters.page);
+        },
+        logout: function(){
+            $http.get('/api/logout');
         },
         parseArg: parseArg
         

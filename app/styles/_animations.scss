@@ -1,16 +1,14 @@
 svg {
   width: 100px;
   height: 100px;
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  transform: translate(-50%, 0);
   background: rgba(235,235,235,0.8);
   border-radius: 50%;
   border: 2px solid #fff;
+  margin: 1em auto;
+  display: block;
 }
 #headset-sound {
-  fill: none; 
+  fill: #ccc; 
   stroke: black;
   stroke-width: 0.4;
   stroke-dasharray: 0 50;

@@ -29,7 +29,4 @@ angular.module('myApp')
       });
     }
   };
-  $scope.logout = function(){
-    $http.get('/api/logout');
-  };
 });

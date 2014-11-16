@@ -15,7 +15,7 @@ angular.module('myApp')
             list: '=dropdown',
             ngModel: '='
         },
-        template: '<div class="dropdown" ng-click="open=!open" ng-class="{open:open}"><div ng-repeat="thing in list" style="top: {{($index + 1) * height}}px; -webkit-transition-delay: {{(list.length - $index) * 0.03}}s; z-index: {{list.length - $index}}" ng-hide="!open" ng-click="update(thing)" ng-class="{selected:selected===thing}"><span ng-bind-html="thing.text" class="item"></span></div><span class="title" style="top: 0px; z-index: {{list.length + 1}}"><span ng-bind-html="selected.text" class="item"></span></span><span class="clickscreen" ng-hide="!open">&nbsp;</span></div>',
+        template: '<div class="dropdown" ng-click="open=!open" ng-class="{open:open}"><div ng-repeat="thing in list" style="top: {{($index + 1) * height}}px; -webkit-transition-delay: {{(list.length - $index) * 0.02}}s; z-index: {{list.length - $index}}" ng-hide="!open" ng-click="update(thing)" ng-class="{selected:selected===thing}"><span ng-bind-html="thing.text" class="item"></span></div><span class="title" style="top: 0px; z-index: {{list.length + 1}}"><span ng-bind-html="selected.text" class="item"></span></span><span class="clickscreen" ng-hide="!open">&nbsp;</span></div>',
         replace: true,
         link: function(scope, elem, attrs, ngModel) {
             scope.height = elem[0].offsetHeight;

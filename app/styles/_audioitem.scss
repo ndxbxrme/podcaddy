@@ -11,7 +11,7 @@
 body .playlist {
   width: 90%;
   max-width: 900px;
-  margin: 80px auto;
+  margin: 20px auto;
   transition: margin 0.6s ease-in-out;
   .item {
     position: relative;
@@ -158,7 +158,6 @@ body .playlist {
 
 @media screen and (max-width: 568px) {
   body .playlist {
-    margin-top: 110px;
     .thumbnail {
       max-width: 100%;
     }
@@ -167,6 +166,7 @@ body .playlist {
     }
     h3 {
       margin-right: 0px !important;
+      font-size: 1em;
     }
     .timing {
       top: auto !important;

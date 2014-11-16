@@ -224,7 +224,7 @@ var checkFeed = function(url, callback) {
               pod.pubDate = Date.parse(feed.item[0].pubDate[0]);
               pod.updatedAt = Date.now();
               pod.categories = categories;
-              if(pod.image!==dbImg(imgsrc)) {
+              /*if(pod.image!==dbImg(imgsrc)) {
                 cloudinary.uploader.upload(
                   imgsrc,
                   function(cRes) {
@@ -269,7 +269,7 @@ var checkFeed = function(url, callback) {
                     tags: ['podcast','feed_image']
                   }
                 );
-              } else {
+              } else {*/
                 pod.save(function(err){
                   if(err) {
                     throw err; 
@@ -279,7 +279,7 @@ var checkFeed = function(url, callback) {
                     return callback(pod);
                   }
                 });
-              }
+              //}
             }
             else {
               var newPod = new Pod(); 

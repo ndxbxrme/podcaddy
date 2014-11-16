@@ -1,9 +1,18 @@
 .allfeeds {
   width:90%;
+  margin: 0 auto;
   max-width:1000px;
-  margin: 69px auto;
   box-sizing: border-box;
   
+  .paging {
+    font-size: 0.8em; 
+    clear: both;
+    margin: 1.5em 0;
+    
+    .count {
+      padding: 0.5em 0; 
+    }
+  }
 
   .section-title {
     clear:both;
@@ -55,7 +64,7 @@
       display: table-cell;
       vertical-align: center;
       background: rgba(255,255,255,0.2);
-      font-size: 100px;
+      font-size: 6em;
       height: 100%;
       line-height: 100%;
       cursor: pointer;
@@ -160,6 +169,7 @@
     }
     
     .content {
+      box-sizing: border-box;
       padding: 7px;
       background: rgba(255,255,255,0.3);
       border: 1px solid rgba(0,0,0,0.2);
@@ -171,34 +181,74 @@
       cursor: pointer;
     }
   }
-  
-  .list-feed:hover .content {
-    transform:  translate3d(0,-1em,0); 
-  }
-  
-  .list-feed:hover .controls {
-    transform: translate3d(0,-3em,0); 
-    opacity: 1;
-  }
-  
-  .list-feed:nth-of-type(4n+1) {
-    padding-right: 1em;
-    .controls {
-      padding-right: 1em;
+}
+
+.allfeeds {
+    .list-feed:hover .content {
+      transform:  translate3d(0,-1em,0); 
     }
-  }  
-  .list-feed:nth-of-type(4n+2), .list-feed:nth-of-type(4n+3) {
-    padding-left: 1em;
-    padding-right: 1em;
-    .controls {
+
+    .list-feed:hover .controls {
+      transform: translate3d(0,-3em,0); 
+      opacity: 1;
+    } 
+}
+
+@media screen and (min-width: 1024px) {
+  .allfeeds {  
+
+
+    .list-feed:nth-of-type(4n+1) {
+      padding-right: 1em;
+      .controls {
+        padding-right: 1em;
+      }
+    }  
+    .list-feed:nth-of-type(4n+2), .list-feed:nth-of-type(4n+3) {
       padding-left: 1em;
       padding-right: 1em;
-    }
-  }  
-  .list-feed:nth-of-type(4n+4) {
-    padding-left: 1em;
-    .controls {
+      .controls {
+        padding-left: 1em;
+        padding-right: 1em;
+      }
+    }  
+    .list-feed:nth-of-type(4n+4) {
       padding-left: 1em;
+      .controls {
+        padding-left: 1em;
+      }
+    }
+    .prev, .next {
+      font-size: 4.6em!important; 
+    }
+  }
+}
+
+@media screen and (max-width:1023px) and (min-width:568px) {
+  .allfeeds {
+    .list-feed:nth-of-type(2n+1) {
+      padding-right: 1em; 
+    }
+    .list-feed:nth-of-type(2n+2) {
+      padding-left: 1em;
+    }
+    .prev, .next {
+      font-size: 2.6em!important; 
+    }
+  }
+}
+
+@media screen and (max-width:567px) {
+  .allfeeds {
+    .list-feed {
+      padding-right: 0em; 
+      .controls {
+        opacity: 1; 
+        transform: translate3d(0,-3em,0);
+      }
+    }
+    .prev, .next {
+      font-size: 2em!important; 
     }
   }
 }

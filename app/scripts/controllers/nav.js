@@ -40,14 +40,7 @@ angular.module('myApp')
         });
       });
     };
-    function addAll(){
-      $http.post('/api/subs/all')
-      .success(function(data){
-        console.log(data);
-      });
-    }
-    $scope.icons = [];
-    for(var f=0; f<200; f++) {
-      $scope.icons.push(f); 
-    }
+    $scope.logout = function(){
+        $http.get('/api/logout');
+    };
 });

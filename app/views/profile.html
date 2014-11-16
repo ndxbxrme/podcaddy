@@ -1,5 +1,10 @@
 <div class="profile pure-g text-center">
   <div class="pure-u-1">
+    <a href="" ng-hide="user.user.local.token" class="pure-button">Change email/password</a>
+    <a href="" ng-show="user.user.local.token" class="pure-button">Add email/password</a>
+  </div>
+  <div class="pure-u-1">
+    <br />
     <a href="/api/connect/twitter" target="_self" ng-hide="user.user.twitter.token" class="pure-button"><i class="icomoon-twitter"></i> Connect Twitter</a>
     <a href="/api/unlink/twitter" target="_self" ng-show="user.user.twitter.token" class="pure-button"><i class="icomoon-twitter"></i> Unlink Twitter</a>
   </div>

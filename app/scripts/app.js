@@ -89,6 +89,7 @@ angular
     $locationProvider.html5Mode(true);
   })
   .run(function($rootScope, PagePlayer, NavService, $route, $http) {
+    $rootScope.loading = false;
     $rootScope.$on('$routeChangeSuccess', function(){
       if($route && $route.current) {
           NavService.filters.feed = 'all';

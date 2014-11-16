@@ -95,7 +95,14 @@ angular.module('myApp')
       };
       this.skip = function(itemId){
         $timeout(function(){
-          $('#' + itemId).next().find('.podimg').click();
+          _.each($rootScope.lazyLoad.items, function(item) {
+            if(item._id===itemId) {
+              item.listened = true;
+            }
+          });
+          var next = $('#' + itemId).next();
+          next.find('.podimg').click();
+          $.scrollTo('#' + next.id, 600, {axit:'y',offset:{top:-100}});
         });
       };
       this.togglePlay = function(item){
