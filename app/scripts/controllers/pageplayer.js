@@ -8,7 +8,7 @@
  * Controller of the myApp
  */
 angular.module('myApp')
-  .controller('PageplayerCtrl', function ($route, $rootScope, Timer, NavService, PagePlayer) {
+  .controller('PageplayerCtrl', function ($route, $rootScope, Timer) {
     $rootScope.cssPage = 'mainPage';
     Timer.start();
     if(angular.isDefined($rootScope.lazyLoad)) {

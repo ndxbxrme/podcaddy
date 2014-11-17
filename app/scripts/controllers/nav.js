@@ -13,22 +13,20 @@ angular.module('myApp')
     $scope.nav = NavService;
     $scope.go = NavService.go;
     $scope.filter = NavService.filter;
-    $scope.user = User;
+    $scope.user = User; 
   
     $scope.addfeed = function(){
       if($scope.search.url.indexOf('http')!==0) {
         return; 
       }
-      if($scope.search.url === 'http://addall'){
-        return addAll(); 
-      }
       $http.post('/api/pods/add', {url:$scope.search.url})
-      .success(function(feed){
+      .success(function(data){
         $scope.search.url = '';
         $timeout(function(){
-          if(!feed.error) {
-            feed.message = 'You have added a podcast!';
-            $rootScope.modalFeed = feed;
+          if(!data.error) {
+            data.feed.message = 'You have added a podcast!';
+            data.feed.subscribed = data.subscribed;
+            $rootScope.modalFeed = data.feed;
           } else {
             $rootScope.modalFeed = {
               message:'There was an error',

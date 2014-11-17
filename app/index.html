@@ -50,7 +50,7 @@
           </div>
           <now-playing></now-playing>
       </div>
-      <div class="header-spacer"></div>
+      <div class="header-spacer" ng-show="user.user"></div>
       <div ng-view=""></div>
       <div class="text-center svg-loading" ng-show="loading">
         <svg viewBox="-2 0 36 36" version="1.1" 
@@ -94,9 +94,9 @@
         </svg>
       </div>
       <div class="footer c3">made by <a href="http://rainstormweb.com" title="RainstormWeb">rainstormweb</a>
-      <br />get the code on <a href="https://github.com/ndxbxrme/podcaddy"><i class="icomoon-github"></i> Github</a></div>
+      <br />podcaddy is open source, get the <a href="https://github.com/ndxbxrme/podcaddy"><i class="icomoon-github"></i> code</a></div>
     </div>
-
+    <modal-add-feed feed="modalFeed"></modal-add-feed>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -159,6 +159,7 @@
     <script src="scripts/filters/listened.js"></script>
     <script src="scripts/directives/directoryitem.js"></script>
     <script src="scripts/filters/unambiguate.js"></script>
+    <script src="scripts/controllers/login.js"></script>
     <!-- endbuild -->
         
   </body>

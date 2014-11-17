@@ -83,12 +83,16 @@ angular
         controller: 'MainCtrl',
         resolve: {loggedIn:checkLogin}
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
     $locationProvider.html5Mode(true);
   })
-  .run(function($rootScope, PagePlayer, NavService, $route, $http) {
+  .run(function($rootScope, PagePlayer, NavService, $route) {
     $rootScope.loading = false;
     $rootScope.$on('$routeChangeSuccess', function(){
       if($route && $route.current) {
@@ -113,6 +117,7 @@ angular
           else if($route.current.$$route.controller==='ProfileCtrl') {
             NavService.filters.page = '/profile';          
           }
+          $.scrollTo(0, 600, {axis:'y'});
       }
     });
   });
