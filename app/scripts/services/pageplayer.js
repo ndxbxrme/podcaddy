@@ -155,6 +155,7 @@ angular.module('myApp')
           $rootScope.loading = false;
           if(status===200) {
             var needsUpdate = false;
+            $rootScope.noSubs = data.noSubs;
             if(!$rootScope.lazyLoad || data.items.length!==$rootScope.lazyLoad.items.length) {
               needsUpdate = true; 
             }

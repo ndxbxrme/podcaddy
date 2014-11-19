@@ -39,7 +39,7 @@ module.exports.fetchSubs = function(req, res){
         item.listened = _.findWhere(item.listened, {userId:req.user._id.toString()})!==undefined;
         item.skipped = _.findWhere(item.skipped, {userId:req.user._id.toString()})!==undefined;
       });
-      res.json({items:items});
+      res.json({items:items,noSubs:slugs.length});
     });
   };
   User.findOne({'_id':req.user._id})

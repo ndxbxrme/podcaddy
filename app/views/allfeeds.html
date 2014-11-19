@@ -21,7 +21,11 @@
       </div>
     </div>
 
-    <div class="section-title pure-u-1 categories"><br /></div>
+    <div class="pure-u-1 categories">
+        <div class="new-user text-center" ng-show="noSubs===0">
+            <p>when you are done, start listening <input type="button" class="pure-button-primary" value="here" /></p>
+        </div><br />
+    </div>
     <div ng-show="!loading && lazyLoad.items.length > 0" ng-repeat="cat in ['Comedy','Technology','TV & Film','Arts','Entertainment','Games & Hobbies','Health','Music','News','Politics','Religion','Spirituality','Science','Culture','Sports']" class="pure-u-1-2 pure-u-sm-1-3 pure-u-lg-1-5 pure-button" ng-class="{'pure-button-primary':$parent.category===cat}" ng-click="$parent.start=12;($parent.category===cat)?$parent.category=undefined:$parent.category=cat">{{cat}}</div>
   </div>
   <div class="paging pure-g" ng-show="filteredItems.length>0">
