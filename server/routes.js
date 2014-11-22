@@ -54,7 +54,7 @@ module.exports = function(app, passport) {
   app.get('/api/twitter', passport.authenticate('twitter', {scope:'email'}));
   
   app.get('/api/twitter/callback', passport.authenticate('twitter', {
-    successRedirect: '/',
+    successRedirect: '/home',
     failureRedirect: '/login'
   }));
   

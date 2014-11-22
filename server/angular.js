@@ -8,6 +8,7 @@ module.exports = function(app) {
   app.use('/views', gzippo.staticGzip(__dirname + '../../dist/views'));
   app.use('/swf', gzippo.staticGzip(__dirname + '../../dist/swf'));
   app.use('/fonts', gzippo.staticGzip(__dirname + '../../dist/fonts'));
+  app.use('/favicon', gzippo.staticGzip(__dirname + '../../dist/favicon'));
   app.all('/*', function(req, res) {
     res.sendFile('index.html', {root: __dirname + '../../dist'});
   });   

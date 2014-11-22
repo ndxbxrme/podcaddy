@@ -19,14 +19,12 @@ angular
   ])
   .config(function ($routeProvider, $locationProvider) {
   
-    var checkLogin = function($q, $location, $http, User, $timeout) {
+    var checkLogin = function($q, $location, $http, User) {
       var deferred = $q.defer();
       $http.get('/api/user')
       .success(function(user){
         if(user) {
-          $timeout(function(){
-            User.user = user;
-          });
+          User.user = user;
           deferred.resolve(user);
         }
         else {
@@ -34,17 +32,17 @@ angular
           $location.url('/login');
         }
       });
+      return deferred.promise;
     };
   
-    var softLogin = function($q, $http, User, $timeout) {
+    var softLogin = function($q, $http, User) {
       var deferred = $q.defer();
       $http.get('/api/user')
       .success(function(user) {
-        $timeout(function(){
-          User.user = user;
-        });
+        User.user = user;
         deferred.resolve(user);
       });
+      return deferred.promise;
     };
   
     $routeProvider
