@@ -56,7 +56,7 @@ function checkValidFeed(feed)
 
 function dbImg(imgsrc)
 {
-  if(imgsrc) {
+  if(imgsrc && imgsrc.match(/\/[^\/]+$/)) {
     return imgsrc.match(/\/[^\/]+$/)[0];
   }
   return '';
