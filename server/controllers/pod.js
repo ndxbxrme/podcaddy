@@ -281,7 +281,7 @@ var checkFeed = function(url, callback) {
                 });
               //}
             }
-            else {
+            else if(feed && feed.item && feed.item.length>0 && feed.item[0].pubDate) {
               var newPod = new Pod(); 
               newPod.url = url;
               newPod.link = feed.link;
