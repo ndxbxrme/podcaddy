@@ -215,7 +215,7 @@ var checkFeed = function(url, callback) {
             .replace(/<!\[CDATA|]]>/g,'').stripTags().decodeHTMLEntities();
             var t = S((feed.title&&feed.title.length>0)?feed.title[0]:'')
             .replace(/<!\[CDATA|]]>/g,'').stripTags().decodeHTMLEntities().truncate(255);
-            if(pod) {
+            if(pod && feed && feed.item && feed.item.length>0 && feed.item[0].pubDate) {
               //update pod stats
               pod.link = feed.link;
               pod.title = t.s;
