@@ -71,7 +71,7 @@ angular.module('myApp')
                 return; 
               }
               scope.item.timeago = $.timeago(scope.item.pubDate);
-              loaded = LazyLoad.checkScroll(w, $e, scope.item.cloudinary.url, scope.item.feedId, loaded);
+              loaded = LazyLoad.checkScroll(w, $e, scope.item.cloudinary.secure_url, scope.item.feedId, loaded);
             }, true);
             scope.skip = function(item) {
               $http.post('/api/skip', {id:item.id})

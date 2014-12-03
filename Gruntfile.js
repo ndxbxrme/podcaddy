@@ -22,12 +22,12 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
   
-  var localConfig;
+  /*var localConfig;
   try {
       localConfig = require('./server/config/local.env');
   }catch(e){
       localConfig = {};
-  }
+  }*/
   
   var modRewrite = require('connect-modrewrite');
   // Define the configuration for all the tasks
@@ -40,11 +40,11 @@ module.exports = function (grunt) {
             file: 'server/app.js'
         }
     },
-    env: {
+    /*env: {
         test: { NODE_ENV: 'test' },
         prod: { NODE_ENV: 'production' },
         all: localConfig
-    },
+    },*/
     // Watches files for changes and runs tasks based on the changed files
     watch: {
       bower: {
@@ -57,14 +57,6 @@ module.exports = function (grunt) {
         options: {
           livereload: '<%= connect.options.livereload %>'
         }
-      },
-      nodejs: {
-          files: [
-              'server/**/*.js',
-              'server/*.js'
-          ],
-          tasks: ['env:test','develop'],
-          options: { nospawn: true }
       },
       jsTest: {
         files: ['test/spec/{,*/}*.js'],
@@ -95,15 +87,15 @@ module.exports = function (grunt) {
         {
           context: '/api',
           host: 'localhost',
-          port: 3000,
+          port: 23232,
           https: false,
           changeOrigin: false
         }
       ],
       options: {
-        port: 9000,
+        port: process.env.PORT,
         // Change this to '0.0.0.0' to access the server from outside.
-        hostname: 'localhost',
+        hostname: process.env.IP,
         livereload: 35729
       },
       livereload: {
@@ -430,7 +422,7 @@ module.exports = function (grunt) {
     }
 
     grunt.task.run([
-      'env:all',
+      //'env:all',
       'clean:server',
       'wiredep',
       'configureProxies',

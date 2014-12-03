@@ -23,7 +23,7 @@ angular.module('myApp')
                   if(!w) {
                     return; 
                   }
-                  loaded = LazyLoad.checkScroll(w, $e, scope.feed.data.image, scope.feed.id, loaded);
+                  loaded = LazyLoad.checkScroll(w, $e, scope.feed.cloudinary.secure_url, scope.feed.id, loaded);
                 }, true);
                 
                 scope.toggle = function(){
