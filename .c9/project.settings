@@ -19,7 +19,8 @@
                         "CLOUDINARY_KEY": "922294813311468",
                         "CLOUDINARY_SECRET": "jAXLUQIOkylkCnRNZj8VFaq_frc",
                         "SESSION_SECRET": "'4_:xQx%S}[d$a(q_B>BjiH=(k9(3kyF{)M<x]\\Vt^I;_%`e[s(W?+8=RFrNpGel*(^'",
-                        "TWITTER_CALLBACK": "https://podcaddy-ndxbxrme.c9.io/api/twitter/callback"
+                        "TWITTER_CALLBACK": "https://podcaddy-ndxbxrme.c9.io/api/twitter/callback",
+                        "C9": "true"
                     },
                     "command": "grunt serve",
                     "name": "GRUNT",

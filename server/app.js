@@ -19,7 +19,7 @@ var mongoStore = new MongoStore({
       mongoose_connection: mongoose.connection,
       auto_reconnect: true
 });
-app.set('port', 23232);
+app.set('port', process.env.C9 ? 23232 : process.env.PORT || 23232);
 app.use(compression())
 .use(morgan('dev'))
 .use(cookieParser())
