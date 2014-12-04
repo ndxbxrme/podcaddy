@@ -3,7 +3,7 @@
   <div class="pure-g">
     <!--<h2 ng-show="lazyLoad.items.length>0">Select some feeds then start listening <a href="/">here</a></h2>-->
     <div class="no-overflow">
-      <div class="popular" ng-init="limit=10">
+      <div class="popular" ng-init="limit=10" ng-hide="search.url">
         <allfeedsitem ng-repeat="feed in lazyLoad.items | orderBy:'-listensWeek' | limitTo:limit | limitTo:-10" feed="feed" class="pure-u-1-5">
         </allfeedsitem>
         <div class="pop-left">
