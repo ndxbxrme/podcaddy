@@ -1,5 +1,5 @@
 'use strict';
-
+/*global angular:false, $:false*/
 /**
  * @ngdoc function
  * @name myApp.controller:NavCtrl

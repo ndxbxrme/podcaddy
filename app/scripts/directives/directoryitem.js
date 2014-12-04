@@ -1,5 +1,5 @@
 'use strict';
-
+/*global angular:false, $:false*/
 /**
  * @ngdoc directive
  * @name myApp.directive:directoryitem

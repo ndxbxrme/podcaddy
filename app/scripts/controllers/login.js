@@ -15,7 +15,7 @@ angular.module('myApp')
     if(imgs && imgs.length > 0) {
       var rnd = Math.floor(Math.random() * imgs.length);
       var rnd2 = Math.floor(Math.random() * $scope.lazyLoad.items.length);
-      imgs[rnd].src = $scope.lazyLoad.items[rnd2].cloudinary.url;
+      imgs[rnd].src = $scope.lazyLoad.items[rnd2].cloudinary.secure_url;
     }
     $timeout(switchImg, 1000);
   };

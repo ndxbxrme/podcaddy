@@ -1,5 +1,5 @@
 'use strict';
-
+/*global angular:false*/
 /**
  * @ngdoc directive
  * @name myApp.directive:modaladdfeed
@@ -21,9 +21,10 @@ angular.module('myApp')
         scope.toggle = function(){
             scope.toggling = true;
             $http.post('/api/subs/toggle', {
-                feedid: scope.feed.id
-            }).success(function(){
+                podid: scope.feed.id
+            }).success(function(data){
                 scope.toggling = false;
+                scope.feed.subscribed = data.subscribed ? [true] : [];
                 scope.close();
                 $rootScope.pagePlayer.fetchData();
             });

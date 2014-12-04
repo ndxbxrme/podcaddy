@@ -383,7 +383,7 @@ module.exports.fetchSubs = function(req, res) {
       throw err; 
     }
     for(var f=0; f<pods.length; f++) {
-      pods[f].noSubscribers = pods[f].subscribers.length
+      pods[f].noSubscribers = pods[f].subscribers.length;
       pods[f].subscribers = undefined; 
       pods[f].subscribed = true;
     }
@@ -401,7 +401,7 @@ module.exports.addPod = function(req, res) {
       pod.noSubscribers = pod.subscribers.length;
       pod.subscribers = undefined;
     }
-    res.json({feed:pod,subscribed:subscribed,error:pod!=undefined});
+    res.json({feed:pod,subscribed:subscribed,error:pod===undefined});
   });
 };
 

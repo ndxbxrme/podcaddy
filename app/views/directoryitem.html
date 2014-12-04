@@ -1,6 +1,6 @@
 <div>
   <div class="content" ng-click="toggle()">
-    <img src="{{feed.cloudinary.url}}" />
+    <img src="{{feed.cloudinary.secure_url}}" />
     <h2 ng-bind-html="feed.title | widow"></h2>
     <h4 ng-show="feed.subscribed">Subscribed</h4>
     <p ng-bind-html="feed.shortDesc?feed.shortDesc:'&nbsp;' | widow"></p>&nbsp;

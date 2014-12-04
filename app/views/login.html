@@ -5,16 +5,16 @@
     <div class="no-overflow">
       <div class="popular faded" ng-init="limit=10">
         <span ng-repeat="feed in lazyLoad.items | orderBy:'-listensWeek' | limitTo:limit | limitTo:-10" feed="feed" class="pure-u-1-5">
-          <img ng-src="{{feed.cloudinary.url}}" />
+          <img ng-src="{{feed.cloudinary.secure_url}}" />
         </span>  
         <div class="pop-left">
           <span ng-repeat="feed in lazyLoad.items | orderBy:'-listensWeek' | limitTo:(limit+20) | limitTo:-10" feed="feed" class="pure-u-1-5">
-            <img ng-src="{{feed.cloudinary.url}}" />
+            <img ng-src="{{feed.cloudinary.secure_url}}" />
           </span>       
         </div>
         <div class="pop-right">
           <span ng-repeat="feed in lazyLoad.items | orderBy:'-listensWeek' | limitTo:(limit+10) | limitTo:-10" feed="feed" class="pure-u-1-5">
-            <img ng-src="{{feed.cloudinary.url}}" />
+            <img ng-src="{{feed.cloudinary.secure_url}}" />
           </span>             
         </div>
         <div class="login-form" ng-hide="user.user">

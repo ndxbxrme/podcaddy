@@ -139,7 +139,7 @@ body .playlist {
 .item.hover .imgParent:after {
     opacity: 1; 
 }
-.item.hover.playing .thumbnail:after {
+.item.hover.playing .imgParent:after {
     content: '\e691';
 }
 .l-box {
