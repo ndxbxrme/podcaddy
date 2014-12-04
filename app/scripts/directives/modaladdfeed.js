@@ -21,7 +21,7 @@ angular.module('myApp')
         scope.toggle = function(){
             scope.toggling = true;
             $http.post('/api/subs/toggle', {
-                podid: scope.feed.id
+                podid: scope.feed._id
             }).success(function(data){
                 scope.toggling = false;
                 scope.feed.subscribed = data.subscribed ? [true] : [];
