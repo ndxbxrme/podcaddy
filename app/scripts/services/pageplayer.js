@@ -138,7 +138,13 @@ angular.module('myApp')
           self.lastSound = thisSound;
           thisSound.play();
           $rootScope.currentitem = item;
-         
+          flare.emit({
+            category: "Play",
+            action: "click",
+            label: item.url,
+            value: 4
+          });
+          console.log('emitted flare');
         }
       };
       $rootScope.lazyLoad = new LazyLoad([]);
