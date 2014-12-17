@@ -1,5 +1,5 @@
 'use strict';
-
+/*global angular:false, flare:false, soundManager:false, _:false, $:false*/
 /**
  * @ngdoc service
  * @name myApp.PagePlayer

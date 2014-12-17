@@ -1,14 +1,7 @@
 'use strict';
-
-/**
- * @ngdoc function
- * @name myApp.controller:LoginCtrl
- * @description
- * # LoginCtrl
- * Controller of the myApp
- */
+/*global angular:false, $:false*/
 angular.module('myApp')
-.controller('LoginCtrl', function ($scope, $rootScope, $http, $timeout, LazyLoad) {
+.controller('LoginCtrl', function ($scope, $rootScope, $http, $timeout, $location, LazyLoad) {
   $rootScope.cssPage = 'loginPage';
   var switchImg = function(){
     var imgs = $('.popular img');
@@ -25,4 +18,24 @@ angular.module('myApp')
     $scope.lazyLoad = new LazyLoad(feeds);
     switchImg();
   });
+
+  $scope.login = function(){
+    $scope.submitted = true;
+    if($scope.loginForm.$valid) {
+      $http.post('/api/login', $scope.userform)
+      .success(function(){
+        $location.path('/');
+        $scope.submitted = false;
+      });
+    }
+  };
+  $scope.signup = function(){
+    $scope.submitted = true;
+    if($scope.loginForm.$valid) {
+      $http.post('/api/signup', $scope.userform)
+      .success(function(){
+        $location.path('/');
+      });
+    }
+  };
 });
