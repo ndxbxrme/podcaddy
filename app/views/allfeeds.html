@@ -26,7 +26,7 @@
             <p>click a few feeds to add them to your playlist</p><p>when you are done, start listening <a href="/" class="pure-button-primary"> here </a></p>
         </div><br />
     </div>
-    <div ng-show="!loading && lazyLoad.items.length > 0" ng-repeat="cat in ['Comedy','Technology','TV & Film','Arts','Entertainment','Games & Hobbies','Health','Music','News','Politics','Religion','Spirituality','Science','Culture','Sports']" class="pure-u-1-2 pure-u-sm-1-3 pure-u-lg-1-5 pure-button" ng-class="{'pure-button-primary':$parent.category===cat}" ng-click="$parent.start=12;($parent.category===cat)?$parent.category=undefined:$parent.category=cat">{{cat}}</div>
+    <div ng-show="!loading && lazyLoad.items.length > 0" ng-repeat="cat in ['Comedy','Technology','TV & Film','Arts','Entertainment','Games & Hobbies','Health','Music','News','Politics','Religion','Spirituality','Science','Culture','Sports']" class="pure-u-1-2 pure-u-sm-1-3 pure-u-lg-1-5 pure-button" ng-class="{'pure-button-primary':$parent.category===cat}" ng-click="$parent.search.url=undefined;$parent.start=12;($parent.category===cat)?$parent.category=undefined:$parent.category=cat">{{cat}}</div>
   </div>
   <div class="paging pure-g" ng-show="filteredItems.length>0">
     <div class="pure-u-1-2 count">
