@@ -58,7 +58,8 @@ angular.module('myApp')
         },
         resume: function() {
           $('.playing').removeClass('playing');
-          $('.paused').removeClass('paused').addClass('playing');
+          $('.paused').removeClass('paused');
+          $('#' + self.lastSound.id + ', .now-playing').addClass('playing');
         },
         finish: function() {
           $('.playing, .paused').removeClass('playing').removeClass('paused');
