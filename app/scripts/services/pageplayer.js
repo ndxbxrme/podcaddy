@@ -1,5 +1,5 @@
 'use strict';
-
+/*global angular:false, flare:false, soundManager:false, _:false, $:false*/
 /**
  * @ngdoc service
  * @name myApp.PagePlayer
@@ -58,7 +58,8 @@ angular.module('myApp')
         },
         resume: function() {
           $('.playing').removeClass('playing');
-          $('.paused').removeClass('paused').addClass('playing');
+          $('.paused').removeClass('paused');
+          $('#' + self.lastSound.id + ', .now-playing').addClass('playing');
         },
         finish: function() {
           $('.playing, .paused').removeClass('playing').removeClass('paused');
@@ -138,7 +139,13 @@ angular.module('myApp')
           self.lastSound = thisSound;
           thisSound.play();
           $rootScope.currentitem = item;
-         
+          flare.emit({
+            category: "Play",
+            action: "click",
+            label: item.url,
+            value: 4
+          });
+          console.log('emitted flare');
         }
       };
       $rootScope.lazyLoad = new LazyLoad([]);

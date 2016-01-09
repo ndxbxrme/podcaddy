@@ -22,6 +22,7 @@ angular.module('myApp')
       $http.post('/api/pods/add', {url:$scope.search.url})
       .success(function(data){
         $scope.search.url = '';
+        $scope.searching = false;
         $timeout(function(){
           if(!data.error) {
             data.feed.message = 'You have added a podcast!';
