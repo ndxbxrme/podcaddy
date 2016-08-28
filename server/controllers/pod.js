@@ -493,5 +493,5 @@ function refreshFeeds() {
 }
 
 
-setInterval(refreshFeeds, 1000 * 60 * 3);
-refreshFeeds();
+//setInterval(refreshFeeds, 1000 * 60 * 3);
+//refreshFeeds();
