@@ -2,6 +2,7 @@
 var gzippo = require('gzippo');
 
 module.exports = function(app) {
+  console.log('DIRNAME', __dirname);
   app.use('/scripts', gzippo.staticGzip(__dirname + '/../../dist/scripts'));
   app.use('/images', gzippo.staticGzip(__dirname + '/../../dist/images'));
   app.use('/styles', gzippo.staticGzip(__dirname + '/../../dist/styles'));
