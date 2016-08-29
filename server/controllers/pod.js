@@ -224,61 +224,16 @@ var checkFeed = function(url, callback) {
               pod.pubDate = Date.parse(feed.item[0].pubDate[0]);
               pod.updatedAt = new Date();
               pod.categories = categories;
-              /*if(pod.image!==dbImg(imgsrc)) {
-                cloudinary.uploader.upload(
-                  imgsrc,
-                  function(cRes) {
-                    if(!cRes.error) {
-                      pod.image = dbImg(imgsrc);
-                      pod.cloudinary = cRes;
-                      pod.save(function(err){
-                        if(err) {
-                          throw err; 
-                        }
-                        updateFeedItems(feed, pod);
-                        if(callback) {
-                          return callback(pod);
-                        }
-                      });
-                    }
-                    else {
-                      cloudinary.uploader.upload(
-                        'https://unsplash.it/200/200/?random',
-                        function(cRes1) {
-                          pod.image = dbImg(imgsrc);
-                          pod.cloudinary = cRes1;
-                          pod.save(function(err) {
-                            if(err) {
-                              throw err;   
-                            }
-                            updateFeedItems(feed, pod);
-                            if(callback) {
-                              return callback(pod);
-                            }
-                          });
-                        }, {
-                          tags: ['podcast','feed_image'] 
-                        }
-                      ); 
-                    }
-                  },
-                  {
-                    crop: 'thumb',
-                    width: 200,
-                    height: 200,
-                    tags: ['podcast','feed_image']
-                  }
-                );
-              } else {*/
-                pod.save(function(err){
-                  if(err) {
-                    throw err; 
-                  }
-                  updateFeedItems(feed, pod);
-                  if(callback) {
-                    return callback(pod);
-                  }
-                });
+              console.log('saving pod data');
+              pod.save(function(err){
+                if(err) {
+                  throw err; 
+                }
+                updateFeedItems(feed, pod);
+                if(callback) {
+                  return callback(pod);
+                }
+              });
               //}
             }
             else if(feed && feed.item && feed.item.length>0 && feed.item[0].pubDate) {
