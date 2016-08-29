@@ -298,6 +298,7 @@ var checkFeed = function(url, callback) {
         }
         else {
           //not a valid feed 
+          console.log('not a valid feed', url);
           if(callback) {
             return callback();
           }
