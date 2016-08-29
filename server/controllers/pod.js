@@ -186,7 +186,7 @@ var checkFeed = function(url, callback) {
       parser.parseString(body, function(err, data){
         if(err) {
           console.log('parser error', url, err);
-          console.log(data);
+          console.log(body);
         }
         if(checkValidFeed(data)) {
           Pod.findOne({url:url}, function(err, pod) {
