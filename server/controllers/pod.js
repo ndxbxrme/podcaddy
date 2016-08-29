@@ -291,6 +291,9 @@ var checkFeed = function(url, callback) {
                 }
               );
             }
+            else {
+              console.log('couldn\'t save it', url); 
+            }
           });
         }
         else {
