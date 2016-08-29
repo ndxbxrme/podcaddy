@@ -222,7 +222,7 @@ var checkFeed = function(url, callback) {
               pod.description = d.s;
               pod.shortDesc = d.truncate(255).s;
               pod.pubDate = Date.parse(feed.item[0].pubDate[0]);
-              pod.updatedAt = Date.now();
+              pod.updatedAt = new Date();
               pod.categories = categories;
               /*if(pod.image!==dbImg(imgsrc)) {
                 cloudinary.uploader.upload(
@@ -493,5 +493,5 @@ function refreshFeeds() {
 }
 
 
-//setInterval(refreshFeeds, 1000 * 60 * 3);
-//refreshFeeds();
+setInterval(refreshFeeds, 1000 * 60 * 3);
+refreshFeeds();
