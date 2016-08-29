@@ -186,6 +186,20 @@ var checkFeed = function(url, callback) {
       parser.parseString(body, function(err, data){
         if(err) {
           console.log('parser error', url, err);
+          if(url!==res.request.uri.href) {
+            console.log('redirected'); 
+            Pod.findOne({url:url}, function(err, pod) {
+              if(err) {
+                throw err;
+                pod.url = res.request.uri.href;
+                pod.save(function(err) {
+                  if(err) {
+                    throw err; 
+                  }
+                });
+              }
+            });
+          }
         }
         if(checkValidFeed(data)) {
           Pod.findOne({url:url}, function(err, pod) {
@@ -302,6 +316,17 @@ var checkFeed = function(url, callback) {
         else {
           //not a valid feed 
           console.log('not a valid feed', url, checkValidFeed(data), data);
+          Pod.findOne({url:url}, function(err, pod) {
+            if(err) {
+              throw err;
+              pod.updatedAt = new Date();
+              pod.save(function(err) {
+                if(err) {
+                  throw err; 
+                }
+              });
+            }
+          });
           if(callback) {
             return callback();
           }
