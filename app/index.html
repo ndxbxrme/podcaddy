@@ -1,7 +1,186 @@
-<html>
-<head>
-</head>
-<body>
-  <h1>this is just a test</h1>
-</body>
+<!doctype html>
+<html class="no-js">
+  <head>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>podcaddy</title>
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicon/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon/favicon-32x32.png" sizes="32x32">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-TileImage" content="/favicon/mstile-144x144.png">
+    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/normalize.css/normalize.css" />
+    <link rel="stylesheet" href="bower_components/pure/pure.css" />
+    <!-- endbower -->
+    <link rel="stylesheet" href="bower_components/pure/grids-responsive-min.css" />
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="myApp" ng-controller="NavCtrl" class="{{cssPage}}">
+
+    <!-- Add your site or application content here -->
+    <div>
+      <div class="fix">
+          <header class="pure-g">
+              <div class="logo pure-u-1 pure-u-sm-1-3 pure-u-md-1-3 pure-u-lg-1-2"><h1>podcaddy <i class="icomoon-search" ng-click="searching=!searching;search.url=undefined"></i></h1></div>
+              <div class="pure-u-1 pure-u-sm-2-3 pure-u-md-2-3 pure-u-lg-1-2">
+                  <div class="nav pure-g">
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.pageList" ng-model="nav.filters.page"></div>
+                      </div>
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.periodList" ng-model="nav.filters.period"></div>
+                      </div>
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.visitedList" ng-model="nav.filters.visited"></div>
+                      </div>
+                      <div class="pure-u-1-4">
+                          <div dropdown="nav.dirList" ng-model="nav.filters.direction"></div>
+                      </div>
+                  </div>
+              </div>
+          </header>
+          <div class="search ng-hide pure-g" ng-show="searching">
+              <form name="searchForm" style="width: 100%; position: relative;" ng-submit="addfeed()" novalidate>
+                  <input type="text" ng-model="search.url" ng-change="lazyLoad.doScroll()" placeholder="Search or RSS Feed URL" class="pure-u-7-8" />
+                  <input type="submit" class="pure-button pure-u-1-8" value="Submit" />
+              </form>
+          </div>
+          <now-playing></now-playing>
+      </div>
+      <div class="header-spacer" ng-show="user.user"></div>
+      <div ng-view=""></div>
+      <div class="text-center svg-loading" ng-show="loading">
+        <svg viewBox="-2 0 36 36" version="1.1" 
+          xmlns="http://www.w3.org/2000/svg" 
+          xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="headset-sound" data-iconmelon="Streamline Icon Set:52f83f4cf8c3d5bbe21e59ef4ba08e44">
+            <g id="Expanded">
+              <g>
+                <g>
+                  <path  d="M27.333,16.333H26v-2c0-5.514-4.485-10-10-10c-5.514,0-10,4.486-10,10v2H4.667v-2
+
+                        C4.667,8.084,9.75,3,16,3c6.249,0,11.333,5.084,11.333,11.333V16.333z"></path>
+                </g>
+                <g>
+                  <path  d="M3.333,25.667C1.496,25.667,0,24.171,0,22.333S1.496,19,3.333,19v1.333c-1.103,0-2,0.897-2,2
+
+                        c0,1.104,0.897,2,2,2V25.667z"></path>
+                </g>
+                <g>
+                  <path  d="M6.667,29H5.333c-1.471,0-2.667-1.196-2.667-2.667v-8c0-1.471,1.196-2.666,2.667-2.666h1.333
+
+                        c1.471,0,2.667,1.195,2.667,2.666v8C9.333,27.804,8.137,29,6.667,29z M5.333,17C4.598,17,4,17.598,4,18.333v8
+
+                        c0,0.736,0.598,1.334,1.333,1.334h1.333C7.402,27.667,8,27.069,8,26.333v-8C8,17.598,7.402,17,6.667,17H5.333z"></path>
+                </g>
+                <g>
+                  <path  d="M28.667,25.667v-1.334c1.103,0,2-0.896,2-2c0-1.103-0.897-2-2-2V19C30.505,19,32,20.495,32,22.333
+
+                        S30.505,25.667,28.667,25.667z"></path>
+                </g>
+                <g>
+                  <path  d="M26,29c-1.838,0-3.333-1.495-3.333-3.333V19c0-1.838,1.495-3.333,3.333-3.333s3.333,1.495,3.333,3.333
+
+                        v6.667C29.333,27.505,27.838,29,26,29z M26,17c-1.103,0-2,0.897-2,2v6.667c0,1.103,0.897,2,2,2s2-0.897,2-2V19
+
+                        C28,17.897,27.103,17,26,17z"></path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="footer c3">made by <a href="http://rainstormweb.com" title="RainstormWeb">rainstormweb</a>
+      <br />podcaddy is open source, get the <a href="https://github.com/ndxbxrme/podcaddy"><i class="icomoon-github"></i> code</a></div>
+    </div>
+    <modal-add-feed feed="modalFeed"></modal-add-feed>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-56824968-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <script src="bower_components/soundmanager/script/soundmanager2.js"></script>
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/underscore/underscore.js"></script>
+    <script src="bower_components/timeago/jquery.timeago.js"></script>
+    <script src="bower_components/jquery.scrollTo/jquery.scrollTo.js"></script>
+    <script src="bower_components/flare/dist/flare.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/services/user.js"></script>
+    <script src="scripts/controllers/nav.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/services/auth.js"></script>
+    <script src="scripts/controllers/pageplayer.js"></script>
+    <script src="scripts/services/navservice.js"></script>
+    <script src="scripts/services/pageplayer.js"></script>
+    <script src="scripts/services/timer.js"></script>
+    <script src="scripts/directives/allfeedsitem.js"></script>
+    <script src="scripts/directives/audioitem.js"></script>
+    <script src="scripts/directives/dropdown.js"></script>
+    <script src="scripts/directives/ensureunique.js"></script>
+    <script src="scripts/directives/modaladdfeed.js"></script>
+    <script src="scripts/directives/myfeedsitem.js"></script>
+    <script src="scripts/directives/nowplaying.js"></script>
+    <script src="scripts/filters/uniq.js"></script>
+    <script src="scripts/filters/widow.js"></script>
+    <script src="scripts/services/lazyload.js"></script>
+    <script src="scripts/controllers/allfeeds.js"></script>
+    <script src="scripts/controllers/myfeeds.js"></script>
+    <script src="scripts/controllers/addabunchoffeeds.js"></script>
+    <script src="scripts/filters/listened.js"></script>
+    <script src="scripts/directives/directoryitem.js"></script>
+    <script src="scripts/filters/unambiguate.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <!-- endbuild -->
+        
+  </body>
 </html>
