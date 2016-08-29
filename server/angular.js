@@ -10,6 +10,6 @@ module.exports = function(app) {
   app.use('/fonts', gzippo.staticGzip(__dirname + '../../dist/fonts'));
   app.use('/favicon', gzippo.staticGzip(__dirname + '../../dist/favicon'));
   app.all('/*', function(req, res) {
-    res.sendFile('test.html', {root: './dist'});
+    res.sendFile('index.html', {root: './dist'});
   });   
 };
