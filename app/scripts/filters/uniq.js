@@ -12,7 +12,7 @@ angular.module('myApp')
   .filter('uniq', function () {
     return function (input) {
       return _.uniq(input, function(i) {
-        return i.pubDate;
+        return i.title;
       });
     };
   });
