@@ -184,6 +184,9 @@ var checkFeed = function(url, callback) {
     if(body) {
       var parser = new xml2js.Parser();
       parser.parseString(body, function(err, data){
+        if(err) {
+          console.log('parser error', url, err); 
+        }
         if(checkValidFeed(data)) {
           Pod.findOne({url:url}, function(err, pod) {
             if(err) {
