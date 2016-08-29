@@ -51,7 +51,6 @@ function checkValidItem(item)
 
 function checkValidFeed(feed)
 {
-  console.log('channel is array', Array.isArray(feed.rss.channel));
   return feed && feed.rss && feed.rss.channel && feed.rss.channel.length > 0 && feed.rss.channel[0].item && feed.rss.channel[0].item.length > 0;
 }
 
@@ -299,7 +298,7 @@ var checkFeed = function(url, callback) {
         }
         else {
           //not a valid feed 
-          console.log('not a valid feed', url);
+          console.log('not a valid feed', url, checkValidFeed(data), data);
           if(callback) {
             return callback();
           }
