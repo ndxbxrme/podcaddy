@@ -7,7 +7,7 @@
         <h6><small><span class="icon-svg30"></span> {{item.timeago | unambiguate}}</small> <a href="/feed-{{item.podSlug}}/alltime/all/desc"><code><span class="icon-svg40"></span> {{item.podTitle}}</code></a></h6>
         <p class="description">{{item.shortDesc}}</p>
         <h6 class="links">
-          <a href="/feed-{{item.feed.id}}/alltime/all/desc"><span class="icon-svg432"></span> Show all</a>
+          <a href="/feed-{{item.podSlug}}/alltime/all/desc"><span class="icon-svg432"></span> Show all</a>
           <a ng-click="skip(item)"><span class="icon-svg36"></span> Skip episode</a>
           <a href="{{item.url}}"><span class="icon-svg94"></span> Download episode</a>
           <a ng-click="toggleSub(item.feed.id)"><span class="icon-svg310"></span> Unsubscribe</a></h6>

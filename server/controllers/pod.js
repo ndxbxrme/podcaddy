@@ -201,6 +201,7 @@ var checkFeed = function(url, callback) {
               });
             });
           }
+          return;
         }
         if(checkValidFeed(data)) {
           Pod.findOne({url:url}, function(err, pod) {
@@ -321,12 +322,14 @@ var checkFeed = function(url, callback) {
             if(err) {
               throw err;
             }
-            pod.updatedAt = new Date();
-            pod.save(function(err) {
-              if(err) {
-                throw err; 
-              }
-            });
+            if(pod) {
+              pod.updatedAt = new Date();
+              pod.save(function(err) {
+                if(err) {
+                  throw err; 
+                }
+              });
+            }
           });
           if(callback) {
             return callback();
