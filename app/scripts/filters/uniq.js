@@ -14,7 +14,7 @@ angular.module('myApp')
       input.sort(function(a, b) {
         var dateA = Date.parse(a.createdAt);
         var dateB = Date.parse(b.createdAt);
-        return dateB - dateA;
+        return dateA - dateB;
       });
       return _.uniq(input, function(i) {
         return i.pubDate;
