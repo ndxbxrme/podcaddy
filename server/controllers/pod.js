@@ -188,20 +188,20 @@ var checkFeed = function(url, callback) {
           console.log('parser error', url);
           if(url!==res.request.uri.href) {
             console.log('redirected'); 
-            Pod.findOne({url:url}, function(err, pod) {
-              if(err) {
-                throw err;
-              }
-              pod.updatedAt = new Date();
-              pod.url = res.request.uri.href;
-              pod.save(function(err) {
-                console.log('updated url');
-                if(err) {
-                  throw err; 
-                }
-              });
-            });
           }
+          Pod.findOne({url:url}, function(err, pod) {
+            if(err) {
+              throw err;
+            }
+            pod.updatedAt = new Date();
+            pod.url = res.request.uri.href;
+            pod.save(function(err) {
+              console.log('updated url');
+              if(err) {
+                throw err; 
+              }
+            });
+          });
           return;
         }
         if(checkValidFeed(data)) {
