@@ -490,10 +490,10 @@ function refreshFeeds() {
       console.log('refreshing ' + ((pods)?pods.length:'0') + ' feeds at ' + (new Date()));
       var count = 0;
       _.each(pods, function(pod){
-        //if(count++ < 20) {
+        if(count++ < 20) {
           console.log('updated at', pod.updatedAt);
           checkFeed(pod.url, pod.updatedAt, updateStats); 
-        //}
+        }
       });
     }
   });
