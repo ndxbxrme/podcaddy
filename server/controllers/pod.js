@@ -475,9 +475,9 @@ function refreshFeeds() {
       console.log('refreshing ' + ((pods)?pods.length:'0') + ' feeds at ' + (new Date()));
       var count = 0;
       _.each(pods, function(pod){
-        if(count++ < 20) {
+        //if(count++ < 20) {
           checkFeed(pod.url, updateStats); 
-        }
+        //}
       });
     }
   });
