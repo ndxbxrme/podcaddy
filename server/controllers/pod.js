@@ -192,6 +192,7 @@ var checkFeed = function(url, callback) {
               if(err) {
                 throw err;
               }
+              pod.updatedAt = new Date();
               pod.url = res.request.uri.href;
               pod.save(function(err) {
                 console.log('updated url');
