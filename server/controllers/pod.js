@@ -340,6 +340,7 @@ var checkFeed = function(url, callback) {
     }
     else {
       //no body 
+      console.log('NO BODY');
       if(callback) {
         return callback();
       }
