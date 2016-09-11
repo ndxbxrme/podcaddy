@@ -172,6 +172,7 @@ var updateFeedItems = function(feed, pod, callback) {
   });
 };
 
+var parser = new xml2js.Parser();
 var checkFeed = function(url, callback) {
   console.log('checking feed: ' + url);
   var options = {
@@ -182,7 +183,6 @@ var checkFeed = function(url, callback) {
   };
   request(options, function(err, res, body) {
     if(body) {
-      var parser = new xml2js.Parser();
       parser.parseString(body, function(err, data){
         if(err) {
           console.log('parser error', url);
@@ -476,6 +476,7 @@ function refreshFeeds() {
       var count = 0;
       _.each(pods, function(pod){
         //if(count++ < 20) {
+          console.log('updated at', pod.updatedAt);
           checkFeed(pod.url, updateStats); 
         //}
       });
