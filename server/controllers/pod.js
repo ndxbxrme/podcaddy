@@ -173,7 +173,7 @@ var updateFeedItems = function(feed, pod, callback) {
 };
 
 var parser = new xml2js.Parser();
-var checkFeed = function(url, callback) {
+var checkFeed = function(url, updatedAt, callback) {
   console.log('checking feed: ' + url);
   var options = {
     url: url,
@@ -189,7 +189,7 @@ var checkFeed = function(url, callback) {
           if(url!==res.request.uri.href) {
             console.log('redirected'); 
           }
-          Pod.findOne({url:url}, function(err, pod) {
+          Pod.findOne({url:url,updatedAt:updatedAt}, function(err, pod) {
             if(err) {
               throw err;
             }
@@ -205,7 +205,7 @@ var checkFeed = function(url, callback) {
           return;
         }
         if(checkValidFeed(data)) {
-          Pod.findOne({url:url}, function(err, pod) {
+          Pod.findOne({url:url,updatedAt:updatedAt}, function(err, pod) {
             if(err) {
               throw err; 
             }
@@ -319,7 +319,7 @@ var checkFeed = function(url, callback) {
         else {
           //not a valid feed 
           console.log('not a valid feed', url, checkValidFeed(data), data);
-          Pod.findOne({url:url}, function(err, pod) {
+          Pod.findOne({url:url,updatedAt:updatedAt}, function(err, pod) {
             if(err) {
               throw err;
             }
@@ -341,6 +341,19 @@ var checkFeed = function(url, callback) {
     else {
       //no body 
       console.log('NO BODY');
+      Pod.findOne({url:url,updatedAt:updatedAt}, function(err, pod) {
+        if(err) {
+          throw err;
+        }
+        if(pod) {
+          pod.updatedAt = new Date();
+          pod.save(function(err) {
+            if(err) {
+              throw err; 
+            }
+          });
+        }
+      });
       if(callback) {
         return callback();
       }
@@ -479,7 +492,7 @@ function refreshFeeds() {
       _.each(pods, function(pod){
         //if(count++ < 20) {
           console.log('updated at', pod.updatedAt);
-          checkFeed(pod.url, updateStats); 
+          checkFeed(pod.url, pod.updatedAt, updateStats); 
         //}
       });
     }
