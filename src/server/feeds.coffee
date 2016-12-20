@@ -129,7 +129,7 @@ module.exports = (database) ->
               skipped = 0
               if feed.iu
                 database.exec 'UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [
-                  new Date().valueOf() + (2 * 60 * 60 * 1000)
+                  new Date().valueOf() + (4 * 60 * 60 * 1000)
                   S(data[0].meta.title or '').stripTags().decodeHTMLEntities().truncate(255).s
                   S(data[0].meta.title or '').stripTags().decodeHTMLEntities().truncate(30).slugify().s
                   S(data[0].meta.description or '').stripTags().decodeHTMLEntities().truncate(255).s

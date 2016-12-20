@@ -170,7 +170,7 @@
                   updated = 0;
                   skipped = 0;
                   if (feed.iu) {
-                    database.exec('UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [new Date().valueOf() + (2 * 60 * 60 * 1000), S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(255).s, S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(30).slugify().s, S(data[0].meta.description || '').stripTags().decodeHTMLEntities().truncate(255).s, data[0].meta.link, feed.im, feed.iu, data[0].meta.categories, new Date(data[0].meta.pubDate).valueOf(), feed.u]);
+                    database.exec('UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [new Date().valueOf() + (4 * 60 * 60 * 1000), S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(255).s, S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(30).slugify().s, S(data[0].meta.description || '').stripTags().decodeHTMLEntities().truncate(255).s, data[0].meta.link, feed.im, feed.iu, data[0].meta.categories, new Date(data[0].meta.pubDate).valueOf(), feed.u]);
                   } else {
                     console.log('upload to cloudinary', feed);
                   }
