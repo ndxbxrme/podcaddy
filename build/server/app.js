@@ -222,6 +222,14 @@
     }
   });
 
+  app.get('/api/awake', function(req, res) {
+    return res.end('YEAH!');
+  });
+
+  setInterval(function() {
+    return http.get('http://www.podcaddy.co.uk/api/awake');
+  }, 5 * 60 * 1000);
+
   require('./passport_routes.js')(app, passport);
 
   require('./angular_routes.js')(app);

@@ -161,6 +161,12 @@ app.post '/api/memory', (req, res) ->
     res.end (process.memoryUsage().rss / 1048576).toString()
   else
     res.end 'OK'
+    
+app.get '/api/awake', (req, res) ->
+  res.end 'YEAH!'
+setInterval ->
+  http.get 'http://www.podcaddy.co.uk/api/awake'
+, 5 * 60 * 1000
 
 require('./passport_routes.js') app, passport
 require('./angular_routes.js') app
