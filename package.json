@@ -11,7 +11,8 @@
     "node": ">= 0.8.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "devDependencies": {
     "grunt": "^1.0.1",
@@ -33,6 +34,7 @@
     "async": "^2.1.4",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
+    "bower": "^1.8.0",
     "bson-objectid": "^1.1.4",
     "cloudinary": "^1.4.6",
     "compression": "^1.6.2",
