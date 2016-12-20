@@ -1,6 +1,0 @@
-{
-    "jscodehints.detectedExclusions": [
-        "/home/blank/dev/github/podcaddy/bower_components/jquery/src/var/class2type.js",
-        "/home/blank/dev/github/podcaddy/bower_components/jquery/src/ajax/parseXML.js"
-    ]
-}

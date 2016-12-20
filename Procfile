@@ -1,1 +1,1 @@
-web: node server/app.js
+web: node --expose-gc build/server/app.js
