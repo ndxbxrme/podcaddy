@@ -148,7 +148,7 @@ app.post '/api/upload/database', (req, res) ->
         res.send 'File Uploaded'
   else
     res.end 'OK'
-      
+
 app.post '/api/getdb', (req, res) ->
   console.log 'key', req.body.key
   if database.maintenance and req.body.key and req.body.key is process.env.CLOUDINARY_SECRET
