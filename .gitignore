@@ -1,6 +1,5 @@
 node_modules
 data
 *.heapsnapshot
-podcaddy*.json
 backup
 build/bower

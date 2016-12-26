@@ -129,7 +129,7 @@ module.exports = (database) ->
               skipped = 0
               if feed.iu
                 database.exec 'UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [
-                  new Date().valueOf() + (4 * 60 * 60 * 1000)
+                  new Date().valueOf() + (2 * 60 * 60 * 1000)
                   S(data[0].meta.title or '').stripTags().decodeHTMLEntities().truncate(255).s
                   S(data[0].meta.title or '').stripTags().decodeHTMLEntities().truncate(30).slugify().s
                   S(data[0].meta.description or '').stripTags().decodeHTMLEntities().truncate(255).s
@@ -156,21 +156,29 @@ module.exports = (database) ->
                       u: if item[0].enclosures then item[0].enclosures[0].url else ''
                       l: if item[0].enclosures then item[0].enclosures[0].length else 0
                       p: new Date(item[0].pubDate).valueOf()
-                    itemExists = database.exec 'SELECT i, u FROM i WHERE f=? AND (p=? OR u=?)', [pod.f, pod.p, pod.u]
+                    itemExists = database.exec 'SELECT i, u, p, f FROM i WHERE f=? AND (p=? OR u=?)', [pod.f, pod.p, pod.u]
                     if itemExists and itemExists.length
                       #update
                       if itemExists[0].u isnt pod.u
+                        console.log ''
+                        console.log 'u', (itemExists[0].u is pod.u), 'p', (itemExists[0].p is pod.p), 'f', (itemExists[0].f is pod.f)
                         console.log itemExists[0].u
                         console.log pod.u
-                        database.exec 'UPDATE i SET t=?, s=?, d=?, u=?, l=? WHERE p=?', [
-                          pod.t
-                          pod.s
-                          pod.d
-                          pod.u
-                          pod.l
-                          pod.p
-                        ]
-                        updated++
+                        urlExists = database.exec 'SELECT i FROM i WHERE u=?', [pod.u]
+                        if urlExists and urlExists.length
+                          console.log 'duplicate url'
+                          skipped++
+                        else
+                          database.exec 'UPDATE i SET t=?, s=?, d=?, u=?, l=? WHERE p=?', [
+                            pod.t
+                            pod.s
+                            pod.d
+                            pod.u
+                            pod.l
+                            pod.p
+                          ]
+                          updated++
+                        urlExists = null
                       else
                         skipped++
                     else
@@ -179,8 +187,8 @@ module.exports = (database) ->
                       #database.exec 'INSERT INTO i VALUES ?', [pod]
                       inserted++
                     itemExists = null
-                    #pod = null
-                    item = null
+                    pod = null
+                  item = null
                   callback()
                 , 1
               , ->

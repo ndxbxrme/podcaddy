@@ -170,14 +170,14 @@
                   updated = 0;
                   skipped = 0;
                   if (feed.iu) {
-                    database.exec('UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [new Date().valueOf() + (4 * 60 * 60 * 1000), S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(255).s, S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(30).slugify().s, S(data[0].meta.description || '').stripTags().decodeHTMLEntities().truncate(255).s, data[0].meta.link, feed.im, feed.iu, data[0].meta.categories, new Date(data[0].meta.pubDate).valueOf(), feed.u]);
+                    database.exec('UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [new Date().valueOf() + (2 * 60 * 60 * 1000), S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(255).s, S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(30).slugify().s, S(data[0].meta.description || '').stripTags().decodeHTMLEntities().truncate(255).s, data[0].meta.link, feed.im, feed.iu, data[0].meta.categories, new Date(data[0].meta.pubDate).valueOf(), feed.u]);
                   } else {
                     console.log('upload to cloudinary', feed);
                   }
                   pubDates = database.exec('SELECT DISTINCT(pubDate) AS pubDate FROM ?', [data]);
                   return async.eachSeries(pubDates, function(pubDate, callback) {
                     return setTimeout(function() {
-                      var item, itemExists, pod;
+                      var item, itemExists, pod, urlExists;
                       item = database.exec('SELECT * FROM ? WHERE pubDate=?', [data, pubDate.pubDate]);
                       if (item && item.length && item[0].enclosures && item[0].enclosures.length && item[0].enclosures[0].type && item[0].enclosures[0].type.indexOf('audio') !== -1) {
                         pod = {
@@ -190,13 +190,22 @@
                           l: item[0].enclosures ? item[0].enclosures[0].length : 0,
                           p: new Date(item[0].pubDate).valueOf()
                         };
-                        itemExists = database.exec('SELECT i, u FROM i WHERE f=? AND (p=? OR u=?)', [pod.f, pod.p, pod.u]);
+                        itemExists = database.exec('SELECT i, u, p, f FROM i WHERE f=? AND (p=? OR u=?)', [pod.f, pod.p, pod.u]);
                         if (itemExists && itemExists.length) {
                           if (itemExists[0].u !== pod.u) {
+                            console.log('');
+                            console.log('u', itemExists[0].u === pod.u, 'p', itemExists[0].p === pod.p, 'f', itemExists[0].f === pod.f);
                             console.log(itemExists[0].u);
                             console.log(pod.u);
-                            database.exec('UPDATE i SET t=?, s=?, d=?, u=?, l=? WHERE p=?', [pod.t, pod.s, pod.d, pod.u, pod.l, pod.p]);
-                            updated++;
+                            urlExists = database.exec('SELECT i FROM i WHERE u=?', [pod.u]);
+                            if (urlExists && urlExists.length) {
+                              console.log('duplicate url');
+                              skipped++;
+                            } else {
+                              database.exec('UPDATE i SET t=?, s=?, d=?, u=?, l=? WHERE p=?', [pod.t, pod.s, pod.d, pod.u, pod.l, pod.p]);
+                              updated++;
+                            }
+                            urlExists = null;
                           } else {
                             skipped++;
                           }
@@ -205,8 +214,9 @@
                           inserted++;
                         }
                         itemExists = null;
-                        item = null;
+                        pod = null;
                       }
+                      item = null;
                       return callback();
                     }, 1);
                   }, function() {

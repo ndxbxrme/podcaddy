@@ -86,3 +86,88 @@ module.exports = (passport, database) ->
           req.user._id
         ]
         return done null, req.user
+        
+  passport.use new FacebookStrategy
+    clientID: process.env.FACEBOOK_KEY
+    clientSecret: process.env.FACEBOOK_SECRET
+    callbackURL: process.env.FACEBOOK_CALLBACK
+    passReqToCallback: true
+  , (req, token, refreshToken, profile, done) ->
+    if not req user
+      users = database.exec 'SELECT * FROM u WHERE facebook->id=?', [profile.id]
+      if users and users.length
+        if not users[0].facebook.token
+          database.exec 'UPDATE u SET facebook=? WHERE _id=?', [
+            {
+              token: token
+              name: profile.name.givenName + ' ' + profile.name.familyName
+              email: profile.emails[0].value
+            },
+            req.user._id
+          ]
+          return done null, users[0]
+        return done null, users[0]
+      else
+        newUser = 
+          _id: ObjectID.generate()
+          facebook:
+            id: profile.id
+            token: token
+            name: profile.name.givenName + ' ' + profile.name.familyName
+            email: profile.emails[0].value
+        database.exec 'INSERT INTO u VALUES ?', [newUser]
+        return done null, newUser
+    else
+      database.exec 'UPDATE u SET facebook=? WHERE _id=?', [
+        {
+          id: profile.id
+          token: token
+          name: profile.name.givenName + ' ' + profile.name.familyName
+          email: profile.emails[0].value
+        },
+        req.user._id
+      ]
+      return done null, req.user
+                
+  passport.use new GithubStrategy
+    clientID: process.env.GITHUB_KEY
+    clientSecret: process.env.GITHUB_SECRET
+    callbackURL: process.env.GITHUB_CALLBACK
+    passReqToCallback: true
+  , (req, token, refreshToken, profile, done) ->
+    if not req user
+      users = database.exec 'SELECT * FROM u WHERE github->id=?', [profile.id]
+      if users and users.length
+        if not users[0].github.token
+          database.exec 'UPDATE u SET github=? WHERE _id=?', [
+            {
+              token: token
+              name: profile.displayName
+              email: profile.emails[0].value
+            },
+            req.user._id
+          ]
+          return done null, users[0]
+        return done null, users[0]
+      else
+        newUser = 
+          _id: ObjectID.generate()
+          github:
+            id: profile.id
+            token: token
+            name: profile.displayName
+            email: profile.emails[0].value
+        database.exec 'INSERT INTO u VALUES ?', [newUser]
+        return done null, newUser
+    else
+      database.exec 'UPDATE u SET github=? WHERE _id=?', [
+        {
+          id: profile.id
+          token: token
+          name: profile.displayName
+          email: profile.emails[0].value
+        },
+        req.user._id
+      ]
+      return done null, req.user
+    

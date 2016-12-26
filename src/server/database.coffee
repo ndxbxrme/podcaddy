@@ -1,6 +1,6 @@
 alasql = require 'alasql'
 fs = require 'fs'
-filename = './podcaddy.json'
+filename = './db/podcaddy.json'
 
 module.exports = ->
   database = null
@@ -45,11 +45,16 @@ module.exports = ->
       ###
       #res = alasql 'SELECT pods.* FROM users JOIN subs ON subs.uid=users._id JOIN pods ON subs.pid=pods._id WHERE users.facebook->email LIKE "rainstorm%"'
     else
-      console.log 'attaching database'
-      alasql 'ATTACH FILESTORAGE DATABASE podcaddy("' + filename + '")'
-      alasql 'USE podcaddy'
-      database = alasql.databases.podcaddy
-      maintenanceMode = false
+      file = fs.readFileSync filename, 'utf-8'
+      if file and file is 'hey'
+        console.log 'got hey file'
+        maintenanceMode = true
+      else
+        console.log 'attaching database'
+        alasql 'ATTACH FILESTORAGE DATABASE podcaddy("' + filename + '")'
+        alasql 'USE podcaddy'
+        database = alasql.databases.podcaddy
+        maintenanceMode = false
   exec: (sql, props) ->
     if maintenanceMode
       return []
