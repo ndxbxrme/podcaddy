@@ -2,6 +2,8 @@
 
 LocalStrategy = require('passport-local').Strategy
 TwitterStrategy = require('passport-twitter').Strategy
+FacebookStrategy = require('passport-facebook').Strategy
+GithubStrategy = require('passport-github').Strategy
 ObjectID = require 'bson-objectid'
 bcrypt = require 'bcrypt-nodejs'
 
