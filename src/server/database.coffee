@@ -1,6 +1,6 @@
 alasql = require 'alasql'
 fs = require 'fs'
-filename = './db/podcaddy.json'
+filename = './tmp/podcaddy.json'
 
 module.exports = ->
   database = null
@@ -55,6 +55,7 @@ module.exports = ->
         alasql 'USE podcaddy'
         database = alasql.databases.podcaddy
         maintenanceMode = false
+      file = null
   exec: (sql, props) ->
     if maintenanceMode
       return []
