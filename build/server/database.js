@@ -5,7 +5,7 @@
 
   fs = require('fs');
 
-  filename = './db/podcaddy.json';
+  filename = './tmp/podcaddy.json';
 
   module.exports = function() {
     var database, maintenanceMode;
@@ -56,14 +56,15 @@
           file = fs.readFileSync(filename, 'utf-8');
           if (file && file === 'hey') {
             console.log('got hey file');
-            return maintenanceMode = true;
+            maintenanceMode = true;
           } else {
             console.log('attaching database');
             alasql('ATTACH FILESTORAGE DATABASE podcaddy("' + filename + '")');
             alasql('USE podcaddy');
             database = alasql.databases.podcaddy;
-            return maintenanceMode = false;
+            maintenanceMode = false;
           }
+          return file = null;
         }
       },
       exec: function(sql, props) {
