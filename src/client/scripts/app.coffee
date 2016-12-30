@@ -7,10 +7,10 @@ angular.module 'pod', [
 .config ($routeProvider, $locationProvider) ->
   $routeProvider
   .when '/feeds',
-    templateUrl: '/views/feeds.html'
+    templateUrl: 'views/feeds.html'
     controller: 'FeedsCtrl'
   .when '/:feedSlug?',
-    templateUrl: '/views/main.html'
+    templateUrl: 'views/main.html'
     controller: 'MainCtrl'
   .otherwise
     redirectTo: '/'

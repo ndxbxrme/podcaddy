@@ -4,6 +4,8 @@
 
   parser = require('parse-rss');
 
+  require('./heapdump.js').init('./');
+
   S = require('string');
 
   ObjectID = require('bson-objectid');
@@ -147,7 +149,7 @@
         }
         count = 0;
         dateNow = new Date().valueOf();
-        feeds = database.exec('SELECT i, u, iu, up FROM f WHERE up<? ORDER BY up ASC', [dateNow]);
+        feeds = database.exec('SELECT * FROM f WHERE up<? ORDER BY up ASC', [dateNow]);
         if (feeds && feeds.length) {
           async.eachSeries(feeds, function(feed, feedCallback) {
             var callbackCount;
@@ -163,14 +165,38 @@
                   'User-Agent': 'Podcaddy'
                 }
               }, function(err, data) {
-                var inserted, inserts, pubDates, skipped, updated;
+                var inserted, inserts, isSame, pubDates, skipped, updateFeed, updated;
                 if (!err && data && data.length) {
                   inserts = [];
                   inserted = 0;
                   updated = 0;
                   skipped = 0;
                   if (feed.iu) {
-                    database.exec('UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [new Date().valueOf() + (2 * 60 * 60 * 1000), S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(255).s, S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(30).slugify().s, S(data[0].meta.description || '').stripTags().decodeHTMLEntities().truncate(255).s, data[0].meta.link, feed.im, feed.iu, data[0].meta.categories, new Date(data[0].meta.pubDate).valueOf(), feed.u]);
+                    isSame = function(obj1, obj2, ignoreArray) {
+                      var key, results, same;
+                      same = true;
+                      results = [];
+                      for (key in obj1) {
+                        if (ignoreArray.indexOf(key) === -1) {
+                          results.push(same = same && obj1[key] === obj2[key]);
+                        } else {
+                          results.push(void 0);
+                        }
+                      }
+                      return results;
+                    };
+                    updateFeed = {
+                      up: new Date().valueOf() + (2 * 60 * 60 * 1000),
+                      t: S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(255).s,
+                      s: S(data[0].meta.title || '').stripTags().decodeHTMLEntities().truncate(30).slugify().s,
+                      d: S(data[0].meta.description || '').stripTags().decodeHTMLEntities().truncate(255).s,
+                      l: data[0].meta.link,
+                      im: feed.im,
+                      iu: feed.iu,
+                      c: data[0].meta.categories,
+                      p: new Date(data[0].meta.pubDate).valueOf()
+                    };
+                    database.exec('UPDATE f SET up=?, t=?, s=?, d=?, l=?, im=?, iu=?, c=?, p=? WHERE u=?', [updateFeed.up, updateFeed.t, updateFeed.s, updateFeed.d, updateFeed.l, updateFeed.im, updateFeed.iu, updateFeed.c, updateFeed.p, feed.u], isSame(updateFeed, feed, ['up']));
                   } else {
                     console.log('upload to cloudinary', feed);
                   }

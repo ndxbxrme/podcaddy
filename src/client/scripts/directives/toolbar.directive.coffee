@@ -3,7 +3,7 @@
 angular.module 'pod'
 .directive 'toolbar', (player, menu) ->
   restrict: 'AE'
-  templateUrl: '/views/toolbar.html'
+  templateUrl: 'views/toolbar.html'
   replace: true
   scope: {}
   link: (scope, elem) ->

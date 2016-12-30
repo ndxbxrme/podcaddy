@@ -3,7 +3,7 @@
 angular.module 'pod'
 .directive 'menu', (menu, $location, player, auth) ->
   restrict: 'AE'
-  templateUrl: '/views/menu.html'
+  templateUrl: 'views/menu.html'
   replace: true
   scope: {}
   link: (scope, elem) ->

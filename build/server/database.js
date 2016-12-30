@@ -1,5 +1,7 @@
 (function() {
-  var alasql, filename, fs;
+  var alasql, async, dbname, filename, fs, s3;
+
+  dbname = 'pc';
 
   alasql = require('alasql');
 
@@ -7,71 +9,149 @@
 
   filename = './tmp/podcaddy.json';
 
+  s3 = require('./s3')(dbname);
+
+  async = require('async');
+
   module.exports = function() {
     var database, maintenanceMode;
     database = null;
     maintenanceMode = false;
     return {
       attachDatabase: function() {
-        var file, res;
+        var deleteKeys, inflate;
         console.log('meee');
-        res = fs.existsSync(filename);
-        if (!res) {
-          return maintenanceMode = true;
-
-          /*
-          alasql 'CREATE DATABASE podcaddy'
-          fs.writeFileSync filename, JSON.stringify alasql.databases.podcaddy
-          alasql 'ATTACH FILESTORAGE DATABASE podcaddy("' + filename + '")'
-          alasql 'USE podcaddy'
-          alasql 'CREATE TABLE u'
-          alasql 'CREATE TABLE f'
-          alasql 'CREATE TABLE s'
-          alasql 'CREATE TABLE i'
-          alasql 'CREATE TABLE l'
-          users = JSON.parse fs.readFileSync './data/users.json'
-          for user in users
-            alasql 'INSERT INTO u VALUES ?', [user]
-          feedsJson = JSON.parse fs.readFileSync './data/pods_processed.json'
-          distinctUrls = alasql 'SELECT DISTINCT(title + description) AS url FROM ?', [feedsJson]
-          for url in distinctUrls
-            #console.log 'gettin', url
-            feed = alasql 'SELECT _id as i, title as t, slug as s, description as d, url as u, link as l, image as im, imageUrl as iu, categories as c, pubDate as p, updated as up FROM ? WHERE (title+description)=?', [feedsJson, url.url]
-            if feed and feed.length
-              feedExists = alasql 'SELECT * FROM f WHERE t=? AND d=?', [feed.t, feed.d]
-              if feedExists and feedExists.length
-                console.log 'DUPLICATE:', feed.t
-              else
-                #console.log 'got feed', feed[0].title
-                alasql 'INSERT INTO f VALUES ?', [feed[0]]
-                if feed.length > 1
-                  console.log feed[0].t
-          subsJson = JSON.parse fs.readFileSync './data/subs_processed.json'
-          subs = alasql 'SELECT pid as f, uid as u, d FROM ?', [subsJson]
-          for sub in subs
-            alasql 'INSERT INTO s VALUES ?', [sub]
-          database = alasql.databases.podcaddy
-           */
-        } else {
-          file = fs.readFileSync(filename, 'utf-8');
-          if (file && file === 'hey') {
-            console.log('got hey file');
-            maintenanceMode = true;
-          } else {
-            console.log('attaching database');
-            alasql('ATTACH FILESTORAGE DATABASE podcaddy("' + filename + '")');
-            alasql('USE podcaddy');
-            database = alasql.databases.podcaddy;
-            maintenanceMode = false;
-          }
-          return file = null;
-        }
+        maintenanceMode = true;
+        alasql('CREATE DATABASE podcaddy');
+        alasql('USE podcaddy');
+        alasql('CREATE TABLE u');
+        alasql('CREATE TABLE f');
+        alasql('CREATE TABLE s');
+        alasql('CREATE TABLE i');
+        alasql('CREATE TABLE l');
+        database = alasql.databases.podcaddy;
+        deleteKeys = function(cb) {
+          return s3.keys(null, dbname + ':node:', function(e, r) {
+            var i, key, len, ref;
+            if (!e && r && r.Contents) {
+              ref = r.Contents;
+              for (i = 0, len = ref.length; i < len; i++) {
+                key = ref[i];
+                s3.del(key.Key);
+              }
+            }
+            if (r.IsTruncated) {
+              return deleteKeys(cb);
+            } else {
+              return cb();
+            }
+          });
+        };
+        inflate = function(from, cb) {
+          return s3.keys(from, dbname + ':node:', function(e, r) {
+            if (e || !r.Contents) {
+              return console.log('error', e);
+            }
+            return async.eachSeries(r.Contents, function(key, callback) {
+              return key.Key.replace(/(.+):(.+):(.+)\/(.+)/, function(all, db, type, table, id) {
+                if (db && table && id && db === dbname) {
+                  if (table.length === 1) {
+                    return s3.get(key.Key, function(e, o) {
+                      var idField;
+                      if (e) {
+                        return callback();
+                      }
+                      idField = table === 'u' ? '_id' : 'i';
+                      database.exec('DELETE FROM ' + table + ' WHERE ' + idField + '=?', [o[idField]]);
+                      database.exec('INSERT INTO ' + table + ' VALUES ?', [o]);
+                      return callback();
+                    });
+                  } else {
+                    return callback();
+                  }
+                } else {
+                  return callback();
+                }
+              });
+            }, function() {
+              if (r.IsTruncated) {
+                return inflate(r.Contents[r.Contents.length - 1].Key, cb);
+              } else {
+                return cb();
+              }
+            });
+          });
+        };
+        s3.get(dbname + ':database', function(e, o) {
+          database.tables.u.data = o.u.data;
+          database.tables.f.data = o.f.data;
+          database.tables.s.data = o.s.data;
+          database.tables.i.data = o.i.data;
+          database.tables.l.data = o.l.data;
+          return inflate(null, function() {
+            return deleteKeys(function() {
+              return s3.put(dbname + ':database', database.tables, function(e) {
+                if (!e) {
+                  console.log('database updated and uploaded');
+                  return maintenanceMode = false;
+                }
+              });
+            });
+          });
+        });
+        return setInterval(function() {
+          maintenanceMode = true;
+          return s3.put(dbname + ':database', database.tables, function(e) {
+            if (!e) {
+              console.log('database uploaded');
+              return deleteKeys(function() {
+                return maintenanceMode = false;
+              });
+            } else {
+              return maintenanceMode = false;
+            }
+          });
+        }, 11 * 60 * 60 * 1000);
       },
-      exec: function(sql, props) {
+      exec: function(sql, props, notCritical) {
+        var data;
         if (maintenanceMode) {
           return [];
         }
-        return database.exec(sql, props);
+        data = database.exec(sql, props);
+        if (notCritical) {
+          return data;
+        }
+        if (sql.indexOf('UPDATE') !== -1) {
+          sql.replace(/UPDATE (.+) SET (.+) WHERE (.+)/, function(all, table, set, where) {
+            var noSetFields, res;
+            noSetFields = (set.match(/\?/g) || []).length;
+            props.splice(noSetFields);
+            res = database.exec('SELECT * FROM ' + table + ' WHERE ' + where, props);
+            if (res && res.length) {
+              return async.eachSeries(res, function(r, callback) {
+                s3.put(dbname + ':node:' + table + '/' + (r.i || r._id || r.id), r);
+                return callback();
+              });
+            }
+          });
+        } else if (sql.indexOf('INSERT') !== -1) {
+          sql.replace(/INSERT INTO (.+) (SELECT|VALUES)/, function(all, table) {
+            var i, len, prop, ref, results;
+            if (Object.prototype.toString.call(props[0]) === '[object Array]') {
+              ref = props[0];
+              results = [];
+              for (i = 0, len = ref.length; i < len; i++) {
+                prop = ref[i];
+                results.push(s3.put(dbname + ':node:' + table + '/' + (prop.i || prop._id || prop.id), prop));
+              }
+              return results;
+            } else {
+              return s3.put(dbname + ':node:' + table + '/' + (props[0].i || props[0]._id || props[0].id), prop);
+            }
+          });
+        }
+        return data;
       },
       maintenanceOn: function() {
         return maintenanceMode = true;
@@ -81,6 +161,17 @@
       },
       maintenance: function() {
         return maintenanceMode;
+      },
+      getDb: function() {
+        return database;
+      },
+      uploadDatabase: function(cb) {
+        return s3.put(dbname + ':database', database.tables, function(e) {
+          if (!e) {
+            console.log('database uploaded');
+          }
+          return typeof cb === "function" ? cb() : void 0;
+        });
       }
     };
   };

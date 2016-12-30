@@ -2,4 +2,5 @@ node_modules
 data
 *.heapsnapshot
 backup
-build/bower
+bower
+env.bat

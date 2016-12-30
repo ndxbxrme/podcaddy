@@ -16,7 +16,7 @@
 
   _datadir = null;
 
-  nextMBThreshold = 900;
+  nextMBThreshold = 1900;
 
 
   /**
@@ -78,7 +78,7 @@
 
   module.exports.init = function(datadir) {
     _datadir = datadir;
-    setInterval(tickHeapDump, 5000);
+    setInterval(tickHeapDump, 60000);
   };
 
 }).call(this);

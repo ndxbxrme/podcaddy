@@ -2,7 +2,7 @@
 angular.module 'pod'
 .directive 'feed', ($location, $http, $timeout) ->
   restrict: 'AE'
-  templateUrl: '/views/feed.html'
+  templateUrl: 'views/feed.html'
   link: (scope, elem) ->
     scope.goTo = ->
       $location.path '/' + scope.feed.feedSlug

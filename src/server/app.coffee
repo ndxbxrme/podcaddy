@@ -139,20 +139,15 @@ app.post '/api/refresh-login', (req, res) ->
     
 app.post '/api/upload/database', (req, res) ->
   if req.body.key is process.env.CLOUDINARY_SECRET
-    req.files.podcaddyDatabase.mv './tmp/podcaddy.json', (err) ->
-      if err
-        res.status 500
-        .send err
-      else
-        database.attachDatabase()
-        res.send 'File Uploaded'
+    database.uploadDatabase ->
+      res.end 'COOL'
   else
     res.end 'OK'
 
 app.post '/api/getdb', (req, res) ->
   console.log 'key', req.body.key
   if database.maintenance and req.body.key and req.body.key is process.env.CLOUDINARY_SECRET
-    res.sendFile 'podcaddy.json', root:'./tmp/'
+    res.json database.getDb()
   else
     res.end 'OK'
     

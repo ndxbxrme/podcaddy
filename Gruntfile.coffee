@@ -5,13 +5,13 @@ module.exports = (grunt) ->
     watch:
       coffee:
         files: ['src/**/*.coffee']
-        tasks: ['coffee']
+        tasks: ['build']
       jade:
         files: ["src/**/*.jade"]
-        tasks: ['jade', 'wiredep', 'injector']
+        tasks: ['build']
       stylus:
         files: ["src/**/*.stylus"]
-        tasks: ['stylus']
+        tasks: ['build']
     coffee:
       options:
         sourceMap: true
@@ -42,14 +42,50 @@ module.exports = (grunt) ->
           "build/client/app.css": "src/client/**/*.stylus"
     wiredep:
       options:
-        directory: 'build/bower'
+        directory: 'bower'
       target:
         src: 'build/client/index.html'
-  grunt.registerTask 'default', [
+    clean:
+      build: 'build'
+      html: 'build/client/*/**/*.html'
+    filerev:
+      build:
+        src: [
+          'build/client/**/*.js'
+          'build/client/**/*.css'
+        ]
+    usemin:
+      html: ['build/client/**/*.html']
+      js: ['build/client/**/*.js']
+      css: ['build/client/**/*.css']
+      options:
+        assetsDirs: ['build/client']
+        patterns:
+          js: [
+            /'([^']+\.html)'/
+          ]
+    ngtemplates:
+      options:
+        module: 'pod'
+      main:
+        cwd: 'build/client'
+        src: [
+          '*/**/*.html'
+        ]
+        dest: 'build/client/templates.js'
+  grunt.registerTask 'build', [
+    'clean:build'
     'coffee'
     'jade'
     'stylus'
+    'ngtemplates'
+    'filerev'
+    'usemin'
     'wiredep'
     'injector'
+    'clean:html'
+  ]
+  grunt.registerTask 'default', [
+    'build'
     'watch'
   ]

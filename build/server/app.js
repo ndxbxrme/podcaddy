@@ -190,13 +190,8 @@
 
   app.post('/api/upload/database', function(req, res) {
     if (req.body.key === process.env.CLOUDINARY_SECRET) {
-      return req.files.podcaddyDatabase.mv('./tmp/podcaddy.json', function(err) {
-        if (err) {
-          return res.status(500).send(err);
-        } else {
-          database.attachDatabase();
-          return res.send('File Uploaded');
-        }
+      return database.uploadDatabase(function() {
+        return res.end('COOL');
       });
     } else {
       return res.end('OK');
@@ -206,9 +201,7 @@
   app.post('/api/getdb', function(req, res) {
     console.log('key', req.body.key);
     if (database.maintenance && req.body.key && req.body.key === process.env.CLOUDINARY_SECRET) {
-      return res.sendFile('podcaddy.json', {
-        root: './tmp/'
-      });
+      return res.json(database.getDb());
     } else {
       return res.end('OK');
     }

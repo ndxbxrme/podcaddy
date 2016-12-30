@@ -12,7 +12,7 @@
     app.use('/swf', gzippo.staticGzip('./build/client/swf'));
     app.use('/fonts', gzippo.staticGzip('./fonts'));
     app.use('/favicon', gzippo.staticGzip('./favicon'));
-    app.use('/bower', gzippo.staticGzip('./build/bower'));
+    app.use('/bower', gzippo.staticGzip('./bower'));
     app.use('/build/client', gzippo.staticGzip('./build/client'));
     return app.all('/*', function(req, res) {
       return res.sendFile('index.html', {

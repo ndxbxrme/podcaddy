@@ -3,7 +3,7 @@
 angular.module 'pod'
 .directive 'login', (auth) ->
   restrict: 'AE'
-  templateUrl: '/views/login.html'
+  templateUrl: 'views/login.html'
   replace: true
   scope: {}
   link: (scope, elem) ->

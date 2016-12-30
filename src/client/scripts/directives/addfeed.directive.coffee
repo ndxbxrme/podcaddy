@@ -2,7 +2,7 @@
 angular.module 'pod'
 .directive 'addfeed', (menu, $http) ->
   restrict: 'AE'
-  templateUrl: '/views/addfeed.html'
+  templateUrl: 'views/addfeed.html'
   replace: true
   scope: {}
   link: (scope, elem) ->
