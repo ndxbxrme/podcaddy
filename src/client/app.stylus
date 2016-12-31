@@ -328,3 +328,7 @@ body
       flex-direction column!important
       .pod-date
         text-align left!important
+@media screen and (max-height:440px)
+  .popout
+    .link
+      float left
