@@ -41,6 +41,7 @@
         } else {
           return database.exec('INSERT INTO s VALUES ?', [
             {
+              i: ObjectID.generate(),
               u: userId,
               f: feedId,
               d: new Date().valueOf()

@@ -1,5 +1,5 @@
 (function() {
-  var app, bodyParser, compression, cookieParser, database, doPoll, express, feedsCtrl, fileupload, flash, fs, http, maintenance, passport, port, server, session, socket, token;
+  var ObjectID, app, bodyParser, compression, cookieParser, database, doPoll, express, feedsCtrl, fileupload, flash, fs, http, maintenance, passport, port, server, session, socket, token;
 
   database = require('./database.js')();
 
@@ -35,6 +35,8 @@
   http = require('http');
 
   fs = require('fs');
+
+  ObjectID = require('bson-objectid');
 
   socket = require('./socket.js');
 
@@ -135,6 +137,7 @@
       } else {
         database.exec('INSERT INTO l VALUES ?', [
           {
+            i: ObjectID.generate(),
             p: req.body.podId,
             u: req.user._id,
             d: new Date().valueOf()

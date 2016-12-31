@@ -61,9 +61,11 @@
                       if (e) {
                         return callback();
                       }
-                      idField = table === 'u' ? '_id' : 'i';
-                      database.exec('DELETE FROM ' + table + ' WHERE ' + idField + '=?', [o[idField]]);
-                      database.exec('INSERT INTO ' + table + ' VALUES ?', [o]);
+                      idField = o._id ? '_id' : o.id ? 'id' : 'i';
+                      if (o[idField]) {
+                        database.exec('DELETE FROM ' + table + ' WHERE ' + idField + '=?', [o[idField]]);
+                        database.exec('INSERT INTO ' + table + ' VALUES ?', [o]);
+                      }
                       return callback();
                     });
                   } else {
@@ -83,11 +85,14 @@
           });
         };
         s3.get(dbname + ':database', function(e, o) {
-          database.tables.u.data = o.u.data;
-          database.tables.f.data = o.f.data;
-          database.tables.s.data = o.s.data;
-          database.tables.i.data = o.i.data;
-          database.tables.l.data = o.l.data;
+          var key;
+          if (!e && o) {
+            for (key in o) {
+              if (database.tables[key]) {
+                database.tables[key].data = o[key].data;
+              }
+            }
+          }
           return inflate(null, function() {
             return deleteKeys(function() {
               return s3.put(dbname + ':database', database.tables, function(e) {

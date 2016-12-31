@@ -2,7 +2,9 @@ div
   .toolbar.rows
     .details-row(ng-show='getPod().url')
       .podcast-details
-        .feed-name {{ getPod().feedTitle }}
+        .name-row
+          .feed-name {{ getPod().feedTitle }}
+          .timing {{ getPod().position }}
         .feed-title {{ getPod().title }}
         .position
     .controls-row

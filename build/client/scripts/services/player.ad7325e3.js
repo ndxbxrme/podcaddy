@@ -181,7 +181,6 @@
         return volume;
       },
       fetchPods: function() {
-        console.log('fetching pods', data, 'baaa');
         return $http.post('/api/pods', data).then(function(response) {
           return $timeout(function() {
             var i, j, k, l, len, len1, len2, pod, ref, ref1, rpod;
@@ -267,4 +266,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=player.e30a5496.js.map
+//# sourceMappingURL=player.ad7325e3.js.map

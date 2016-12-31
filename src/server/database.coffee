@@ -39,9 +39,10 @@ module.exports = ->
                 s3.get key.Key, (e, o) ->
                   if e
                     return callback()
-                  idField = if table is 'u' then '_id' else 'i'
-                  database.exec 'DELETE FROM ' + table + ' WHERE ' + idField + '=?', [o[idField]]
-                  database.exec 'INSERT INTO ' + table + ' VALUES ?', [o]
+                  idField = if o._id then '_id' else if o.id then 'id' else 'i'
+                  if o[idField]
+                    database.exec 'DELETE FROM ' + table + ' WHERE ' + idField + '=?', [o[idField]]
+                    database.exec 'INSERT INTO ' + table + ' VALUES ?', [o]
                   return callback()
               else
                 return callback()
@@ -53,11 +54,10 @@ module.exports = ->
           else
             cb()
     s3.get dbname + ':database', (e, o) ->
-      database.tables.u.data = o.u.data
-      database.tables.f.data = o.f.data
-      database.tables.s.data = o.s.data
-      database.tables.i.data = o.i.data
-      database.tables.l.data = o.l.data
+      if not e and o
+        for key of o
+          if database.tables[key]
+            database.tables[key].data = o[key].data
       inflate null, ->
         deleteKeys ->
           s3.put dbname + ':database', database.tables, (e) ->
@@ -80,10 +80,8 @@ module.exports = ->
     data = database.exec sql, props
     if notCritical
       return data
-    #return data
     if sql.indexOf('UPDATE') isnt -1
       sql.replace /UPDATE (.+) SET (.+) WHERE (.+)/, (all, table, set, where) ->
-        #get number of question marks in SET, remove that number of props from the beginning of the list
         noSetFields = (set.match(/\?/g) or []).length
         props.splice noSetFields
         res = database.exec 'SELECT * FROM ' + table + ' WHERE ' + where, props
@@ -91,8 +89,6 @@ module.exports = ->
           async.eachSeries res, (r, callback) ->
             s3.put dbname + ':node:' + table + '/' + (r.i or r._id or r.id), r
             callback()
-        #select with remaining props
-        #foreach result, upload to s3
     else if sql.indexOf('INSERT') isnt -1
       sql.replace /INSERT INTO (.+) (SELECT|VALUES)/, (all, table) ->
         if Object.prototype.toString.call(props[0]) is '[object Array]'
@@ -101,7 +97,6 @@ module.exports = ->
         else
           s3.put dbname + ':node:' + table + '/' + (props[0].i or props[0]._id or props[0].id), prop
     return data
-    #if it's an update or insert then persist to s3
   maintenanceOn: ->
     maintenanceMode = true
   maintenanceOff: ->

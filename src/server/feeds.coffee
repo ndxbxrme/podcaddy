@@ -27,6 +27,7 @@ module.exports = (database) ->
         database.exec 'UPDATE s SET f=?, d=? WHERE d=?', [feedId, new Date().valueOf(), nulls[0].d]
       else
         database.exec 'INSERT INTO s VALUES ?', [{
+          i: ObjectID.generate()
           u: userId
           f: feedId
           d: new Date().valueOf()

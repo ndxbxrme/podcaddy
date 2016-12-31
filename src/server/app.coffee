@@ -16,6 +16,7 @@ passport = require 'passport'
 flash = require 'connect-flash'
 http = require 'http'
 fs = require 'fs'
+ObjectID = require 'bson-objectid'
 socket = require './socket.js'
 token = require './token.js'
 maintenance = require './maintenance.js'
@@ -101,6 +102,7 @@ app.post '/api/report-listen', (req, res) ->
       #do nothing
     else
       database.exec 'INSERT INTO l VALUES ?', [{
+        i: ObjectID.generate()
         p: req.body.podId
         u: req.user._id
         d: new Date().valueOf()

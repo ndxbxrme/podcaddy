@@ -141,7 +141,6 @@ angular.module 'pod'
   fetchPods: ->  
     #scrollY = $window.scrollY
     #pods = []
-    console.log 'fetching pods', data, 'baaa'
     $http.post '/api/pods', data
     .then (response) ->
       $timeout ->
