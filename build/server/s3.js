@@ -65,12 +65,18 @@
           Key: key
         };
         return S3.getObject(m, function(e, r) {
-          var d;
+          var d, error;
           if (e || !r.Body) {
             return typeof cb === "function" ? cb(e || 'error', null) : void 0;
           }
+          d = null;
           console.log('got', key);
-          d = JSON.parse(r.Body);
+          try {
+            d = JSON.parse(r.Body);
+          } catch (error) {
+            e = error;
+            return typeof cb === "function" ? cb(e || 'error', null) : void 0;
+          }
           return typeof cb === "function" ? cb(null, d) : void 0;
         });
       }

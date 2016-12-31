@@ -45,6 +45,10 @@ module.exports = (dbname) ->
     S3.getObject m, (e, r) ->
       if e or not r.Body
         return cb?(e or 'error', null)
+      d = null
       console.log 'got', key
-      d = JSON.parse r.Body
+      try
+        d = JSON.parse r.Body
+      catch e
+        return cb?(e or 'error', null)
       cb? null, d
