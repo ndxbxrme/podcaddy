@@ -4,8 +4,6 @@
 
   parser = require('parse-rss');
 
-  require('./heapdump.js').init('./');
-
   S = require('string');
 
   ObjectID = require('bson-objectid');

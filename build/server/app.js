@@ -10,6 +10,10 @@
     awsKey: process.env.AWS_KEY
   });
 
+  require('memory-tick').start(60, function(mem) {
+    return console.log('memory', mem);
+  });
+
   feedsCtrl = require('./feeds.js')(database);
 
   doPoll = function() {

@@ -5,6 +5,8 @@ database = require('ndxdb')
   awsRegion: process.env.AWS_REGION or 'us-east-1'
   awsId: process.env.AWS_ID
   awsKey: process.env.AWS_KEY
+require('memory-tick').start 60, (mem) ->
+  console.log 'memory', mem
 feedsCtrl = require('./feeds.js')(database)
 doPoll = ->
   feedsCtrl.pollFeeds ->
