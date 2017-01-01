@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('pod', ['ngRoute', 'afkl.ng.lazyImage']).config(function($routeProvider, $locationProvider) {
+  angular.module('pod', ['ngRoute', 'ngTouch', 'afkl.ng.lazyImage']).config(function($routeProvider, $locationProvider) {
     $routeProvider.when('/feeds', {
       templateUrl: 'views/feeds.html',
       controller: 'FeedsCtrl'
@@ -26,4 +26,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=app.375f68f4.js.map
+//# sourceMappingURL=app.0ed94a68.js.map

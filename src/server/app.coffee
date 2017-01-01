@@ -1,5 +1,10 @@
-database = require('./database.js')()
-database.attachDatabase()
+database = require('ndxdb')
+  database: 'pc'
+  tables: ['u','f','s','i','l']
+  awsBucket: process.env.AWS_BUCKET
+  awsRegion: process.env.AWS_REGION or 'us-east-1'
+  awsId: process.env.AWS_ID
+  awsKey: process.env.AWS_KEY
 feedsCtrl = require('./feeds.js')(database)
 doPoll = ->
   feedsCtrl.pollFeeds ->
@@ -149,7 +154,7 @@ app.post '/api/upload/database', (req, res) ->
 app.post '/api/getdb', (req, res) ->
   console.log 'key', req.body.key
   if database.maintenance and req.body.key and req.body.key is process.env.CLOUDINARY_SECRET
-    res.json database.getDb()
+    res.json database.getDb().tables
   else
     res.end 'OK'
     

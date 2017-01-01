@@ -1,9 +1,14 @@
 (function() {
   var ObjectID, app, bodyParser, compression, cookieParser, database, doPoll, express, feedsCtrl, fileupload, flash, fs, http, maintenance, passport, port, server, session, socket, token;
 
-  database = require('./database.js')();
-
-  database.attachDatabase();
+  database = require('ndxdb')({
+    database: 'pc',
+    tables: ['u', 'f', 's', 'i', 'l'],
+    awsBucket: process.env.AWS_BUCKET,
+    awsRegion: process.env.AWS_REGION || 'us-east-1',
+    awsId: process.env.AWS_ID,
+    awsKey: process.env.AWS_KEY
+  });
 
   feedsCtrl = require('./feeds.js')(database);
 
@@ -204,7 +209,7 @@
   app.post('/api/getdb', function(req, res) {
     console.log('key', req.body.key);
     if (database.maintenance && req.body.key && req.body.key === process.env.CLOUDINARY_SECRET) {
-      return res.json(database.getDb());
+      return res.json(database.getDb().tables);
     } else {
       return res.end('OK');
     }

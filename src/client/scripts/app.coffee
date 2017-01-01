@@ -2,6 +2,7 @@
 
 angular.module 'pod', [
   'ngRoute'
+  'ngTouch'
   'afkl.ng.lazyImage'
 ]
 .config ($routeProvider, $locationProvider) ->
