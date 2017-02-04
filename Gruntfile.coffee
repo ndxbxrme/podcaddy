@@ -55,6 +55,7 @@ module.exports = (grunt) ->
         src: 'build/client/index.html'
     clean:
       build: 'build'
+      dist: 'dist'
       html: 'build/client/*/**/*.html'
     filerev:
       build:
@@ -88,7 +89,14 @@ module.exports = (grunt) ->
           input: 'build/client/index.html'
           output: 'build/client/index.html'
         }]
-  grunt.registerTask 'build', [
+    ndxmin:
+      options:
+        base: 'build/client'
+        dest: 'dist'
+        ignoreExternal: false
+      all:
+        html: ['build/client/index.html']
+  grunt.registerTask 'dobuild', [
     'clean:build'
     'coffee'
     'jade'
@@ -100,8 +108,14 @@ module.exports = (grunt) ->
     'injector'
     'clean:html'
   ]
+  grunt.registerTask 'build', [
+    'dobuild'
+    'clean:dist'
+    'ndxmin'
+    'clean:build'
+  ]
   grunt.registerTask 'default', [
-    'build'
+    'dobuild'
     'file_append'
     'express:web'
     'watch'

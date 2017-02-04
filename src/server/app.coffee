@@ -5,7 +5,6 @@ ndx = require 'ndx-server'
   database: 'pc'
   tables: ['u','f','s','i','l']
   userTable: 'u'
-  localStorage: 'data'
   host: 'www.podcaddy.co.uk'
 .use 'ndx-passport'
 .use 'ndx-passport-twitter'

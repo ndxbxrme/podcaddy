@@ -26,6 +26,7 @@
     "grunt-file-append": "0.0.7",
     "grunt-filerev": "^2.3.1",
     "grunt-injector": "^1.1.0",
+    "grunt-ndxmin": "0.0.2",
     "grunt-usemin": "^3.1.1",
     "grunt-wiredep": "^3.0.1",
     "load-grunt-tasks": "^3.5.2",
