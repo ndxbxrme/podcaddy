@@ -1,8 +1,16 @@
 module.exports = (grunt) ->
   require('load-grunt-tasks') grunt
-  serveStatic = require 'serve-static'
   grunt.initConfig
+    express:
+      options: {}
+      web:
+        options:
+          script: 'build/server/app.js'
+          opts: ['--expose-gc']
     watch:
+      options:
+        spawn: false
+        livereload: true
       coffee:
         files: ['src/**/*.coffee']
         tasks: ['build']
@@ -73,6 +81,13 @@ module.exports = (grunt) ->
           '*/**/*.html'
         ]
         dest: 'build/client/templates.js'
+    file_append:
+      main:
+        files: [{
+          append: '<script src="http://localhost:35729/livereload.js" type="text/javascript"></script>'
+          input: 'build/client/index.html'
+          output: 'build/client/index.html'
+        }]
   grunt.registerTask 'build', [
     'clean:build'
     'coffee'
@@ -87,5 +102,7 @@ module.exports = (grunt) ->
   ]
   grunt.registerTask 'default', [
     'build'
+    'file_append'
+    'express:web'
     'watch'
   ]

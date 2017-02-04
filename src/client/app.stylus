@@ -8,6 +8,9 @@ body
   color #333
   margin 0
   padding 0
+  .body
+    display flex
+    justify-content center
   .button
     border 1px solid #ccc
     padding 0.1rem 0.7rem
@@ -243,6 +246,8 @@ body
   .view
     display flex
     flex-direction column
+    max-width 1320px
+    flex 1
     .pod
       cursor pointer
       margin 0.5rem

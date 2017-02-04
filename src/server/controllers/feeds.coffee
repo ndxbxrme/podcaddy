@@ -1,14 +1,15 @@
 'use strict'
 
+ObjectID = require 'bson-objectid'
 
-module.exports = (app, database, socket) ->
-  feedsService = require('../services/feeds.js') database, socket
+module.exports = (ndx) ->
+  feedsService = require('../services/feeds.js') ndx.database, ndx.socket
   doPoll = ->
     feedsService.pollFeeds ->
       console.log 'POLL CALLBACK'
       setTimeout doPoll, 60 * 1000
   doPoll()
-  app.post '/api/pods', (req, res) ->
+  ndx.app.post '/api/pods', (req, res) ->
     data = []
     props = []
     where = ''
@@ -31,27 +32,27 @@ module.exports = (app, database, socket) ->
         where = ''
 
     if not req.user
-      data = database.exec 'SELECT i.t as title, i.d as description, i.u as url, i.l as length, i.p as pubDate, i.s as slug, f.t AS feedTitle, f.iu as imageUrl, f.s as feedSlug, f.c as categories FROM i LEFT JOIN f on i.f=f.i WHERE i.p > ? AND i.p < ? ' + where + ' ORDER BY i.p DESC', props
+      data = ndx.database.exec 'SELECT i.t as title, i.d as description, i.u as url, i.l as length, i.p as pubDate, i.s as slug, f.t AS feedTitle, f.iu as imageUrl, f.s as feedSlug, f.c as categories FROM i LEFT JOIN f on i.f=f.i WHERE i.p > ? AND i.p < ? ' + where + ' ORDER BY i.p DESC', props
     else
-      data = database.exec 'SELECT i.i as _id, i.t as title, i.d as description, i.u as url, i.l as length, i.p as pubDate, i.s as slug, f.t AS feedTitle, f.iu as imageUrl, f.s as feedSlug, f.c as categories, l.d as listened FROM i LEFT JOIN f on i.f=f.i ' + subsJoin + ' LEFT JOIN l ON l.p=i.i WHERE i.p > ? AND i.p < ? ' + where + ' ORDER BY i.p DESC', props
+      data = ndx.database.exec 'SELECT i.i as _id, i.t as title, i.d as description, i.u as url, i.l as length, i.p as pubDate, i.s as slug, f.t AS feedTitle, f.iu as imageUrl, f.s as feedSlug, f.c as categories, l.d as listened FROM i LEFT JOIN f on i.f=f.i ' + subsJoin + ' LEFT JOIN l ON l.p=i.i WHERE i.p > ? AND i.p < ? ' + where + ' ORDER BY i.p DESC', props
     res.json data
 
-  app.post '/api/feeds', (req, res) ->
+  ndx.app.post '/api/feeds', (req, res) ->
     props = []
     if req.user
       props.push req.user._id
     else
       props.push 'nobody'
-    data = database.exec 'SELECT f.i AS feedId, f.t AS feedTitle, f.d AS feedDescription, f.iu as imageUrl, f.s as feedSlug, f.c as categories, s.d as subscribed FROM f LEFT JOIN s ON s.f=f.i AND s.u=? ORDER BY f.t ASC', props
+    data = ndx.database.exec 'SELECT f.i AS feedId, f.t AS feedTitle, f.d AS feedDescription, f.iu as imageUrl, f.s as feedSlug, f.c as categories, s.d as subscribed FROM f LEFT JOIN s ON s.f=f.i AND s.u=? ORDER BY f.t ASC', props
     res.json data
 
-  app.post '/api/report-listen', (req, res) ->
+  ndx.app.post '/api/report-listen', (req, res) ->
     if req.user and req.body.podId
-      prevListen = database.exec 'SELECT * FROM l WHERE p=? AND u=?', [req.body.podId, req.user._id]
+      prevListen = ndx.database.exec 'SELECT * FROM l WHERE p=? AND u=?', [req.body.podId, req.user._id]
       if prevListen and prevListen.length
         #do nothing
       else
-        database.exec 'INSERT INTO l VALUES ?', [{
+        ndx.database.exec 'INSERT INTO l VALUES ?', [{
           i: ObjectID.generate()
           p: req.body.podId
           u: req.user._id
@@ -59,16 +60,16 @@ module.exports = (app, database, socket) ->
         }]
     res.end 'OK'
 
-  app.post '/api/subscribe', (req, res) ->
+  ndx.app.post '/api/subscribe', (req, res) ->
     if req.user and req.body.feedId
       feedsCtrl.subscribe req.user._id, req.body.feedId
     res.end 'OK'
-  app.post '/api/unsubscribe', (req, res) ->
+  ndx.app.post '/api/unsubscribe', (req, res) ->
     if req.user and req.body.feedId
-      database.exec 'UPDATE s SET f=? WHERE u=? AND f=?', ['.', req.user._id, req.body.feedId]
+      ndx.database.exec 'UPDATE s SET f=? WHERE u=? AND f=?', ['.', req.user._id, req.body.feedId]
     res.end 'OK'
 
-  app.post '/api/add-feed', (req, res) ->
+  ndx.app.post '/api/add-feed', (req, res) ->
     if req.user._id and req.body.feedUrl
       feedsCtrl.addFeed req.user._id, req.body.feedUrl, (err, feed) ->
         if err

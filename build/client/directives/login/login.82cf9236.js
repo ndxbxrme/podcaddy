@@ -14,9 +14,10 @@
             return $http.post('/api/login', {
               email: scope.email,
               password: scope.password
-            }).success(function() {
+            }).then(function() {
               return $location.path('/');
-            }).error(function() {
+            }, function(err) {
+              scope.message = err.data;
               return scope.submitted = false;
             });
           }
@@ -27,9 +28,10 @@
             return $http.post('/api/signup', {
               email: scope.email,
               password: scope.password
-            }).success(function() {
+            }).then(function() {
               return $location.path('/');
-            }).error(function() {
+            }, function() {
+              scope.message = err.data;
               return scope.submitted = false;
             });
           }
@@ -40,4 +42,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=login.7cab4a1f.js.map
+//# sourceMappingURL=login.82cf9236.js.map

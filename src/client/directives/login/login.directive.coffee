@@ -15,9 +15,10 @@ angular.module 'pod'
         $http.post '/api/login',
           email: scope.email
           password: scope.password
-        .success ->
+        .then ->
           $location.path '/'
-        .error ->
+        , (err) ->
+          scope.message = err.data
           scope.submitted = false
     scope.signup = ->
       scope.submitted = true
@@ -25,7 +26,8 @@ angular.module 'pod'
         $http.post '/api/signup',
           email: scope.email
           password: scope.password
-        .success ->
+        .then ->
           $location.path '/'
-        .error ->
+        , ->
+          scope.message = err.data
           scope.submitted = false
