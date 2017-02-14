@@ -10,9 +10,9 @@
         input(type='password', name='password', required, ng-model='password', placeholder='Password')
         small.error(ng-show='submitted && loginForm.password.$error.required') A password is required
       div
-        input.button(type='submit', value='Login')
+        input.button.white(type='submit', value='Login')
         | &nbsp;
-        input.button.white(type='button', ng-click='signup()', value='Sign Up')
+        input.button(type='button', ng-click='signup()', value='Sign Up')
       div
         p or use one of these...
       .social

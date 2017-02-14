@@ -13,13 +13,13 @@ module.exports = (grunt) ->
         livereload: true
       coffee:
         files: ['src/**/*.coffee']
-        tasks: ['build']
+        tasks: ['dobuild']
       jade:
         files: ["src/**/*.jade"]
-        tasks: ['build']
+        tasks: ['dobuild']
       stylus:
         files: ["src/**/*.stylus"]
-        tasks: ['build']
+        tasks: ['dobuild']
     coffee:
       options:
         sourceMap: true
