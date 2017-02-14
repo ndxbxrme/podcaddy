@@ -30,4 +30,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=feed.ed1ed5d4.js.map
+//# sourceMappingURL=feed.js.map

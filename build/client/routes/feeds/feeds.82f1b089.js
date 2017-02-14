@@ -11,4 +11,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=feeds.82f1b089.js.map
+//# sourceMappingURL=feeds.js.map
