@@ -50,7 +50,7 @@
     "ndx-passport-github": "0.0.5",
     "ndx-passport-twitter": "0.0.5",
     "ndx-server": "0.2.24",
-    "ndx-socket": "0.0.3",
+    "ndx-socket": "https://registry.npmjs.org/ndx-socket/-/ndx-socket-0.0.3.tgz",
     "ndx-static-routes": "0.0.9",
     "ndx-superadmin": "0.0.6",
     "ndx-user-roles": "0.0.8",

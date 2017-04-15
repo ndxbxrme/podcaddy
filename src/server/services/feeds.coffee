@@ -214,7 +214,10 @@ module.exports = (database, socket) ->
                   usersToNotify = database.exec 'SELECT DISTINCT(u._id) AS _id FROM u INNER JOIN s ON s.u=u._id WHERE s.f=?', [feed.i]
                   if usersToNotify and usersToNotify.length
                     console.log 'there are peepz to notify', usersToNotify
-                    socket.emitToUsers usersToNotify, 'feeds', 'updated'
+                    users = []
+                    for user in usersToNotify
+                      users.push user
+                    socket.emitToUsers users, 'feeds', 'updated'
                   usersToNotify = null
                 data = null
                 callbackCount++

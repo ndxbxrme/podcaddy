@@ -243,14 +243,19 @@
                       return callback();
                     }, 1);
                   }, function() {
-                    var usersToNotify;
+                    var i, len, user, users, usersToNotify;
                     console.log('-----', inserted, 'inserted -----', updated, 'updated -----', skipped, 'skipped -----');
                     if (inserted) {
                       database.exec('INSERT INTO i SELECT * FROM ?', [inserts]);
                       usersToNotify = database.exec('SELECT DISTINCT(u._id) AS _id FROM u INNER JOIN s ON s.u=u._id WHERE s.f=?', [feed.i]);
                       if (usersToNotify && usersToNotify.length) {
                         console.log('there are peepz to notify', usersToNotify);
-                        socket.emitToUsers(usersToNotify, 'feeds', 'updated');
+                        users = [];
+                        for (i = 0, len = usersToNotify.length; i < len; i++) {
+                          user = usersToNotify[i];
+                          users.push(user);
+                        }
+                        socket.emitToUsers(users, 'feeds', 'updated');
                       }
                       usersToNotify = null;
                     }
