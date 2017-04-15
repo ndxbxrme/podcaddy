@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('pod').directive('login', function(auth) {
+  angular.module('pod').directive('login', function(auth, $http) {
     return {
       restrict: 'AE',
       templateUrl: 'directives/login/login.html',
@@ -42,4 +42,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=login.82cf9236.js.map
+//# sourceMappingURL=login.d8039e20.js.map
