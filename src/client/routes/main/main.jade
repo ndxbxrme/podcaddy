@@ -2,4 +2,4 @@ input.search(type='text', ng-model='name', ng-change='triggerScroll()', placehol
 pod(ng-repeat='pod in pods = (getPods() | listened:getFilter()) | filter:name')
 h3.alert(ng-show='!pods.length') Nothing to listen to?  Click 
   a(href='/feeds') here 
-  | to add some feeds
+  | to add some feeds 
