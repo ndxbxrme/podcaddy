@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'pod'
-.directive 'login', (auth) ->
+.directive 'login', (auth, $http) ->
   restrict: 'AE'
   templateUrl: 'directives/login/login.html'
   replace: true
