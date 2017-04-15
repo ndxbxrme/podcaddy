@@ -127378,7 +127378,9 @@ angular.module('afkl.ng.lazyImage', []).service('srcSetService', [
   'use strict';
   angular.module('pod').directive('login', [
     'auth',
-    function (auth) {
+    '$http',
+    '$location',
+    function (auth, $http, $location) {
       return {
         restrict: 'AE',
         templateUrl: 'directives/login/login.html',
@@ -127407,7 +127409,7 @@ angular.module('afkl.ng.lazyImage', []).service('srcSetService', [
                 email: scope.email,
                 password: scope.password
               }).then(function () {
-                return $location.path('/');
+                return $location.path('/feeds');
               }, function () {
                 scope.message = err.data;
                 return scope.submitted = false;
@@ -127419,7 +127421,7 @@ angular.module('afkl.ng.lazyImage', []).service('srcSetService', [
     }
   ]);
 }.call(this));
-//# sourceMappingURL=login.82cf9236.js.map
+//# sourceMappingURL=login.bdaae14e.js.map
 (function () {
   'use strict';
   angular.module('pod').directive('menu', [
@@ -128065,6 +128067,6 @@ angular.module('pod').run([
     $templateCache.put('directives/sidebar/sidebar.html', '<div><div class="sidebar"><h4>hello</h4></div><div class="sidebar-spacer"></div></div>');
     $templateCache.put('directives/toolbar/toolbar.html', '<div><div class="toolbar rows"><div ng-show="getPod().url" class="details-row"><div class="podcast-details"><div class="name-row"><div class="feed-name">{{ getPod().feedTitle }}</div><div class="timing">{{ getPod().position }}</div></div><div class="feed-title">{{ getPod().title }}</div><div class="position"></div></div></div><div class="controls-row"><div class="menu"><div ng-click="showMenu()" class="button">Menu<div class="menu-anchor"></div></div></div><div class="controls"><i class="icon-previous"></i><i class="icon-backward"></i><div ng-hide="getPod().playing &amp;&amp; !getPod().paused" ng-click="togglePlay()" class="play-btn"><i class="icon-play3 big"></i></div><div ng-show="getPod().playing &amp;&amp; !getPod().paused" ng-click="togglePlay()" class="stop-btn"><i class="icon-stop2 big"></i></div><i class="icon-forward2"></i><i class="icon-next"></i></div><div class="volume"><i ng-show="getVolume()===100" ng-click="setVolume(0)" class="icon-volume-high"></i><i ng-show="getVolume()===0" ng-click="setVolume(33)" class="icon-volume-mute2"></i><i ng-show="getVolume()===33" ng-click="setVolume(66)" class="icon-volume-low"></i><i ng-show="getVolume()===66" ng-click="setVolume(100)" class="icon-volume-medium"></i></div></div></div><div ng-show="getPod().url" class="toolbar-spacer"></div></div>');
     $templateCache.put('routes/feeds/feeds.html', '<input type="text" ng-model="search" ng-change="triggerScroll()" class="search"/><div class="feeds"><feed ng-repeat="feed in feeds | filter:search"></feed></div>');
-    $templateCache.put('routes/main/main.html', '<input type="text" ng-model="name" ng-change="triggerScroll()" placeholder="Search Pods" class="search"/><pod ng-repeat="pod in getPods() | listened:getFilter() | filter:name"></pod>');
+    $templateCache.put('routes/main/main.html', '<input type="text" ng-model="name" ng-change="triggerScroll()" placeholder="Search Pods" class="search"/><pod ng-repeat="pod in pods = (getPods() | listened:getFilter()) | filter:name"></pod><h3 ng-show="!pods.length" class="alert">Nothing to listen to?  Click <a href="/feeds">here </a>to add some feeds</h3>');
   }
 ]);

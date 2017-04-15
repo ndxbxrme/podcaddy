@@ -312,6 +312,8 @@ body
               width 0%
               height 100%
               background linear-gradient(to left, #c21500, #ffc500)
+  .alert
+    text-align center
 @media screen and (max-width:568px)
   .pod
     flex-direction column!important

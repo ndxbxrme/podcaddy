@@ -1,7 +1,7 @@
 'use strict'
 
 angular.module 'pod'
-.directive 'login', (auth, $http) ->
+.directive 'login', (auth, $http, $location) ->
   restrict: 'AE'
   templateUrl: 'directives/login/login.html'
   replace: true
@@ -27,7 +27,7 @@ angular.module 'pod'
           email: scope.email
           password: scope.password
         .then ->
-          $location.path '/'
+          $location.path '/feeds'
         , ->
           scope.message = err.data
           scope.submitted = false
