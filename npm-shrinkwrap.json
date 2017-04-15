@@ -2019,10 +2019,22 @@
       }
     },
     "ndx-socket": {
-      "version": "0.0.3",
-      "from": "https://registry.npmjs.org/ndx-socket/-/ndx-socket-0.0.3.tgz",
-      "resolved": "https://registry.npmjs.org/ndx-socket/-/ndx-socket-0.0.3.tgz",
+      "version": "0.0.8",
+      "from": "ndx-socket@0.0.8",
+      "resolved": "https://registry.npmjs.org/ndx-socket/-/ndx-socket-0.0.8.tgz",
       "dependencies": {
+        "async": {
+          "version": "2.3.0",
+          "from": "async@>=2.3.0 <3.0.0",
+          "resolved": "https://registry.npmjs.org/async/-/async-2.3.0.tgz",
+          "dependencies": {
+            "lodash": {
+              "version": "4.17.4",
+              "from": "lodash@>=4.14.0 <5.0.0",
+              "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
+            }
+          }
+        },
         "socket.io": {
           "version": "1.7.3",
           "from": "socket.io@>=1.7.2 <2.0.0",
