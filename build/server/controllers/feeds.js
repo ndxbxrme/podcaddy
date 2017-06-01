@@ -77,7 +77,7 @@
     });
     ndx.app.post('/api/subscribe', function(req, res) {
       if (req.user && req.body.feedId) {
-        feedsCtrl.subscribe(req.user._id, req.body.feedId);
+        feedsService.subscribe(req.user._id, req.body.feedId);
       }
       return res.end('OK');
     });
@@ -89,7 +89,7 @@
     });
     return ndx.app.post('/api/add-feed', function(req, res) {
       if (req.user._id && req.body.feedUrl) {
-        return feedsCtrl.addFeed(req.user._id, req.body.feedUrl, function(err, feed) {
+        return feedsService.addFeed(req.user._id, req.body.feedUrl, function(err, feed) {
           if (err) {
             if (feed) {
               feed.error = err;

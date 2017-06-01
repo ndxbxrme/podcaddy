@@ -62,7 +62,7 @@ module.exports = (ndx) ->
 
   ndx.app.post '/api/subscribe', (req, res) ->
     if req.user and req.body.feedId
-      feedsCtrl.subscribe req.user._id, req.body.feedId
+      feedsService.subscribe req.user._id, req.body.feedId
     res.end 'OK'
   ndx.app.post '/api/unsubscribe', (req, res) ->
     if req.user and req.body.feedId
@@ -71,7 +71,7 @@ module.exports = (ndx) ->
 
   ndx.app.post '/api/add-feed', (req, res) ->
     if req.user._id and req.body.feedUrl
-      feedsCtrl.addFeed req.user._id, req.body.feedUrl, (err, feed) ->
+      feedsService.addFeed req.user._id, req.body.feedUrl, (err, feed) ->
         if err
           if feed
             feed.error = err
